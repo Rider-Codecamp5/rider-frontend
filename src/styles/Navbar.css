@@ -1,0 +1,33 @@
+.Navbar {
+  background-color: #1788fb;
+  width: 100%;
+  height: 49pt;
+}
+
+nav {
+  /* margin-left: 10%;
+  margin-right: 10%; */
+}
+
+nav li {
+  display: inline;
+  /* margin: 0 8%; */
+}
+
+nav a {
+  padding: 25px 24.5pt;
+  color: white;
+  text-decoration: none;
+}
+
+nav ul {
+  padding: 5% 0;
+}
+
+.Navbar ul {
+  text-align: center;
+}
+
+/* .RowCenter{
+  margin: ;
+} */
