@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../config/axios';
-import { Space, Form, Input, Tooltip, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, } from 'antd';
+import { Space, Form, Input, Tooltip, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, Avatar, } from 'antd';
 import { InfoCircleOutlined, UserOutlined, EyeInvisibleOutlined, EyeTwoTone, QuestionCircleOutlined } from '@ant-design/icons';
-
+import '../../styles/UserRegisterRoute.css';
+import { Link } from 'react-router-dom';
 
 const { Option } = Select;
 const formItemLayout = {
@@ -57,8 +58,8 @@ function UserRegisterRoute() {
             address: values.address,
         }
 
-        try{
-            const createUser = await axios.post('/user/createUser',body);
+        try {
+            const createUser = await axios.post('/user/createUser', body);
             console.log("OK")
             alert("User created")
             form.resetFields()
@@ -85,8 +86,13 @@ function UserRegisterRoute() {
 
     return (
         <div>
-
-            <h1>Create Account</h1>
+            <div className="navTop"></div>
+            <Row justify="center" style={{ paddingTop: "20px", paddingBottom: "10px" }}>
+                <Col span={4}><Avatar size={60} icon={<UserOutlined />} /></Col>
+            </Row>
+            <Row justify="center">
+                <Col span={8}><h1 className="h1">Create Account</h1></Col>
+            </Row>
 
             <Form
                 {...formItemLayout}
@@ -99,151 +105,190 @@ function UserRegisterRoute() {
                 }}
                 scrollToFirstError
             >
+                <Row justify="center">
+                    <Col span={20}>
+                        <Form.Item
+                            name="email"
+                            label="E-mail"
+                            rules={[
+                                {
+                                    type: 'email',
+                                    message: 'The input is not valid E-mail!',
+                                },
+                                {
+                                    required: true,
+                                    message: 'Please input your E-mail!',
+                                },
+                            ]}
+                        >
+                            <Input />
+                        </Form.Item>
+                    </Col>
+                </Row>
 
+                <Row justify="center">
+                    <Col span={20}>
+                        <Form.Item
+                            name="password"
+                            label="Password"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your password!',
+                                },
+                            ]}
+                            hasFeedback
+                        >
+                            <Input.Password />
+                        </Form.Item>
 
-                <Form.Item
-                    name="email"
-                    label="E-mail"
-                    rules={[
-                        {
-                            type: 'email',
-                            message: 'The input is not valid E-mail!',
-                        },
-                        {
-                            required: true,
-                            message: 'Please input your E-mail!',
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
+                    </Col>
+                </Row>
 
-                <Form.Item
-                    name="password"
-                    label="Password"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your password!',
-                        },
-                    ]}
-                    hasFeedback
-                >
-                    <Input.Password />
-                </Form.Item>
+                <Row justify="center">
+                    <Col span={20}>
+                        <Form.Item
+                            name="confirm"
+                            label="Confirm Password"
+                            dependencies={['password']}
+                            hasFeedback
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please confirm your password!',
+                                },
+                                ({ getFieldValue }) => ({
+                                    validator(rule, value) {
+                                        if (!value || getFieldValue('password') === value) {
+                                            return Promise.resolve();
+                                        }
 
-                <Form.Item
-                    name="confirm"
-                    label="Confirm Password"
-                    dependencies={['password']}
-                    hasFeedback
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please confirm your password!',
-                        },
-                        ({ getFieldValue }) => ({
-                            validator(rule, value) {
-                                if (!value || getFieldValue('password') === value) {
-                                    return Promise.resolve();
-                                }
+                                        return Promise.reject('The two passwords that you entered do not match!');
+                                    },
+                                }),
+                            ]}
+                        >
+                            <Input.Password />
+                        </Form.Item>
+                    </Col>
+                </Row>
 
-                                return Promise.reject('The two passwords that you entered do not match!');
-                            },
-                        }),
-                    ]}
-                >
-                    <Input.Password />
-                </Form.Item>
-
-
-                <Form.Item
-                    name="name"
-                    label={
-                        <span>
-                            Name&nbsp;
+                <Row justify="center">
+                    <Col span={20}>
+                        <Form.Item
+                            name="name"
+                            label={
+                                <span>
+                                    Name&nbsp;
             <Tooltip title="Please Enter Your Name">
-                            </Tooltip>
-                        </span>
-                    }
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please Enter Your Name',
-                            whitespace: true,
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
+                                    </Tooltip>
+                                </span>
+                            }
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please Enter Your Name',
+                                    whitespace: true,
+                                },
+                            ]}
+                        >
+                            <Input />
+                        </Form.Item>
+                    </Col>
+                </Row>
 
-                <Form.Item
-                    name="surname"
-                    label={
-                        <span>
-                            Surname&nbsp;
+                <Row justify="center">
+                    <Col span={20}>
+
+                        <Form.Item
+                            name="surname"
+                            label={
+                                <span>
+                                    Surname&nbsp;
             <Tooltip title="Please Enter Your Surname">
-                            </Tooltip>
-                        </span>
-                    }
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please Enter Your Surname',
-                            whitespace: true,
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
+                                    </Tooltip>
+                                </span>
+                            }
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please Enter Your Surname',
+                                    whitespace: true,
+                                },
+                            ]}
+                        >
+                            <Input />
+                        </Form.Item>
+                    </Col>
+                </Row>
 
-
-                <Form.Item
-                    name="address"
-                    label={
-                        <span>
-                            Address&nbsp;
+                <Row justify="center">
+                    <Col span={20}>
+                        <Form.Item
+                            name="address"
+                            label={
+                                <span>
+                                    Address&nbsp;
             <Tooltip title="Please Enter Your Address">
-                            </Tooltip>
-                        </span>
-                    }
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please Enter Your Address',
-                            whitespace: true,
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
+                                    </Tooltip>
+                                </span>
+                            }
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please Enter Your Address',
+                                    whitespace: true,
+                                },
+                            ]}
+                        >
+                            <Input />
+                        </Form.Item>
+                    </Col>
+                </Row>
 
 
-                <Form.Item
-                    name="agreement"
-                    valuePropName="checked"
-                    rules={[
-                        {
-                            validator: (_, value) =>
-                                value ? Promise.resolve() : Promise.reject('Should accept agreement'),
-                        },
-                    ]}
-                    {...tailFormItemLayout}
-                >
-                    <Checkbox>
-                        I have read the <a href="">agreement</a>
-                    </Checkbox>
-                </Form.Item>
-                <Form.Item 
-                    {...tailFormItemLayout}
-                >
-                    <Button 
-                        type="primary" 
-                        htmlType="submit"
-                    >
-                        Create Account
+                <Row justify="center">
+                    <Col span={8}>
+
+                        <Form.Item
+                            name="agreement"
+                            valuePropName="checked"
+                            rules={[
+                                {
+                                    validator: (_, value) =>
+                                        value ? Promise.resolve() : Promise.reject('Should accept agreement'),
+                                },
+                            ]}
+                            {...tailFormItemLayout}
+                        >
+                            <Checkbox>
+                                I have read the <Link to="/PrivacyPolicy">agreement</Link>
+                            </Checkbox>
+                        </Form.Item>
+
+
+
+
+
+                    </Col>
+                </Row>
+
+                <Row justify="center">
+                    <Col span={8}>
+                        <Form.Item
+                            {...tailFormItemLayout}
+                        >
+                            <Button
+                                type="primary"
+                                htmlType="submit"
+                                style={{ backgroundColor: "#40CE5D", borderRadius: "none",marginBottom:"50px" }}
+                            >
+                                Create Account
         </Button>
-                </Form.Item>
+                        </Form.Item>
+                    </Col>
+                </Row>
+
             </Form>
         </div >
     )
