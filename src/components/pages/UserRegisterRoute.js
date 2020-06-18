@@ -12,7 +12,7 @@ const formItemLayout = {
             span: 24,
         },
         sm: {
-            span: 8,
+            span: 5,
         },
     },
     wrapperCol: {
@@ -88,10 +88,10 @@ function UserRegisterRoute() {
         <div>
             <div className="navTop"></div>
             <Row justify="center" style={{ paddingTop: "20px", paddingBottom: "10px" }}>
-                <Col span={4}><Avatar size={60} icon={<UserOutlined />} /></Col>
+                <Col xs={4} sm={2}><Avatar size={60} icon={<UserOutlined />} /></Col>
             </Row>
             <Row justify="center">
-                <Col span={8}><h1 className="h1">Create Account</h1></Col>
+                <Col xs={8} sm={4} md={4} lg={3}><h1 className="h1">Create Account</h1></Col>
             </Row>
 
             <Form
@@ -106,7 +106,7 @@ function UserRegisterRoute() {
                 scrollToFirstError
             >
                 <Row justify="center">
-                    <Col span={20}>
+                    <Col xs={20} sm={22}>
                         <Form.Item
                             name="email"
                             label="E-mail"
@@ -127,7 +127,7 @@ function UserRegisterRoute() {
                 </Row>
 
                 <Row justify="center">
-                    <Col span={20}>
+                    <Col xs={20} sm={22}>
                         <Form.Item
                             name="password"
                             label="Password"
@@ -146,7 +146,7 @@ function UserRegisterRoute() {
                 </Row>
 
                 <Row justify="center">
-                    <Col span={20}>
+                    <Col xs={20} sm={22}>
                         <Form.Item
                             name="confirm"
                             label="Confirm Password"
@@ -174,7 +174,7 @@ function UserRegisterRoute() {
                 </Row>
 
                 <Row justify="center">
-                    <Col span={20}>
+                    <Col xs={20} sm={22}>
                         <Form.Item
                             name="name"
                             label={
@@ -198,7 +198,7 @@ function UserRegisterRoute() {
                 </Row>
 
                 <Row justify="center">
-                    <Col span={20}>
+                    <Col xs={20} sm={22}>
 
                         <Form.Item
                             name="surname"
@@ -223,7 +223,7 @@ function UserRegisterRoute() {
                 </Row>
 
                 <Row justify="center">
-                    <Col span={20}>
+                    <Col xs={20} sm={22}>
                         <Form.Item
                             name="address"
                             label={
@@ -248,7 +248,7 @@ function UserRegisterRoute() {
 
 
                 <Row justify="center">
-                    <Col span={8}>
+                    <Col xs={20} sm={22}>
 
                         <Form.Item
                             name="agreement"
