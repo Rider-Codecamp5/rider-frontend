@@ -7,7 +7,7 @@ const { Option } = Select;
 
 function PlaceSearch(props) {
 
-  const { place, setPlace } = props;
+  const { place, setPlace, getPlace } = props;
 
   const { 
     ready, 
@@ -37,10 +37,21 @@ function PlaceSearch(props) {
       placeholder={place}
       notFoundContent={null}
       // value={value}
-      onSelect={(address) => console.log(address)}
+      onSelect={
+        async (address) => {
+          setPlace(address)
+          setValue(address, false)
+          try{
+            const results = await getGeocode({ address });
+            console.log(results)
+            const { lat, lng } = await getLatLng(results[0]);
+            getPlace({ lat, lng })
+          } catch(err) {
+            console.log(err)
+          }
+        }}
       onSearch={onSearch}
       disabled={!ready}
-      onChange={(target) => setPlace(target)}
     >
       {status === 'OK' && data.map(({id, description}) => {
         return(

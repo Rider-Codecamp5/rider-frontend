@@ -5,7 +5,6 @@ import axios from '../../configs/axios';
 import './DriverRoute.css'
 
 import { useLoadScript } from '@react-google-maps/api';
-import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { Form, DatePicker, TimePicker, Checkbox, InputNumber, Slider, Button } from 'antd';
 import moment from 'moment';
 
@@ -14,13 +13,15 @@ const libraries = ['places']
 function DriverRoute() {
   const [origin, setOrigin] = useState('Origin');
   const [destination, setDestination] = useState('Destination');
+  const [geocodeOrigin, setGeocodeOrigin] = useState({});
+  const [geocodeDestination, setGeocodeDestination] = useState([]);
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [luggage, setLuggage] = useState(false);
   const [seatingCapacity, setSeatingCapacity] = useState('1');
   const [price, setPrice] = useState([30, 500]);
 
-  // required google places setting
+  // ------------- required google places setting -----------
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
@@ -29,6 +30,21 @@ function DriverRoute() {
   if(loadError) return 'Error loading maps';
   if(!isLoaded) return 'Loading Maps';
 
+  const getOrigin = (ref) => {
+    console.log('ref origin', ref)
+    if (ref) {
+      setGeocodeOrigin(ref);
+    }
+  }
+
+  const getDestination = (ref) => {
+    console.log('ref Destination', ref)
+    if(ref) {
+      setGeocodeDestination(ref);
+    }
+  }
+
+  // --------------  input function  --------------------------
   function onDateChange(date, dateString) {
     console.log(date, dateString);
     setDate(dateString);
@@ -71,10 +87,22 @@ function DriverRoute() {
     setPrice(value);
   }
 
+  const getRoute = () => {
+    if (origin !== '' && destination !== '') {
+      setOrigin(origin);
+      setDestination(destination);
+    }
+  };
+
+  // --------- call API ----------------
   const createRoute = async() => {
+    getRoute();
+
     let body = {
       origin,
       destination,
+      geocodeOrigin: JSON.stringify(geocodeOrigin),
+      geocodeDestination: JSON.stringify(geocodeDestination),
       date,
       time,
       luggage,
@@ -92,8 +120,8 @@ function DriverRoute() {
   return (
     <div className='route'>
       <h2>Create Route</h2>
-      <PlaceSearch place={origin} setPlace={setOrigin} />
-      <PlaceSearch place={destination}  setPlace={setDestination} />
+      <PlaceSearch place={origin} setPlace={setOrigin} getPlace={getOrigin} />
+      <PlaceSearch place={destination} setPlace={setDestination} getPlace={getDestination} />
 
       <div className='route__datetime'>
         <DatePicker onChange={onDateChange} format={'Do MMMM YYYY, dddd'} />
@@ -136,15 +164,13 @@ function DriverRoute() {
         />
       </div>
 
-      <Button type="primary" onClick={createRoute}>Post</Button>
-
-      {/* <DriverMap 
+      <Button type="primary" onClick={getRoute}>Post</Button>
+          {console.log('ori des', origin, destination)}
+          {console.log('geo ori des', geocodeOrigin, geocodeDestination)}
+      <DriverMap 
         origin={origin} 
         destination={destination}
-        setOrigin={setOrigin}
-        setDestination={setDestination} 
-        />
-      <PlaceSearch/> */}
+      />
     </div>
   )
 }
