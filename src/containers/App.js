@@ -7,6 +7,7 @@ import { DatePicker } from 'antd';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import { Route, Switch } from 'react-router-dom';
 import PrivacyPolicy from '../components/pages/PrivacyPolicy';
+import Login from '../components/pages/LoginUser';
 
 
 function App() {
@@ -15,14 +16,19 @@ function App() {
     <Switch>
       <Route exact path='/'>
         <div className="App">
-          <UserRegisterRoute />
+          <Login />
           <Navbar />
           {/* <DriverRoute /> */}
         </div>
       </Route>
+
       <Route path="/PrivacyPolicy">
         <PrivacyPolicy />
       </Route>
+
+    <Route path="/register">
+      <UserRegisterRoute />
+    </Route>
     </Switch>
   );
 }

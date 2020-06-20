@@ -63,6 +63,7 @@ function UserRegisterRoute() {
             console.log("OK")
             alert("User created")
             form.resetFields()
+
         } catch (err) {
             console.log("fail")
             console.log(err)
@@ -281,12 +282,19 @@ function UserRegisterRoute() {
                             <Button
                                 type="primary"
                                 htmlType="submit"
-                                style={{ backgroundColor: "#40CE5D", borderRadius: "none",marginBottom:"50px" }}
+                                style={{ backgroundColor: "#40CE5D", borderRadius: "none", }}
                             >
                                 Create Account
         </Button>
                         </Form.Item>
                     </Col>
+                </Row>
+
+                <Row justify="center" style={{marginBottom:"50px"}}>
+                    <Col xs={12} sm={6}>
+                        <Link to="/">Login</Link> | <Link to="">Forget Password?</Link>
+                    </Col>
+
                 </Row>
 
             </Form>
