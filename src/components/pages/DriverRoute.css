@@ -1,0 +1,15 @@
+.route {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.route__datetime {
+  display: flex;
+}
+
+.route {
+
+}
