@@ -1,0 +1,38 @@
+.Card {
+  height: 117px;
+  width: 330px;
+  margin: auto;
+  padding: 0 1em;
+  border: 1px solid none;
+  border-radius: 5px;
+  background-color:#FCFCFC;
+  display: block;
+
+}
+
+.driverPhoto {
+
+}
+
+.driverPhoto img {
+  position: absolute;
+  border-radius: 100%;
+  height: 75px;
+  width: 75px;
+  margin: 1.5em 0;
+}
+
+.information ul {
+  list-style: none;
+  float:right;
+  /* position: absolute; */
+  left: 52em;  
+  margin-top: 5px;
+  margin-right: 10px;
+  width: 190px;
+
+}
+
+.seat {
+  float:right;
+}

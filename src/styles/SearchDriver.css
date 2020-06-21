@@ -1,0 +1,36 @@
+.marginTop {
+  margin: 40px 0;
+}
+
+.colForm Input {
+  width: 344px;
+  height: 40px;
+}
+
+.datePicker {
+  width: 156px;
+  height: 40px;
+}
+
+.timePicker {
+  width: 156px;
+  height: 40px;
+}
+
+.dropDownList {
+  width: 108px;
+  height: 40px;
+  margin: 25px 0;
+}
+
+.dropDownList Button {
+  color: rgba(0, 0, 0, 0.65);
+  overflow: visible;
+}
+
+.buttonStyle {
+  background-color: #40ce5d;
+  border: none;
+  width: 344px;
+  height: 49px;
+}
