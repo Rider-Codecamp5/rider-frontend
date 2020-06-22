@@ -10,8 +10,8 @@ function App() {
   return (
     <div className="App">
       {/* <SearchDriver /> */}
-      {/* <BookingDetail /> */}
-      <DriverOnTheWay />
+      <BookingDetail />
+      {/* <DriverOnTheWay /> */}
       <Navbar />
       {/* <DriverRoute /> */}
     </div>
