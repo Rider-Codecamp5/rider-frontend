@@ -17,7 +17,6 @@ function App() {
       <Route exact path='/'>
         <div className="App">
           <Login />
-          <Navbar />
           {/* <DriverRoute /> */}
         </div>
       </Route>

@@ -4,6 +4,7 @@ import { Space, Form, Input, Tooltip, Cascader, Select, Row, Col, Checkbox, Butt
 import { InfoCircleOutlined, UserOutlined, EyeInvisibleOutlined, EyeTwoTone, QuestionCircleOutlined } from '@ant-design/icons';
 import '../../styles/UserRegisterRoute.css';
 import { Link } from 'react-router-dom';
+import Navbar from '../Navbar';
 
 const { Option } = Select;
 const formItemLayout = {
@@ -53,6 +54,8 @@ function LoginUser() {
 
         try {
             const createUser = await axios.post('/user/loginUser', body);
+            localStorage.setItem("ACCESS_TOKEN",createUser.data.token);
+            console.log(`${localStorage.getItem("ACCESS_TOKEN")}`)
             console.log("OK")
             alert("Welcome to Rider")
             form.resetFields()
@@ -68,6 +71,8 @@ function LoginUser() {
 
     return (
         <div>
+            <Navbar/>
+
             <Row justify="center" style={{ paddingTop: "50px", paddingBottom: "10px" }}>
                 <Col xs={4} sm={2}><Avatar size={80} icon={<UserOutlined />} /></Col>
             </Row>
@@ -146,7 +151,7 @@ function LoginUser() {
                     <Col xs={12} sm={6}>
                         <Link to="/register">Register</Link> | <Link to="">Forget Password?</Link>
                     </Col>
-          
+
                 </Row>
 
 
