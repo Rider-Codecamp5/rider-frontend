@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Navbar from "../components/Navbar";
 import DriverRoute from '../components/pages/DriverRoute';
@@ -8,9 +8,14 @@ import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import { Route, Switch } from 'react-router-dom';
 import PrivacyPolicy from '../components/pages/PrivacyPolicy';
 import Login from '../components/pages/LoginUser';
+import DriverRegister from '../components/pages/DriverRegister';
 
 
 function App() {
+
+  const [isLogin, setIsLogin] = useState(false);
+  const [userInfo, setUserInfo] = useState({});
+
   return (
 
     <Switch>
@@ -25,9 +30,15 @@ function App() {
         <PrivacyPolicy />
       </Route>
 
-    <Route path="/register">
-      <UserRegisterRoute />
+      <Route path="/register">
+        <UserRegisterRoute />
+      </Route>
+
+      <Route path="/driverRegister">
+        <DriverRegister isLogin={isLogin} setIsLogin={setIsLogin} userInfo={userInfo} setUserInfo={setUserInfo}/>
     </Route>
+
+
     </Switch>
   );
 }

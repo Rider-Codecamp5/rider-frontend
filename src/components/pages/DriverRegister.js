@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
+import jwtDecode from 'jwt-decode'
 import axios from '../../config/axios';
 import { Space, Form, Input, Tooltip, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, Avatar, } from 'antd';
 import { InfoCircleOutlined, UserOutlined, EyeInvisibleOutlined, EyeTwoTone, QuestionCircleOutlined } from '@ant-design/icons';
-import '../../styles/UserRegisterRoute.css';
 import { Link, Redirect } from 'react-router-dom';
 
 
@@ -39,31 +39,38 @@ const tailFormItemLayout = {
     },
 };
 
-function UserRegisterRoute() {
+function DriverRegister(props) {
 
-    
-    const [registerFinish, setRegisterFinish] = useState(false);
-    
-    const [form] = Form.useForm();
-    
-    const onFinish = async (values) => {
-        console.log('Received values of form: ', values);
-        console.log(values.email)
-        console.log(values.name)
-        console.log(values.surname)
-        console.log(values.address)
-        console.log(values.password)
-        const body = {
-            email: values.email,
-            password: values.password,
-            profile_pic: values.picture,
-            first_name: values.name,
-            last_name: values.surname,
-            address: values.address,
+    const { isLogin, setIsLogin, userInfo, setUserInfo } = props
+
+    useEffect(() => {
+        if (localStorage.getItem("ACCESS_TOKEN")) {
+            const user = jwtDecode(localStorage.getItem("ACCESS_TOKEN"))
+            console.log(user)
+            setIsLogin(true)
+            setUserInfo(user)
         }
+    }, [])
 
+
+    const [registerFinish, setRegisterFinish] = useState(false);
+
+    const [form] = Form.useForm();
+
+    const onFinish = async (values) => {
+        // console.log('Received values of form: ', values);
+        const body = {
+            driver_license: values.driver_license,
+            seat: values.seat,
+            car_model: values.car_model,
+            car_color: values.car_color,
+            bank_account: values.bank_account,
+        }
+        // console.log({body: body})
+        const headers = {Authorization:`Bearer ${localStorage.getItem("ACCESS_TOKEN")}`}
+        // console.log({headers: headers})
+        const createUser = await axios.post(`/driver/register/${userInfo.id}`,body,{headers: headers});
         try {
-            const createUser = await axios.post('/user/createUser', body);
             console.log("OK")
             alert("User created")
             form.resetFields()
@@ -90,14 +97,19 @@ function UserRegisterRoute() {
         </Form.Item>
     );
 
+
+
+
+
     return (
         <div>
+
             <div className="navTop"></div>
             <Row justify="center" style={{ paddingTop: "20px", paddingBottom: "10px" }}>
                 <Col xs={4} sm={2}><Avatar size={60} icon={<UserOutlined />} /></Col>
             </Row>
             <Row justify="center">
-                <Col xs={8} sm={4} md={4} lg={3}><h1 className="h1">Create Account</h1></Col>
+                <Col xs={8} sm={4} md={4} lg={3}><h1 className="h1">Create Driver Account</h1></Col>
             </Row>
 
             <Form
@@ -106,94 +118,27 @@ function UserRegisterRoute() {
                 name="register"
                 onFinish={onFinish}
                 initialValues={{
-                    residence: ['zhejiang', 'hangzhou', 'xihu'],
-                    prefix: '86',
+                    // residence: ['zhejiang', 'hangzhou', 'xihu'],
+                    // prefix: '86',
                 }}
                 scrollToFirstError
             >
-                <Row justify="center">
-                    <Col xs={20} sm={22}>
-                        <Form.Item
-                            name="email"
-                            label="E-mail"
-                            rules={[
-                                {
-                                    type: 'email',
-                                    message: 'The input is not valid E-mail!',
-                                },
-                                {
-                                    required: true,
-                                    message: 'Please input your E-mail!',
-                                },
-                            ]}
-                        >
-                            <Input />
-                        </Form.Item>
-                    </Col>
-                </Row>
 
                 <Row justify="center">
                     <Col xs={20} sm={22}>
                         <Form.Item
-                            name="password"
-                            label="Password"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your password!',
-                                },
-                            ]}
-                            hasFeedback
-                        >
-                            <Input.Password />
-                        </Form.Item>
-
-                    </Col>
-                </Row>
-
-                <Row justify="center">
-                    <Col xs={20} sm={22}>
-                        <Form.Item
-                            name="confirm"
-                            label="Confirm Password"
-                            dependencies={['password']}
-                            hasFeedback
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please confirm your password!',
-                                },
-                                ({ getFieldValue }) => ({
-                                    validator(rule, value) {
-                                        if (!value || getFieldValue('password') === value) {
-                                            return Promise.resolve();
-                                        }
-
-                                        return Promise.reject('The two passwords that you entered do not match!');
-                                    },
-                                }),
-                            ]}
-                        >
-                            <Input.Password />
-                        </Form.Item>
-                    </Col>
-                </Row>
-
-                <Row justify="center">
-                    <Col xs={20} sm={22}>
-                        <Form.Item
-                            name="name"
+                            name="driver_license"
                             label={
                                 <span>
-                                    Name&nbsp;
-            <Tooltip title="Please Enter Your Name">
+                                    Driver License&nbsp;
+            <Tooltip title="Please Enter Your Driver License">
                                     </Tooltip>
                                 </span>
                             }
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Please Enter Your Name',
+                                    message: 'Please Enter Your Driver License',
                                     whitespace: true,
                                 },
                             ]}
@@ -207,18 +152,18 @@ function UserRegisterRoute() {
                     <Col xs={20} sm={22}>
 
                         <Form.Item
-                            name="surname"
+                            name="car_model"
                             label={
                                 <span>
-                                    Surname&nbsp;
-            <Tooltip title="Please Enter Your Surname">
+                                    Car Model&nbsp;
+            <Tooltip title="Please Enter Your Car Model">
                                     </Tooltip>
                                 </span>
                             }
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Please Enter Your Surname',
+                                    message: 'Please Enter Your Car Model',
                                     whitespace: true,
                                 },
                             ]}
@@ -231,18 +176,70 @@ function UserRegisterRoute() {
                 <Row justify="center">
                     <Col xs={20} sm={22}>
                         <Form.Item
-                            name="address"
+                            name="car_color"
                             label={
                                 <span>
-                                    Address&nbsp;
-            <Tooltip title="Please Enter Your Address">
+                                    Car Color&nbsp;
+            <Tooltip title="Please Enter Your Car Color">
                                     </Tooltip>
                                 </span>
                             }
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Please Enter Your Address',
+                                    message: 'Please Enter Your Car Color',
+                                    whitespace: true,
+                                },
+                            ]}
+                        >
+                            <Input />
+                        </Form.Item>
+                    </Col>
+                </Row>
+
+
+                <Row justify="center">
+                    <Col xs={20} sm={22}>
+                        <Form.Item
+                            name="seat"
+                            label={
+                                <span>
+                                    Seat&nbsp;
+            <Tooltip title="Please Enter Your Seat">
+                                    </Tooltip>
+                                </span>
+                            }
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please Enter Your Seat',
+                                    whitespace: true,
+                                },
+                            ]}
+                        >
+                            <Input />
+                        </Form.Item>
+                    </Col>
+                </Row>
+
+
+
+
+                <Row justify="center">
+                    <Col xs={20} sm={22}>
+                        <Form.Item
+                            name="bank_account"
+                            label={
+                                <span>
+                                    Bank account&nbsp;
+            <Tooltip title="Please Enter Your Bank account">
+                                    </Tooltip>
+                                </span>
+                            }
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please Enter Your Bank account',
                                     whitespace: true,
                                 },
                             ]}
@@ -271,11 +268,6 @@ function UserRegisterRoute() {
                                 I have read the <Link to="/PrivacyPolicy">agreement</Link>
                             </Checkbox>
                         </Form.Item>
-
-
-
-
-
                     </Col>
                 </Row>
 
@@ -295,18 +287,11 @@ function UserRegisterRoute() {
                     </Col>
                 </Row>
 
-                <Row justify="center" style={{marginBottom:"50px"}}>
-                    <Col xs={12} sm={6}>
-                        <Link to="/">Login</Link> | <Link to="">Forget Password?</Link>
-                    </Col>
-
-                </Row>
-
             </Form>
 
-        {registerFinish ? <Redirect to="/"/> : null}
-        </div >
+            {registerFinish ? <Redirect to="/" /> : null}
+        </div>
     )
 }
 
-export default UserRegisterRoute
+export default DriverRegister
