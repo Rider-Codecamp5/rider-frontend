@@ -1,5 +1,9 @@
 .marginTop {
-  margin: 40px 0;
+  height: 98px;
+}
+
+.rowForm{
+  margin-top: 20px;
 }
 
 .colForm Input {

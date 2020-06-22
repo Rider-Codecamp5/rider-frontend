@@ -35,7 +35,9 @@ function SearchDriver() {
   return (
     <div>
       <div className="marginTop">
-        <Row>
+
+      </div>
+        <Row className="rowForm">
           <Col span={22} offset={1} className="colForm">
             <Form.Item label="">
               <Input placeholder="Departing City" />
@@ -84,7 +86,6 @@ function SearchDriver() {
             <CardSearch />
           </Col>
         </Row>
-      </div>
     </div>
   );
 }
