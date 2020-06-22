@@ -100,9 +100,11 @@ function DriverRoute() {
 
     let body = {
       origin,
+      originLat: geocodeOrigin.lat,
+      originLng: geocodeOrigin.lng,
       destination,
-      geocodeOrigin: JSON.stringify(geocodeOrigin),
-      geocodeDestination: JSON.stringify(geocodeDestination),
+      destinationLat: geocodeDestination.lat,
+      destinationLng: geocodeDestination.lng,
       date,
       time,
       luggage,
@@ -166,7 +168,8 @@ function DriverRoute() {
 
       <Button type="primary" onClick={getRoute}>Post</Button>
           {console.log('ori des', origin, destination)}
-          {console.log('geo ori des', geocodeOrigin, geocodeDestination)}
+          {console.log('geo ori des', geocodeOrigin, geocodeDestination )}
+          {console.log('lat lng ori des', geocodeOrigin.lat, geocodeOrigin.lng, geocodeDestination.lat, geocodeDestination.lng )}
       <DriverMap 
         origin={origin} 
         destination={destination}
