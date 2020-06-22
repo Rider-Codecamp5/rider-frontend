@@ -1,0 +1,72 @@
+.marginTopDOTW {
+  height: 98px;
+}
+.driverStatusDOTW{
+  width: 207px;
+  height: 49px;
+  background-color: #FECF48;
+  text-align: center;
+  padding: 5px;
+  border-radius: 4px ;
+
+  font-size: 24px;
+  color: white;
+}
+
+.rowFormDOTW{
+  margin-top: 20px;
+}
+
+.colFormDOTW Input {
+  width: 344px;
+  height: 40px;
+}
+
+.buttonStyleDOTW {
+  border: none;
+  font-size: 24px;
+  width: 114px;
+  height: 49px;
+  border-radius: 4px ;
+}
+
+.mapApiDOTW{
+width: 100%;
+height: 300px;
+background-color: gray;
+}
+
+.CardDOTW {
+  height: 117px;
+  width: 330px;
+  margin: 15px auto;
+  padding: 0 1em;
+  border: 1px solid none;
+  border-radius: 5px;
+  background-color:#FCFCFC;
+  display: block;
+
+}
+
+.driverPhotoDOTW img {
+  position: absolute;
+  border-radius: 100%;
+  height: 75px;
+  width: 75px;
+  margin: 1.5em 0;
+}
+
+.informationDOTW ul {
+  list-style: none;
+  float:right;
+  /* position: absolute; */
+  left: 52em;  
+  margin-top: 5px;
+  margin-right: 10px;
+  width: 190px;
+
+}
+
+.seatDOTW {
+  float:right;
+}
