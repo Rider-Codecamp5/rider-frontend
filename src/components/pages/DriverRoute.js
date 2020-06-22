@@ -45,6 +45,13 @@ function DriverRoute() {
   }
 
   // --------------  input function  --------------------------
+
+  // antD slider mark
+  const marks = {
+    0: '฿0',
+    1000: '฿1,000'
+  }
+
   function onDateChange(date, dateString) {
     console.log(date, dateString);
     setDate(dateString);
@@ -121,59 +128,74 @@ function DriverRoute() {
 
   return (
     <div className='route'>
-      <h2>Create Route</h2>
-      <PlaceSearch place={origin} setPlace={setOrigin} getPlace={getOrigin} />
-      <PlaceSearch place={destination} setPlace={setDestination} getPlace={getDestination} />
-
-      <div className='route__datetime'>
-        <DatePicker onChange={onDateChange} format={'Do MMMM YYYY, dddd'} />
-        <TimePicker onChange={onTimeChange} defaultValue={moment('00:00:00', 'HH:mm:ss')} />
+      <div className='route__heading'>
+        <h2>Create Route</h2>
       </div>
+      <div className='route__form'>
+        <PlaceSearch place={origin} setPlace={setOrigin} getPlace={getOrigin} />
+        <PlaceSearch place={destination} setPlace={setDestination} getPlace={getDestination} />
 
-      <InputNumber min={1} max={13} defaultValue={1} onChange={onSeatingChange} />
-      <Checkbox onChange={onLuggageChange}>Luggage</Checkbox>
+        <div className='route__box--two'>
+          <DatePicker onChange={onDateChange} format={'Do MMMM YYYY, dddd'} className='route__input--half' />
+          <TimePicker onChange={onTimeChange} defaultValue={moment('00:00:00', 'HH:mm:ss')} className='route__input--half' />
+        </div>
 
-      {/* Price Range Slider & inputNumber */}
-      <div>
-        <Slider 
-          range 
-          defaultValue={[30, 500]} 
-          value={
-            [ 
-              typeof price[0] === 'number' ? price[0] : 0, 
-              typeof price[1] === 'number' ? price[1] : 0 
-            ]
-          }
-          min={0} 
-          max={1000} 
-          onChange={onAfterPriceChange}
-        />
-        <InputNumber
-          min={0}
-          max={1000}
-          style={{ margin: '0 16px' }}
-          step={10.00}
-          value={price[0]}
-          onChange={onMinPriceChange}
-        />
-        <InputNumber
-          min={0}
-          max={1000}
-          style={{ margin: '0 16px' }}
-          step={10.00}
-          value={price[1]}
-          onChange={onMaxPriceChange}
-        />
+        <div>
+          <span>Seating Cpacity: </span>
+          <InputNumber min={1} max={13} defaultValue={1}onChange={onSeatingChange} className='route__input--small' />
+        </div>
+        <Checkbox onChange={onLuggageChange} className='route__input'>Luggage</Checkbox>
+
+        {/* Price Range Slider & inputNumber */}
+        <div className='route__price'>
+          <b>Price range</b>
+          <Slider 
+            range 
+            marks={marks}
+            defaultValue={[30, 500]} 
+            value={
+              [ 
+                typeof price[0] === 'number' ? price[0] : 0, 
+                typeof price[1] === 'number' ? price[1] : 0 
+              ]
+            }
+            min={0} 
+            max={1000} 
+            onChange={onAfterPriceChange}
+            className='route__input'
+          />
+          <br/>
+          <div className='route__box--two'>
+            <InputNumber
+              min={0}
+              max={1000}
+              step={10.00}
+              value={price[0]}
+              onChange={onMinPriceChange}
+              formatter={value => `฿ ${value}`}
+              className='route__input--half'
+            />
+            <InputNumber
+              min={0}
+              max={1000}
+              step={10.00}
+              value={price[1]}
+              onChange={onMaxPriceChange}
+              formatter={value => `฿ ${value}`}
+              className='route__input--half'
+            />
+          </div>
+        </div>
+
+        <Button type='primary' size='large' onClick={getRoute} className='route__button'>Post</Button>
+        <DriverMap 
+          origin={origin} 
+          destination={destination}
+          />
       </div>
-
-      <Button type="primary" onClick={getRoute}>Post</Button>
-          {console.log('ori des', origin, destination)}
-          {console.log('geo ori des', geocodeOrigin, geocodeDestination )}
-          {console.log('lat lng ori des', geocodeOrigin.lat, geocodeOrigin.lng, geocodeDestination.lat, geocodeDestination.lng )}
-      <DriverMap 
-        origin={origin} 
-        destination={destination}
-      />
+      {console.log('ori des', origin, destination)}
+      {console.log('geo ori des', geocodeOrigin, geocodeDestination )}
+      {console.log('lat lng ori des', geocodeOrigin.lat, geocodeOrigin.lng, geocodeDestination.lat, geocodeDestination.lng )}
     </div>
   )
 }

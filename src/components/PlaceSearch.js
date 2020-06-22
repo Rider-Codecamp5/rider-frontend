@@ -33,7 +33,7 @@ function PlaceSearch(props) {
   return (
     <Select
       showSearch
-      style={{ width: '30%' }}
+      className='route__input'
       placeholder={place}
       notFoundContent={null}
       // value={value}

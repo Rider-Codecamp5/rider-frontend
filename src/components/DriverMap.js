@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { GoogleMap, useLoadScript, DirectionsRenderer, DirectionsService } from '@react-google-maps/api';
 
 const containerStyle = {
-  width: '40vw',
+  width: '100%',
   height: '40vh'
 };
 
@@ -47,7 +47,7 @@ function DriverMap(props) {
   }
 
   return (
-    <div>
+    <div className='route__map'>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}

@@ -1,15 +1,75 @@
 .route {
   display: flex;
   flex-direction: column;
-  width: 50%;
-  margin: 0 auto;
+}
+
+.route__heading {
+  text-align: center;
+  padding: 1rem;
+  background-color: #1788FB;
+}
+
+.route__heading h2 {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.route__form {
+  width: 80%;
+  margin: 1rem auto;
   text-align: left;
 }
 
-.route__datetime {
+.route__box--two {
   display: flex;
+  justify-content: space-between;  
 }
 
-.route {
-
+.route .route__input {
+  margin: 0.7rem auto;
+  width: 100%;
 }
+
+.route .route__input--half {
+  margin: 0.7rem 0;
+  width: 45%;
+}
+
+.route .route__input--small {
+  margin: 0.7rem 0.5rem;
+  width: 4rem;
+  text-align: center;
+}
+
+.route__price {
+  background: #FCFCFC;
+  box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  padding: 1rem 2rem;
+  margin: 0.7rem 0;
+  box-sizing: border-box;
+}
+
+.route .route__button {
+  margin: 0.7rem 0;
+  background-color: #40CE5D;
+  width: 100%;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.route .route__map {
+  margin: 1.5rem 0 2rem 0;
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+  .route__form{
+    width: 70%;
+  }
+} 
+
+@media only screen and (min-width: 769px) { 
+  .route__form{
+    width: 50%;
+  }
+} 
