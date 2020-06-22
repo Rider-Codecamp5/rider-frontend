@@ -10,10 +10,10 @@ function DriverOnTheWay() {
       <Row className="rowFormDOTW">
         <Col span={22} offset={1} className="colFormDOTW">
           <Form.Item label="">
-            <Input placeholder="Departing City" />
+            <Input placeholder="Sathorn Square" />
           </Form.Item>
           <Form.Item label="">
-            <Input placeholder="Destination City" />
+            <Input placeholder="BTS Morchit" />
           </Form.Item>
 
           <Row>
@@ -40,20 +40,21 @@ function DriverOnTheWay() {
           </div>
 
           <div className="CardDOTW">
-        <span className="driverPhotoDOTW">
-          <img src={driverPhotoDOTW} alt="driverPhoto"></img>
-        </span>
-        <span className="informationDOTW">
-          <ul>
-            <li style={{fontSize: "24px"}}>Ryan Simski</li>
-            <li>Sathon Square</li>
-            <li>Friday 13th 17:30</li>
-            <li><span>Honda Civic</span>
-            <span className="seatDOTW">Seat 2 person</span></li>
-          </ul>
-        </span>
-      </div>
-
+            <span className="driverPhotoDOTW">
+              <img src={driverPhotoDOTW} alt="driverPhoto"></img>
+            </span>
+            <span className="informationDOTW">
+              <ul>
+                <li style={{ fontSize: "24px" }}>Ryan Simski</li>
+                <li>Friday 13th 17:30</li>
+                <li>Honda Civic</li>
+                <li>
+                  <span>Red</span>
+                  <span className="seatDOTW">Seat 2 person</span>
+                </li>
+              </ul>
+            </span>
+          </div>
         </Col>
       </Row>
     </div>
