@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import jwtDecode from 'jwt-decode'
-import axios from '../../config/axios';
+import axios from '../../configs/axios';
 import { Space, Form, Input, Tooltip, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, Avatar, } from 'antd';
 import { InfoCircleOutlined, UserOutlined, EyeInvisibleOutlined, EyeTwoTone, QuestionCircleOutlined } from '@ant-design/icons';
 import { Link, Redirect } from 'react-router-dom';

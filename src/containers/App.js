@@ -27,7 +27,7 @@ function App() {
         </div>
       </Route>
 
-      <Route path="/PrivacyPolicy">
+      <Route path="/privacy-policy">
         <PrivacyPolicy />
       </Route>
 
@@ -35,11 +35,11 @@ function App() {
         <UserRegisterRoute />
       </Route>
 
-      <Route path="/driverRegister">
+      <Route path="/driver/register">
         <DriverRegister isLogin={isLogin} setIsLogin={setIsLogin} userInfo={userInfo} setUserInfo={setUserInfo} />
       </Route>
 
-      <Route path="/driverRoute">
+      <Route path="/driver/route">
         <DriverRoute />
       </Route>
 

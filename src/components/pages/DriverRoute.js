@@ -142,7 +142,7 @@ function DriverRoute() {
 
         <div>
           <span>Seating Cpacity: </span>
-          <InputNumber min={1} max={13} defaultValue={1}onChange={onSeatingChange} className='route__input--small' />
+          <InputNumber min={1} max={13} defaultValue={1} onChange={onSeatingChange} className='route__input--small' />
         </div>
         <Checkbox onChange={onLuggageChange} className='route__input'>Luggage</Checkbox>
 
@@ -187,11 +187,11 @@ function DriverRoute() {
           </div>
         </div>
 
-        <Button type='primary' size='large' onClick={getRoute} className='route__button'>Post</Button>
+        <Button type='primary' size='large' onClick={createRoute} className='route__button'>Post</Button>
         <DriverMap 
           origin={origin} 
           destination={destination}
-          />
+        />
       </div>
       {console.log('ori des', origin, destination)}
       {console.log('geo ori des', geocodeOrigin, geocodeDestination )}
