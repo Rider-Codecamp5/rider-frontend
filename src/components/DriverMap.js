@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { GoogleMap, useLoadScript, DirectionsRenderer, DirectionsService } from '@react-google-maps/api';
 
 const containerStyle = {
-  width: '40vw',
+  width: '100%',
   height: '40vh'
 };
 
@@ -28,19 +28,26 @@ function DriverMap(props) {
   }, []);
 
 
-  const directionsCallback = (response) => {
-    console.log('callback response', response)
-    if (response !== null) {
-      if (response.status === 'OK') {
-        setResponse(() => response)
+  const directionsCallback = (googleResponse) => {
+    if (googleResponse) {
+      if(response) {
+        if (googleResponse.status === 'OK' && googleResponse.routes.overview_polyline !== response.routes.overview_polyline) {
+          setResponse(() => googleResponse)
+        } else {
+          console.log('response: ', googleResponse)
+        }
       } else {
-        console.log('response: ', response)
+        if (googleResponse.status === 'OK') {
+          setResponse(() => googleResponse)
+        } else {
+          console.log('response: ', googleResponse)
+        }
       }
-    }
+    } 
   }
 
   return (
-    <div>
+    <div className='route__map'>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
