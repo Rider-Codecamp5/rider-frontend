@@ -56,6 +56,12 @@
   width: 100%;
   font-weight: bold;
   font-size: 1rem;
+  border: 1px solid #40CE5D;
+}
+
+.route .route__button:hover {
+  background-color: rgb(48, 161, 71);
+  border: 1px solid #38b651;
 }
 
 .route .route__map {
