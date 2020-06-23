@@ -69,8 +69,8 @@ function DriverRegister(props) {
         // console.log({body: body})
         const headers = {Authorization:`Bearer ${localStorage.getItem("ACCESS_TOKEN")}`}
         // console.log({headers: headers})
-        const createUser = await axios.post(`/driver/register/${userInfo.id}`,body,{headers: headers});
         try {
+            const createUser = await axios.post(`/driver/register/${userInfo.id}`,body,{headers: headers});
             console.log("OK")
             alert("User created")
             form.resetFields()

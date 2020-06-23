@@ -41,11 +41,11 @@ const tailFormItemLayout = {
 
 function UserRegisterRoute() {
 
-    
+
     const [registerFinish, setRegisterFinish] = useState(false);
-    
+
     const [form] = Form.useForm();
-    
+
     const onFinish = async (values) => {
         console.log('Received values of form: ', values);
         console.log(values.email)
@@ -295,7 +295,7 @@ function UserRegisterRoute() {
                     </Col>
                 </Row>
 
-                <Row justify="center" style={{marginBottom:"50px"}}>
+                <Row justify="center" style={{ marginBottom: "50px" }}>
                     <Col xs={12} sm={6}>
                         <Link to="/">Login</Link> | <Link to="">Forget Password?</Link>
                     </Col>
@@ -304,7 +304,7 @@ function UserRegisterRoute() {
 
             </Form>
 
-        {registerFinish ? <Redirect to="/"/> : null}
+            {registerFinish ? <Redirect to="/" /> : null}
         </div >
     )
 }
