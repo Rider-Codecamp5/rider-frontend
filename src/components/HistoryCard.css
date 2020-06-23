@@ -1,0 +1,98 @@
+.card {
+  background: #FFFFFF;
+  box-shadow: 2px 2px 11px rgba(0, 0, 0, 0.27);
+  border-radius: 5px;
+  padding: 1rem 1rem 0 1rem;
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+.card__content {
+  display: flex;
+  width: 100%;
+}
+
+.card__img-box {
+  margin: 0 auto auto auto;
+  width: 5.5rem;
+  min-width: 5.5rem;
+  height: 5.5rem;
+  min-height: 5.5rem;
+  overflow: hidden;
+  border-radius: 100%;
+}
+
+.card__profile-img {
+  width: 100%;
+  height: auto;
+  background-size: contain;
+  
+}
+
+.card__text {
+  width: 70%;
+  padding: 0 0 0.5rem 1rem;
+}
+
+.card__text span {
+  font-size: 0.7rem;
+}
+
+.card__price {
+  display: block;
+  margin-left: auto;
+  text-align: right;
+}
+
+.card__divider {
+  border-bottom: 1px solid black;
+  margin: 0 -0.5rem;
+}
+
+.card__footer {
+  padding: 0.5rem 0;
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+  .card__img-box {
+    width: 8rem;
+    min-width: 8rem;
+    height: 8rem;
+    min-height: 8rem;
+  }
+
+  .card__text h3 {
+    font-size: 1.4rem;
+  }
+
+  .card__text span {
+    font-size: 1rem;
+  }
+
+  .card__footer {
+    padding: 0.7rem 0;
+    font-size: 1.2rem;
+  }
+} 
+
+@media only screen and (min-width: 769px) { 
+  .card__img-box {
+    width: 8.5rem;
+    min-width: 8.5rem;
+    height: 8.5rem;
+    min-height: 8.5rem;
+  }
+
+  .card__text h3 {
+    font-size: 1.4rem;
+  }
+
+  .card__text span {
+    font-size: 1rem;
+  }
+
+  .card__footer {
+    padding: 0.7rem 0;
+    font-size: 1.2rem;
+  }
+} 

@@ -129,7 +129,7 @@ function DriverRoute() {
 
   return (
     <div className='route'>
-      <div className='route__heading'>
+      <div className='App__heading'>
         <h2>Create Route</h2>
       </div>
       <div className='route__form'>
@@ -188,7 +188,7 @@ function DriverRoute() {
           </div>
         </div>
 
-        <Button type='primary' size='large' onClick={createRoute} className='route__button'>Post</Button>
+        <button type='primary' size='large' onClick={createRoute} className='App__button'>Post</button>
         <DriverMap 
           origin={origin} 
           destination={destination}

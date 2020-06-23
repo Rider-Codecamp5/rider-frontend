@@ -9,7 +9,7 @@ import { Route, Switch } from 'react-router-dom';
 import PrivacyPolicy from '../components/pages/PrivacyPolicy';
 import Login from '../components/pages/LoginUser';
 import DriverRegister from '../components/pages/DriverRegister';
-
+import History from '../components/pages/History';
 
 import 'antd/dist/antd.css';
 
@@ -20,30 +20,34 @@ function App() {
 
   return (
 
-    <Switch>
-      <Route exact path='/'>
-        <div className="App">
-          <Login />
-        </div>
-      </Route>
+    <div className="App">
+      <Switch>
+        <Route exact path='/'>
+            <Login />
+        </Route>
 
-      <Route path="/privacy-policy">
-        <PrivacyPolicy />
-      </Route>
+        <Route path="/privacy-policy">
+          <PrivacyPolicy />
+        </Route>
 
-      <Route path="/register">
-        <UserRegisterRoute />
-      </Route>
+        <Route path="/register">
+          <UserRegisterRoute />
+        </Route>
 
-      <Route path="/driver/register">
-        <DriverRegister isLogin={isLogin} setIsLogin={setIsLogin} userInfo={userInfo} setUserInfo={setUserInfo} />
-      </Route>
+        <Route path="/driver/register">
+          <DriverRegister isLogin={isLogin} setIsLogin={setIsLogin} userInfo={userInfo} setUserInfo={setUserInfo} />
+        </Route>
 
-      <Route path="/driver/route">
-        <DriverRoute />
-      </Route>
+        <Route path="/driver/route">
+          <DriverRoute />
+        </Route>
 
-    </Switch>
+        <Route path="/history">
+          <History/>
+        </Route>
+
+      </Switch>
+    </div>
   );
 }
 
