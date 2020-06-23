@@ -1,14 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import DriverMap from '../DriverMap';
 import PlaceSearch from '../PlaceSearch';
 import axios from '../../configs/axios';
-import './DriverRoute.css'
+import './DriverRoute.css';
 
 import { useLoadScript } from '@react-google-maps/api';
-import { Form, DatePicker, TimePicker, Checkbox, InputNumber, Slider, Button } from 'antd';
+import {
+  Form,
+  DatePicker,
+  TimePicker,
+  Checkbox,
+  InputNumber,
+  Slider,
+  Button,
+} from 'antd';
 import moment from 'moment';
 
-const libraries = ['places']
+const libraries = ['places'];
 
 function DriverRoute() {
   const [origin, setOrigin] = useState('Origin');
@@ -27,22 +35,22 @@ function DriverRoute() {
     libraries,
   });
 
-  if(loadError) return 'Error loading maps';
-  if(!isLoaded) return 'Loading Maps';
+  if (loadError) return 'Error loading maps';
+  if (!isLoaded) return 'Loading Maps';
 
-  const getOrigin = (ref) => {
-    console.log('ref origin', ref)
+  const getOrigin = ref => {
+    console.log('ref origin', ref);
     if (ref) {
       setGeocodeOrigin(ref);
     }
-  }
+  };
 
-  const getDestination = (ref) => {
-    console.log('ref Destination', ref)
-    if(ref) {
+  const getDestination = ref => {
+    console.log('ref Destination', ref);
+    if (ref) {
       setGeocodeDestination(ref);
     }
-  }
+  };
 
   // --------------  input function  --------------------------
   function onDateChange(date, dateString) {
@@ -52,24 +60,24 @@ function DriverRoute() {
 
   function onTimeChange(time, timeString) {
     console.log(time, timeString);
-    setTime(timeString)
+    setTime(timeString);
   }
 
   function onLuggageChange(e) {
     console.log(`checked = ${e.target.checked}`);
-    setLuggage(e.target.checked)
+    setLuggage(e.target.checked);
   }
 
   function onSeatingChange(value) {
     console.log('seating', value);
-    setSeatingCapacity(value)
+    setSeatingCapacity(value);
   }
 
   const onMinPriceChange = value => {
     if (isNaN(value)) {
       return;
     }
-    if(value < price[1]) {
+    if (value < price[1]) {
       setPrice([value, price[1]]);
     }
   };
@@ -78,14 +86,14 @@ function DriverRoute() {
     if (isNaN(value)) {
       return;
     }
-    if(value > price[0]) {
-      setPrice([price[0], value])
+    if (value > price[0]) {
+      setPrice([price[0], value]);
     }
   };
 
   const onAfterPriceChange = value => {
     setPrice(value);
-  }
+  };
 
   const getRoute = () => {
     if (origin !== '' && destination !== '') {
@@ -95,7 +103,7 @@ function DriverRoute() {
   };
 
   // --------- call API ----------------
-  const createRoute = async() => {
+  const createRoute = async () => {
     getRoute();
 
     let body = {
@@ -106,51 +114,61 @@ function DriverRoute() {
       date,
       time,
       luggage,
-      seatingCapacity
-    }
+      seatingCapacity,
+    };
 
     try {
       let result = await axios.patch('/driver/service', body);
-      console.log(result)
-    } catch(error) {
-      console.log(error)
+      console.log(result);
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
 
   return (
     <div className='route'>
       <h2>Create Route</h2>
       <PlaceSearch place={origin} setPlace={setOrigin} getPlace={getOrigin} />
-      <PlaceSearch place={destination} setPlace={setDestination} getPlace={getDestination} />
+      <PlaceSearch
+        place={destination}
+        setPlace={setDestination}
+        getPlace={getDestination}
+      />
 
       <div className='route__datetime'>
         <DatePicker onChange={onDateChange} format={'Do MMMM YYYY, dddd'} />
-        <TimePicker onChange={onTimeChange} defaultValue={moment('00:00:00', 'HH:mm:ss')} />
+        <TimePicker
+          onChange={onTimeChange}
+          defaultValue={moment('00:00:00', 'HH:mm:ss')}
+        />
       </div>
 
-      <InputNumber min={1} max={13} defaultValue={1} onChange={onSeatingChange} />
+      <InputNumber
+        min={1}
+        max={13}
+        defaultValue={1}
+        onChange={onSeatingChange}
+      />
       <Checkbox onChange={onLuggageChange}>Luggage</Checkbox>
 
       {/* Price Range Slider & inputNumber */}
       <div>
-        <Slider 
-          range 
-          defaultValue={[30, 500]} 
-          value={
-            [ 
-              typeof price[0] === 'number' ? price[0] : 0, 
-              typeof price[1] === 'number' ? price[1] : 0 
-            ]
-          }
-          min={0} 
-          max={1000} 
+        <Slider
+          range
+          defaultValue={[30, 500]}
+          value={[
+            typeof price[0] === 'number' ? price[0] : 0,
+            typeof price[1] === 'number' ? price[1] : 0,
+          ]}
+          min={0}
+          max={1000}
           onChange={onAfterPriceChange}
         />
         <InputNumber
           min={0}
           max={1000}
           style={{ margin: '0 16px' }}
-          step={10.00}
+          step={10.0}
           value={price[0]}
           onChange={onMinPriceChange}
         />
@@ -158,21 +176,20 @@ function DriverRoute() {
           min={0}
           max={1000}
           style={{ margin: '0 16px' }}
-          step={10.00}
+          step={10.0}
           value={price[1]}
           onChange={onMaxPriceChange}
         />
       </div>
 
-      <Button type="primary" onClick={getRoute}>Post</Button>
-          {console.log('ori des', origin, destination)}
-          {console.log('geo ori des', geocodeOrigin, geocodeDestination)}
-      <DriverMap 
-        origin={origin} 
-        destination={destination}
-      />
+      <Button type='primary' onClick={getRoute}>
+        Post
+      </Button>
+      {console.log('ori des', origin, destination)}
+      {console.log('geo ori des', geocodeOrigin, geocodeDestination)}
+      <DriverMap origin={origin} destination={destination} />
     </div>
-  )
+  );
 }
 
 export default DriverRoute;
