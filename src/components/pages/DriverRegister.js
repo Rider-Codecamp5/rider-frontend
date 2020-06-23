@@ -4,6 +4,7 @@ import axios from '../../config/axios';
 import { Space, Form, Input, Tooltip, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, Avatar, } from 'antd';
 import { InfoCircleOutlined, UserOutlined, EyeInvisibleOutlined, EyeTwoTone, QuestionCircleOutlined } from '@ant-design/icons';
 import { Link, Redirect } from 'react-router-dom';
+import Navbar from '../Navbar';
 
 
 const { Option } = Select;
@@ -67,8 +68,9 @@ function DriverRegister(props) {
             bank_account: values.bank_account,
         }
         // console.log({body: body})
-        const headers = {Authorization:`Bearer ${localStorage.getItem("ACCESS_TOKEN")}`}
+        const headers = { Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}` }
         // console.log({headers: headers})
+        const createUser = await axios.post(`/driver/register/${userInfo.id}`, body, { headers: headers });
         try {
             const createUser = await axios.post(`/driver/register/${userInfo.id}`,body,{headers: headers});
             console.log("OK")
@@ -109,7 +111,10 @@ function DriverRegister(props) {
                 <Col xs={4} sm={2}><Avatar size={60} icon={<UserOutlined />} /></Col>
             </Row>
             <Row justify="center">
-                <Col xs={8} sm={4} md={4} lg={3}><h1 className="h1">Create Driver Account</h1></Col>
+                <Col xs={10} sm={8} md={5} lg={4}><h1 className="h1">
+                    Create Driver Account
+                    </h1>
+                </Col>
             </Row>
 
             <Form
@@ -250,8 +255,8 @@ function DriverRegister(props) {
                 </Row>
 
 
-                <Row justify="center">
-                    <Col xs={20} sm={22}>
+                <Row justify="end">
+                    <Col xs={10} sm={12} md={11}>
 
                         <Form.Item
                             name="agreement"
@@ -265,7 +270,9 @@ function DriverRegister(props) {
                             {...tailFormItemLayout}
                         >
                             <Checkbox>
-                                I have read the <Link to="/PrivacyPolicy">agreement</Link>
+                                <Link to="">
+                                    Accept Privacy
+                                    </Link>
                             </Checkbox>
                         </Form.Item>
                     </Col>
@@ -279,9 +286,9 @@ function DriverRegister(props) {
                             <Button
                                 type="primary"
                                 htmlType="submit"
-                                style={{ backgroundColor: "#40CE5D", borderRadius: "none", }}
+                                style={{ backgroundColor: "#40CE5D", borderRadius: "none", marginBottom:"60px" }}
                             >
-                                Create Account
+                                Driver Register
         </Button>
                         </Form.Item>
                     </Col>
@@ -290,6 +297,8 @@ function DriverRegister(props) {
             </Form>
 
             {registerFinish ? <Redirect to="/" /> : null}
+
+            <Navbar />
         </div>
     )
 }
