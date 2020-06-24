@@ -18,7 +18,7 @@ function DriverProfile(props) {
 
   const [currentRole, setCurrentRole] = useState('passenger');
 
-  const [isPassenger, setIsPassenger] =useState(true)
+  const [isPassenger, setIsPassenger] = useState(true)
 
 
   useEffect(() => {
@@ -34,9 +34,9 @@ function DriverProfile(props) {
   }, [userInfo])
 
   useEffect(() => {
-    if(currentRole == 'driver'){
+    if (currentRole == 'driver') {
       setIsPassenger(false)
-    }else{
+    } else {
       setIsPassenger(true)
     }
   }, [currentRole])
@@ -52,7 +52,7 @@ function DriverProfile(props) {
 
     <div className="driver">
       <div className="App__heading">
-        <h2>Dave Laravel</h2>
+        {passenger ? <h2>{passenger.first_name} {passenger.last_name}</h2> : null}
       </div>
 
       <div className='card__img-box'>
@@ -72,7 +72,7 @@ function DriverProfile(props) {
 
 
 
-        
+
 
 
 
