@@ -41,26 +41,52 @@ const tailFormItemLayout = {
 };
 
 function DriverRegister(props) {
+    
+    const [registerFinish, setRegisterFinish] = useState(false);
 
-    const { isLogin, setIsLogin, userInfo, setUserInfo } = props
+    const { isLogin, setIsLogin, userInfo, setUserInfo } = props;
 
     useEffect(() => {
         if (localStorage.getItem("ACCESS_TOKEN")) {
-            const user = jwtDecode(localStorage.getItem("ACCESS_TOKEN"))
-            console.log(user)
-            setIsLogin(true)
-            setUserInfo(user)
+            const user = jwtDecode(localStorage.getItem("ACCESS_TOKEN"));
+            // console.log(user)
+            setIsLogin(true);
+            setUserInfo(user);
+            // setRegisterFinish(true);
         }
     }, [])
+    
+    
+    useEffect(() => {   
+        checkRegister();
+    }, [])
+    
+    const checkRegister = async () => {
+        const headers = { Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}` };
+        const driver = await axios.get(`/driver/registered/${userInfo.id}`,{ headers: headers });
+        try{
+                setRegisterFinish(true)
+        } catch (error) {
+
+        }
+        // console.log(driver)
+        // if(driver){
+        //     // console.log("already register")
+        //     alert("already register")
+        // }else{
+        //     // console.log("OK")
+        //     alert("OK")
+        // }
+    }
 
 
-    const [registerFinish, setRegisterFinish] = useState(false);
 
     const [form] = Form.useForm();
 
     const onFinish = async (values) => {
         // console.log('Received values of form: ', values);
         const body = {
+            id: userInfo.id,
             driver_license: values.driver_license,
             seat: values.seat,
             car_model: values.car_model,
@@ -70,14 +96,13 @@ function DriverRegister(props) {
         // console.log({body: body})
         const headers = { Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}` }
         // console.log({headers: headers})
-        const createUser = await axios.post(`/driver/register/${userInfo.id}`, body, { headers: headers });
+        const createUser = await axios.post(`/driver/register`, body, { headers: headers });
         try {
-            const createUser = await axios.post(`/driver/register/${userInfo.id}`,body,{headers: headers});
+            // const createUser = await axios.post(`/driver/register`,body,{headers: headers});
             console.log("OK")
             alert("User created")
             form.resetFields()
             setRegisterFinish(true)
-
         } catch (err) {
             console.log("fail")
             console.log(err)
@@ -105,7 +130,6 @@ function DriverRegister(props) {
 
     return (
         <div>
-
             <div className="navTop"></div>
             <Row justify="center" style={{ paddingTop: "20px", paddingBottom: "10px" }}>
                 <Col xs={4} sm={2}><Avatar size={60} icon={<UserOutlined />} /></Col>

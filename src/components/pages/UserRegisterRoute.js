@@ -60,6 +60,7 @@ function UserRegisterRoute() {
             first_name: values.name,
             last_name: values.surname,
             address: values.address,
+            phone_number: values.phone_number,
         }
 
         try {
@@ -243,6 +244,30 @@ function UserRegisterRoute() {
                                 {
                                     required: true,
                                     message: 'Please Enter Your Address',
+                                    whitespace: true,
+                                },
+                            ]}
+                        >
+                            <Input />
+                        </Form.Item>
+                    </Col>
+                </Row>
+
+                <Row justify="center">
+                    <Col xs={20} sm={22}>
+                        <Form.Item
+                            name="phone_number"
+                            label={
+                                <span>
+                                    Phone Number&nbsp;
+            <Tooltip title="Please Enter Your Phone Number">
+                                    </Tooltip>
+                                </span>
+                            }
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please Enter Phone Number',
                                     whitespace: true,
                                 },
                             ]}

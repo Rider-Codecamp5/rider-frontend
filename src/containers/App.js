@@ -23,7 +23,7 @@ function App() {
     <Switch>
       <Route exact path='/'>
         <div className="App">
-          <Login />
+          <Login isLogin={isLogin} setIsLogin={setIsLogin} userInfo={userInfo} setUserInfo={setUserInfo} />
         </div>
       </Route>
 
@@ -35,11 +35,11 @@ function App() {
         <UserRegisterRoute />
       </Route>
 
-      <Route path="/driverRegister">
+      <Route path="/driver-register">
         <DriverRegister isLogin={isLogin} setIsLogin={setIsLogin} userInfo={userInfo} setUserInfo={setUserInfo} />
       </Route>
 
-      <Route path="/driverRoute">
+      <Route path="/driver-route">
         <DriverRoute />
       </Route>
 

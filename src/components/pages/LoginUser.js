@@ -3,8 +3,10 @@ import axios from '../../config/axios';
 import { Space, Form, Input, Tooltip, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, Avatar, } from 'antd';
 import { InfoCircleOutlined, UserOutlined, EyeInvisibleOutlined, EyeTwoTone, QuestionCircleOutlined } from '@ant-design/icons';
 import '../../styles/UserRegisterRoute.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Navbar from '../Navbar';
+import jwtDecode from 'jwt-decode'
+
 
 const { Option } = Select;
 const formItemLayout = {
@@ -39,7 +41,20 @@ const tailFormItemLayout = {
     },
 };
 
-function LoginUser() {
+function LoginUser(props) {
+
+    const { isLogin, setIsLogin, userInfo, setUserInfo } = props;
+    const [LoginComplete, setLoginComplete] = useState(false);
+
+    useEffect(() => {
+        if (localStorage.getItem('ACCESS_TOKEN')) {
+            const user = jwtDecode(localStorage.getItem('ACCESS_TOKEN'))
+            setIsLogin(true)
+            setUserInfo(user)
+            setLoginComplete(true)
+        }
+    }, [])
+
 
     const [form] = Form.useForm();
 
@@ -54,10 +69,11 @@ function LoginUser() {
 
         try {
             const createUser = await axios.post('/user/loginUser', body);
-            localStorage.setItem("ACCESS_TOKEN",createUser.data.token);
+            localStorage.setItem("ACCESS_TOKEN", createUser.data.token);
             console.log(`${localStorage.getItem("ACCESS_TOKEN")}`)
             console.log("OK")
             alert("Welcome to Rider")
+            setLoginComplete(true)
             form.resetFields()
         } catch (err) {
             console.log("fail")
@@ -71,7 +87,7 @@ function LoginUser() {
 
     return (
         <div>
-            <Navbar/>
+            <Navbar />
 
             <Row justify="center" style={{ paddingTop: "50px", paddingBottom: "10px" }}>
                 <Col xs={4} sm={2}><Avatar size={80} icon={<UserOutlined />} /></Col>
@@ -154,8 +170,9 @@ function LoginUser() {
 
                 </Row>
 
-
+                {LoginComplete ? <Redirect to='/driver-route' /> : null}
             </Form>
+
         </div >
     )
 }
