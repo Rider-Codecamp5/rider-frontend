@@ -24,15 +24,12 @@ function App() {
           <Login />
         </div>
       </Route>
-
       <Route path='/privacy-policy'>
         <PrivacyPolicy />
       </Route>
-
       <Route path='/register'>
         <UserRegisterRoute />
       </Route>
-
       <Route path='/driver/register'>
         <DriverRegister
           isLogin={isLogin}
@@ -41,11 +38,9 @@ function App() {
           setUserInfo={setUserInfo}
         />
       </Route>
-
       <Route path='/driver/route'>
         <DriverRoute />
       </Route>
-
       <Route path='/search-driver'>
         <UserRoute />
       </Route>
