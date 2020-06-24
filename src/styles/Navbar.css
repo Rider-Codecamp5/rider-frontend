@@ -1,0 +1,46 @@
+.Navbar {
+  background-color: #1788fb;
+  height: 49pt;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+
+nav {
+  /* margin-left: 10%;
+  margin-right: 10%; */
+}
+
+nav li {
+  display: inline;
+  /* margin: 0 8%; */
+}
+
+nav a {
+  padding: 25px 24.5pt;
+  color: white;
+  text-decoration: none;
+}
+
+nav ul {
+  padding: 5% 0;
+}
+
+.Navbar ul {
+  text-align: center;
+}
+
+/* .RowCenter{
+  margin: ;
+} */
+
+.btn-cancel{
+  padding: 5px 10px;
+  width: 100%;
+  background-color: #FF425E;
+  border-style: none;
+  color: #FCFCFC;
+}
+
