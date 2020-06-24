@@ -1,33 +1,35 @@
 import React, { useState } from 'react';
-import DriverMap from '../DriverMap';
 import PlaceSearch from '../PlaceSearch';
 import axios from '../../configs/axios';
 import './DriverRoute.css';
 
 import { useLoadScript } from '@react-google-maps/api';
 import {
-  Form,
   DatePicker,
   TimePicker,
   Checkbox,
   InputNumber,
   Slider,
   Button,
+  Card,
+  Spin,
+  Space,
 } from 'antd';
 import moment from 'moment';
 
 const libraries = ['places'];
 
-function DriverRoute() {
+function UserRoute() {
   const [origin, setOrigin] = useState('Origin');
   const [destination, setDestination] = useState('Destination');
-  const [geocodeOrigin, setGeocodeOrigin] = useState({});
+  const [, setGeocodeOrigin] = useState({});
   const [geocodeDestination, setGeocodeDestination] = useState([]);
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [luggage, setLuggage] = useState(false);
   const [seatingCapacity, setSeatingCapacity] = useState('1');
   const [price, setPrice] = useState([30, 500]);
+  const [drivers, setDrivers] = useState([]);
 
   // ------------- required google places setting -----------
   const { isLoaded, loadError } = useLoadScript({
@@ -102,28 +104,40 @@ function DriverRoute() {
     setPrice(value);
   };
 
-  const getRoute = () => {
-    if (origin !== '' && destination !== '') {
-      setOrigin(origin);
-      setDestination(destination);
-    }
-  };
-
   // --------- call API ----------------
-  const findRoute = async () => {
-    getRoute();
-
+  const findDrivers = async () => {
     const destinationLat = geocodeDestination.lat;
     const destinationLng = geocodeDestination.lng;
 
-    try {
-      let result = await axios.get(
-        `/user/trip?destinationLat=${destinationLat}&destinationLng=${destinationLng}`
+    let result = await axios.get(
+      `/user/trip?destinationLat=${destinationLat}&destinationLng=${destinationLng}`
+    );
+    console.log(result.data);
+    setDrivers(result.data);
+    // why need to click second time to render
+    console.log('driver from result', drivers);
+  };
+
+  const renderResult = () => {
+    if (!drivers) {
+      return (
+        <Space size='middle'>
+          <Spin size='large' />
+        </Space>
       );
-      console.log(result);
-    } catch (error) {
-      console.log(error);
     }
+
+    return drivers.map(driver => (
+      <Card
+        key={driver.id}
+        bordered={false}
+        style={{ width: 300 }}
+        title='Driver name'
+      >
+        <p>From: {driver.from}</p>
+        <p>From: {driver.to}</p>
+      </Card>
+    ));
   };
 
   return (
@@ -208,14 +222,15 @@ function DriverRoute() {
         <Button
           type='primary'
           size='large'
-          onClick={getRoute}
+          onClick={findDrivers}
           className='route__button'
         >
           Search
         </Button>
       </div>
+      {renderResult()}
     </div>
   );
 }
 
-export default DriverRoute;
+export default UserRoute;
