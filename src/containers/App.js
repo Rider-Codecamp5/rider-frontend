@@ -11,9 +11,9 @@ import Login from '../components/pages/LoginUser';
 import DriverRegister from '../components/pages/DriverRegister';
 import History from '../components/pages/History';
 import DriverProfile from '../components/pages/DriverProfile'
+import PassengerProfileCard from '../components/PassengerProfileCard';
 
 import 'antd/dist/antd.css';
-import PassengerProfileCard from '../components/PassengerProfileCard';
 
 function App() {
 
@@ -52,7 +52,7 @@ function App() {
           <PassengerProfileCard/>
         </Route>
 
-        <Route path="/driver-profile">
+        <Route path="/profile/driver">
           <DriverProfile />
         </Route>
       </Switch>

@@ -7,8 +7,15 @@ import { Link, Redirect } from 'react-router-dom';
 import Navbar from '../Navbar';
 import HistoryCard from '../HistoryCard'
 import RoleButton from '../RoleButton'
+import PassengerProfileCard from '../PassengerProfileCard';
 
 function DriverProfile() {
+
+  useEffect(()=>{
+    if(localStorage.getItem("ACCESS_TOKEN")){
+      alert("Have Token")
+    }
+  })
 
   return (
 
@@ -29,6 +36,7 @@ function DriverProfile() {
         <h2>Profile information</h2>
         <RoleButton />
         <HistoryCard />
+        {/* <PassengerProfileCard /> */}
       </div>
 
     </div>
