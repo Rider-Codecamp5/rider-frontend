@@ -9,17 +9,17 @@ import Navbar from '../Navbar';
 function DriverProfile() {
 
   return (
-    <div>
-      <div className="navTop"></div>
-      <Row justify="center" style={{ paddingTop: "20px", paddingBottom: "10px" }}>
-        <Col xs={4} sm={2}><Avatar size={60} icon={<UserOutlined />} /></Col>
-      </Row>
+  
+      <div className="driver-profile">
+        <div className="App__heading">
+          <h2>Dave Laravel</h2>
+        </div>
+        <div>
+          
+        </div>
 
-      <Row justify="center">
-        <Col xs={8} sm={4} md={4} lg={3}><h1 className="h1">Create Account</h1></Col>
-      </Row>
+      </div>
 
-    </div>
   )
 }
 

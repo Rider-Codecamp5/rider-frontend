@@ -21,34 +21,37 @@ function App() {
 
   return (
 
-    <Switch>
-      <Route exact path='/'>
-        <div className="App">
+    <div className="App">
+      <Switch>
+        <Route exact path='/'>
           <Login isLogin={isLogin} setIsLogin={setIsLogin} userInfo={userInfo} setUserInfo={setUserInfo} />
-        </div>
-      </Route>
+        </Route>
 
-      <Route path="/register">
-        <UserRegisterRoute />
-      </Route>
+        <Route path="/privacy-policy">
+          <PrivacyPolicy />
+        </Route>
 
-      <Route path="/driver/register">
-        <DriverRegister isLogin={isLogin} setIsLogin={setIsLogin} userInfo={userInfo} setUserInfo={setUserInfo} />
-      </Route>
+        <Route path="/register">
+          <UserRegisterRoute />
+        </Route>
 
-      <Route path="/driver-register">
-        <DriverRegister isLogin={isLogin} setIsLogin={setIsLogin} userInfo={userInfo} setUserInfo={setUserInfo} />
-      </Route>
+        <Route path="/driver/register">
+          <DriverRegister isLogin={isLogin} setIsLogin={setIsLogin} userInfo={userInfo} setUserInfo={setUserInfo} />
+        </Route>
 
-      <Route path="/driver-route">
-        <DriverRoute />
-      </Route>
+        <Route path="/driver/route">
+          <DriverRoute />
+        </Route>
 
-      <Route path="/driver-profile">
-        <DriverProfile />
-      </Route>
-    </Switch>
+        <Route path="/history">
+          <History />
+        </Route>
 
+        <Route path="/driver-profile">
+          <DriverProfile />
+        </Route>
+      </Switch>
+    </div>
 
   );
 }
