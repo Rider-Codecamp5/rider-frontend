@@ -9,6 +9,10 @@ import { Form, DatePicker, TimePicker, Checkbox, InputNumber, Slider, Button } f
 import moment from 'moment';
 
 const libraries = ['places']
+const marks = {
+  0: '฿0',
+  1000: '฿1,000'
+}
 
 function DriverRoute() {
   const [origin, setOrigin] = useState('Origin');
@@ -47,11 +51,6 @@ function DriverRoute() {
   // --------------  input function  --------------------------
 
   // antD slider mark
-  const marks = {
-    0: '฿0',
-    1000: '฿1,000'
-  }
-
   function onDateChange(date, dateString) {
     console.log(date, dateString);
     setDate(dateString);
@@ -59,17 +58,17 @@ function DriverRoute() {
 
   function onTimeChange(time, timeString) {
     console.log(time, timeString);
-    setTime(timeString)
+    setTime(timeString);
   }
 
   function onLuggageChange(e) {
     console.log(`checked = ${e.target.checked}`);
-    setLuggage(e.target.checked)
+    setLuggage(e.target.checked);
   }
 
   function onSeatingChange(value) {
     console.log('seating', value);
-    setSeatingCapacity(value)
+    setSeatingCapacity(value);
   }
 
   const onMinPriceChange = value => {
@@ -105,6 +104,8 @@ function DriverRoute() {
   const createRoute = async() => {
     getRoute();
 
+    const headers = { Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}` }
+
     let body = {
       origin,
       originLat: geocodeOrigin.lat,
@@ -119,7 +120,7 @@ function DriverRoute() {
     }
 
     try {
-      let result = await axios.patch('/driver/service', body);
+      let result = await axios.patch('/driver/service', body, { headers: headers });
       console.log(result)
     } catch(error) {
       console.log(error)
@@ -128,7 +129,7 @@ function DriverRoute() {
 
   return (
     <div className='route'>
-      <div className='route__heading'>
+      <div className='App__heading'>
         <h2>Create Route</h2>
       </div>
       <div className='route__form'>
@@ -141,8 +142,8 @@ function DriverRoute() {
         </div>
 
         <div>
-          <span>Seating Cpacity: </span>
-          <InputNumber min={1} max={13} defaultValue={1}onChange={onSeatingChange} className='route__input--small' />
+          <span>Seating Capacity: </span>
+          <InputNumber min={1} max={13} defaultValue={1} onChange={onSeatingChange} className='route__input--small' />
         </div>
         <Checkbox onChange={onLuggageChange} className='route__input'>Luggage</Checkbox>
 
@@ -187,11 +188,11 @@ function DriverRoute() {
           </div>
         </div>
 
-        <Button type='primary' size='large' onClick={getRoute} className='route__button'>Post</Button>
+        <button type='primary' size='large' onClick={createRoute} className='App__button'>Post</button>
         <DriverMap 
           origin={origin} 
           destination={destination}
-          />
+        />
       </div>
       {console.log('ori des', origin, destination)}
       {console.log('geo ori des', geocodeOrigin, geocodeDestination )}
@@ -200,4 +201,4 @@ function DriverRoute() {
   )
 }
 
-export default DriverRoute;
+export default React.memo(DriverRoute);

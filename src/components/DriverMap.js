@@ -6,26 +6,24 @@ const containerStyle = {
   height: '40vh'
 };
 
+const center = {
+  lat: 13.7563,
+  lng: 100.5018
+};
+
+const options = {
+  // styles: mapStyle,
+  disableDefaultUI: true
+}
+
 function DriverMap(props) {
-
-  const { origin, destination } = props;
-
-  const [response, setResponse] = useState(null);
-
-  const center = {
-    lat: 13.7563,
-    lng: 100.5018
-  };
-  
-  const options = {
-    // styles: mapStyle,
-    disableDefaultUI: true
-  }
-
   const mapRef = useRef();
   const onMapLoad = useCallback(map => {
     mapRef.current = map;
   }, []);
+
+  const { origin, destination } = props;
+  const [response, setResponse] = useState(null);
 
 
   const directionsCallback = (googleResponse) => {
@@ -34,6 +32,7 @@ function DriverMap(props) {
         if (googleResponse.status === 'OK' && googleResponse.routes.overview_polyline !== response.routes.overview_polyline) {
           setResponse(() => googleResponse)
         } else {
+          console.log(googleResponse.routes.overview_polyline == response.routes.overview_polyline)
           console.log('response: ', googleResponse)
         }
       } else {
@@ -82,4 +81,4 @@ function DriverMap(props) {
 };
 
 
-export default DriverMap;
+export default React.memo(DriverMap);
