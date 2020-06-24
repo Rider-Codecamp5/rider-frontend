@@ -1,5 +1,5 @@
-.Card {
-  height: 117px;
+.CardDM {
+  height: 345px;
   width: 330px;
   margin: auto;
   padding: 0 1em;
@@ -7,7 +7,8 @@
   border-radius: 5px;
   background-color:#FCFCFC;
   display: block;
-
+  z-index: 5;
+  
 }
 
 .driverPhoto {

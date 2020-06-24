@@ -2,12 +2,12 @@ import React from "react";
 import { Col, Row, Button, Form } from "antd";
 import "../../styles/BookingDetail.css";
 import driverPhotoBD from "../../image/photo-1592728036073-d0ae31a18fdc.jpg";
-import showRate from "../showRate";
+import ShowRate from "../ShowRate";
 
 function BookingDetail() {
   return (
     <div className="pageSize">
-      <div className="marginTopBD"></div>
+      {/* <div className="marginTopBD"></div> */}
       <Row>
         <Col span={9} offset={1} className="colBD">
           <Row>
@@ -18,17 +18,23 @@ function BookingDetail() {
                 className="driverPhotoBD"
               ></img>
               <p className="driverName">Ryan Simski</p>
-              <showRate />
             </Col>
+            <Row>
+              <Col span={24} offset={20}>
+                <div>
+                  <ShowRate />
+                </div>
+              </Col>
+            </Row>
             <Col span={8} offset={1}>
               <div className="CardBD">
                 <span className="informationBD">
                   <ul>
-                    <li style={{fontSize: "16px"}}>Sathorn Square</li>
-                    <li style={{fontSize: "16px"}}>BTS Morchit</li>
-                    <li style={{fontSize: "12px"}}>Friday 13th 17:30</li>
+                    <li style={{ fontSize: "16px" }}>Sathorn Square</li>
+                    <li style={{ fontSize: "16px" }}>BTS Morchit</li>
+                    <li style={{ fontSize: "12px" }}>Friday 13th 17:30</li>
                     <hr />
-                    <li style={{fontSize: "12px"}}>Honda Civic/Red</li>
+                    <li style={{ fontSize: "12px" }}>Honda Civic/Red</li>
                     <li>
                       <span>2 person</span>
                       <span className="priceBD">Price 300 Baht</span>

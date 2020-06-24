@@ -6,7 +6,7 @@ import driverPhotoDOTW from "../../image/photo-1592728036073-d0ae31a18fdc.jpg";
 function DriverOnTheWay() {
   return (
     <div>
-      <div className="marginTopDOTW"></div>
+      {/* <div className="marginTopDOTW"></div> */}
       <Row className="rowFormDOTW">
         <Col span={22} offset={1} className="colFormDOTW">
           <Form.Item label="">
