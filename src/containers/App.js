@@ -12,6 +12,7 @@ import DriverRegister from '../components/pages/DriverRegister';
 import History from '../components/pages/History';
 
 import 'antd/dist/antd.css';
+import PassengerProfileCard from '../components/PassengerProfileCard';
 
 function App() {
 
@@ -44,6 +45,10 @@ function App() {
 
         <Route path="/history">
           <History/>
+        </Route>
+
+        <Route part='/passenger/profile'>
+          <PassengerProfileCard/>
         </Route>
 
       </Switch>

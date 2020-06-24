@@ -170,7 +170,7 @@ function LoginUser(props) {
 
                 </Row>
 
-                {LoginComplete ? <Redirect to='/driver-route' /> : null}
+                {LoginComplete ? <Redirect to='/driver/route' /> : null}
             </Form>
 
         </div >
