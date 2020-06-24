@@ -1,20 +1,28 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import '../components/PassengerProfileCard.css'
 
 function PassengerProfileCard(props) {
+    
+    const {Data} = props;
+    // useEffect(() => {
+    //     console.log("Hello")
+    //     console.log(Data)
+
+    // }, [])
+
 
     return (
         <div className='card'>
             <div className='card__content'>
                 <div className='card__text'>
-                    <h3>{props.name}</h3>
-                    <span><b>Email :</b> {props.from}</span>
+                    {/* <h3>{props.email}</h3> */}
+                    <span><b>Email :</b> {Data.email}</span>
                     <br />
-                    <span><b>Phone :</b> {props.to}</span>
+                    <span><b>Phone :</b> {Data.phone_number}</span>
                     <br />
-                    <span><b>Address :</b> {props.to}</span>
+                    <span><b>Address :</b> {Data.address}</span>
                     <br />
-                    {/* <span><b>Bank :</b> {props.to}</span> */}
+                    <span><b>Bank :</b> {props.to}</span>
                     <br />
                 </div>
             </div>

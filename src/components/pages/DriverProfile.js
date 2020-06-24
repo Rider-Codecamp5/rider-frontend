@@ -8,14 +8,45 @@ import Navbar from '../Navbar';
 import HistoryCard from '../HistoryCard'
 import RoleButton from '../RoleButton'
 import PassengerProfileCard from '../PassengerProfileCard';
+import jwtDecode from 'jwt-decode'
 
-function DriverProfile() {
+function DriverProfile(props) {
 
-  useEffect(()=>{
-    if(localStorage.getItem("ACCESS_TOKEN")){
-      alert("Have Token")
+  const { isLogin, setIsLogin, userInfo, setUserInfo } = props;
+
+  const [passenger, setPassenger] = useState({});
+
+  const [currentRole, setCurrentRole] = useState('passenger');
+
+  const [isPassenger, setIsPassenger] =useState(true)
+
+
+  useEffect(() => {
+    if (localStorage.getItem("ACCESS_TOKEN")) {
+      const user = jwtDecode(localStorage.getItem('ACCESS_TOKEN'));
+      setIsLogin(true)
+      setUserInfo(user)
     }
-  })
+  }, [])
+
+  useEffect(() => {
+    passengerData();
+  }, [userInfo])
+
+  useEffect(() => {
+    if(currentRole == 'driver'){
+      setIsPassenger(false)
+    }else{
+      setIsPassenger(true)
+    }
+  }, [currentRole])
+
+  const passengerData = async () => {
+    const headers = { Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}` }
+    const passengerData = await axios.get(`/user/getUser/${userInfo.id}`, { headers: headers });
+    console.log(passengerData.data.userData)
+    setPassenger(passengerData.data.userData)
+  }
 
   return (
 
@@ -34,9 +65,19 @@ function DriverProfile() {
 
       <div className="driver__display">
         <h2>Profile information</h2>
-        <RoleButton />
+        <RoleButton currentRole={currentRole} setCurrentRole={setCurrentRole} />
         {/* <HistoryCard /> */}
-        <PassengerProfileCard />
+
+        {isPassenger ? <> {passenger ? <PassengerProfileCard Data={passenger} /> : null} </> : null}
+
+
+
+        
+
+
+
+
+
       </div>
 
     </div>

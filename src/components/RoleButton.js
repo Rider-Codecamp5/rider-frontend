@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import './RoleButton.css'
 
-export default function RoleButton() {
-  const [ currentRole, setCurrentRole ] = useState('passenger');
+export default function RoleButton(props) {
+  // const [ currentRole, setCurrentRole ] = useState('passenger');
+
+  const { currentRole, setCurrentRole } = props;
 
   const onSelectPassenger = () => {
     setCurrentRole('passenger');
