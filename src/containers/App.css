@@ -8,6 +8,9 @@
   text-align: center;
   padding: 1rem;
   background-color: #1788FB;
+  position: sticky;
+  top: 0;
+  width: 100%;
 }
 
 .App__heading h2 {

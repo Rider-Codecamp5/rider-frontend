@@ -1,0 +1,28 @@
+.role-button {
+  display: flex;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.16), inset -1px -14px 20px rgba(0, 0, 0, 0.16);
+  border-radius: 4px;
+  font-size: larger;
+  font-weight: bold;
+  margin: 2rem 0;
+  justify-content: space-around;
+  text-align: center;
+  cursor: pointer;
+}
+
+.role-button1 {
+  padding: 0.5rem 1rem;
+  width: 50%;
+  border-radius: 4px 0 0 4px;
+}
+.role-button2 {
+  padding: 0.5rem 1rem;
+  width: 50%;
+  border-radius: 0 4px 4px 0;
+}
+
+.role-button--active {
+  color: #FFFFFF;
+  background-color: #1788FB;
+  box-shadow: inherit;
+}
