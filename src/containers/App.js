@@ -20,24 +20,15 @@ function App() {
 
   return (
 
-<<<<<<< HEAD
-    <Switch>
-      <Route exact path='/'>
-        <div className="App">
-          <Login isLogin={isLogin} setIsLogin={setIsLogin} userInfo={userInfo} setUserInfo={setUserInfo} />
-        </div>
-      </Route>
-=======
     <div className="App">
       <Switch>
         <Route exact path='/'>
-            <Login />
+            <Login isLogin={isLogin} setIsLogin={setIsLogin} userInfo={userInfo} setUserInfo={setUserInfo}/>
         </Route>
 
         <Route path="/privacy-policy">
           <PrivacyPolicy />
         </Route>
->>>>>>> origin/develop
 
         <Route path="/register">
           <UserRegisterRoute />
@@ -47,15 +38,6 @@ function App() {
           <DriverRegister isLogin={isLogin} setIsLogin={setIsLogin} userInfo={userInfo} setUserInfo={setUserInfo} />
         </Route>
 
-<<<<<<< HEAD
-      <Route path="/driver-register">
-        <DriverRegister isLogin={isLogin} setIsLogin={setIsLogin} userInfo={userInfo} setUserInfo={setUserInfo} />
-      </Route>
-
-      <Route path="/driver-route">
-        <DriverRoute />
-      </Route>
-=======
         <Route path="/driver/route">
           <DriverRoute />
         </Route>
@@ -63,7 +45,6 @@ function App() {
         <Route path="/history">
           <History/>
         </Route>
->>>>>>> origin/develop
 
       </Switch>
     </div>
