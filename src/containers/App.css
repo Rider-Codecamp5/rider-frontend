@@ -4,6 +4,52 @@
   padding: 0;
 }
 
+.App__heading {
+  text-align: center;
+  padding: 1rem;
+  background-color: #1788FB;
+  position: sticky;
+  top: 0;
+  width: 100%;
+}
+
+.App__heading h2 {
+  color: #ffffff;
+  font-weight: bold;
+  margin: 0;
+}
+
+.App .App__button,
+.App .App__button:focus {
+  margin: 0.7rem 0;
+  background-color: #40CE5D;
+  width: 100%;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border: 1px solid #40CE5D;
+  outline: none;
+  cursor: pointer;
+  padding: 0.4rem;
+  color: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.16);
+}
+
+.App .App__button:hover {
+  background-color: #33a44a;
+}
+
+.App .App__button--red,
+.App .App__button--red:focus {
+  background-color: #FF425E;
+  border: 1px solid #FF425E;
+}
+
+.App .App__button--red:hover {
+  background-color: #cc344b;
+  border: 1px solid #FF425E;
+}
+
 /* .App {
   text-align: center;
 }
