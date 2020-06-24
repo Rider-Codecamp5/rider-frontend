@@ -10,6 +10,7 @@ import PrivacyPolicy from '../components/pages/PrivacyPolicy';
 import Login from '../components/pages/LoginUser';
 import DriverRegister from '../components/pages/DriverRegister';
 import History from '../components/pages/History';
+import DriverProfile from '../components/pages/DriverProfile'
 
 import 'antd/dist/antd.css';
 import PassengerProfileCard from '../components/PassengerProfileCard';
@@ -24,7 +25,7 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path='/'>
-            <Login isLogin={isLogin} setIsLogin={setIsLogin} userInfo={userInfo} setUserInfo={setUserInfo}/>
+          <Login isLogin={isLogin} setIsLogin={setIsLogin} userInfo={userInfo} setUserInfo={setUserInfo} />
         </Route>
 
         <Route path="/privacy-policy">
@@ -44,15 +45,19 @@ function App() {
         </Route>
 
         <Route path="/history">
-          <History/>
+          <History />
         </Route>
 
         <Route part='/passenger/profile'>
           <PassengerProfileCard/>
         </Route>
 
+        <Route path="/driver-profile">
+          <DriverProfile />
+        </Route>
       </Switch>
     </div>
+
   );
 }
 

@@ -1,0 +1,45 @@
+.h1{
+  color:#000000;
+  font-size: 15px;
+  margin-right: 0;
+  padding-right: 0;
+}
+
+.navTop{
+  width: 100%;
+  height: 80px;
+  background-color: #1890ff;
+}
+
+.card__img-box {
+  margin: 0 auto auto auto;
+  width: 5.5rem;
+  min-width: 5.5rem;
+  height: 5.5rem;
+  min-height: 5.5rem;
+  overflow: hidden;
+  border-radius: 100%;
+}
+
+driver {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.driver__display {
+  width: 80%;
+  margin: 0 auto;
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+  .driver__display {
+    width: 70%;
+  }
+} 
+
+@media only screen and (min-width: 769px) { 
+  .driver__display {
+    width: 50%;
+  }
+} 
