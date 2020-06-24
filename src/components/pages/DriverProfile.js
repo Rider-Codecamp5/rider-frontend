@@ -10,6 +10,7 @@ import RoleButton from '../RoleButton'
 
 function DriverProfile() {
 
+
   return (
 
     <div className="driver">
@@ -29,6 +30,7 @@ function DriverProfile() {
         <h2>Profile information</h2>
         <RoleButton />
         <HistoryCard />
+        
       </div>
 
     </div>
