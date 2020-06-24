@@ -47,7 +47,8 @@ function App() {
           <History />
         </Route>
 
-        <Route path="/profile">
+
+        <Route path="/profile/driver">
           <DriverProfile />
         </Route>
       </Switch>
