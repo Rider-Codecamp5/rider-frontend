@@ -1,40 +1,32 @@
 .Navbar {
   background-color: #1788fb;
-  height: 49pt;
-  position: fixed;
-  left: 0;
+  bottom: 0;
+  padding-bottom: 0;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+  position: absolute;
   bottom: 0;
   width: 100%;
-  text-align: center;
-}
-
-nav {
-  /* margin-left: 10%;
-  margin-right: 10%; */
-}
-
-nav li {
-  display: inline;
-  /* margin: 0 8%; */
-}
-
-nav a {
-  padding: 25px 24.5pt;
-  color: white;
-  text-decoration: none;
-}
-
-nav ul {
-  padding: 5% 0;
+  height: 4rem;
 }
 
 .Navbar ul {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0;
 }
 
-/* .RowCenter{
-  margin: ;
-} */
+.Navbar li {
+  /* margin: auto 0; */
+  justify-self: center;
+  padding: 1rem 2rem;
+  list-style: none;
+}
+
+nav a {
+  color: white;
+}
 
 .btn-cancel{
   padding: 5px 10px;

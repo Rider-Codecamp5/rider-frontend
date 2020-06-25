@@ -5,7 +5,7 @@ function Navbar() {
   return (
     <div className="Navbar">
       <nav>
-        <div className="RowCenter">
+        <div className="">
           <ul>
             <li>
               <a href="#">Search</a>

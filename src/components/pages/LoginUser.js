@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../configs/axios';
 import { Form, Input, Select, Row, Col, Button, Avatar } from 'antd';
+import { Link, Redirect, useHistory } from 'react-router-dom';
+import Navbar from '../Navbar';
+import jwtDecode from 'jwt-decode'
 import { UserOutlined } from '@ant-design/icons';
 import '../../styles/UserRegisterRoute.css';
-import { Link, useHistory } from 'react-router-dom';
-import Navbar from '../Navbar';
+import * as storageItem from '../../configs/localStorageItems';
+
 
 const { Option } = Select;
 const formItemLayout = {
@@ -39,38 +42,59 @@ const tailFormItemLayout = {
   },
 };
 
-function LoginUser() {
-  const [form] = Form.useForm();
+function LoginUser(props) {
+
+  const { isLogin, setIsLogin, userInfo, setUserInfo } = props;
+  const [LoginComplete, setLoginComplete] = useState(false);
+  // const [form] = Form.useForm();
   let history = useHistory();
 
-  const onFinish = async values => {
+  useEffect(() => {
+    if (localStorage.getItem('ACCESS_TOKEN')) {
+      const user = jwtDecode(localStorage.getItem('ACCESS_TOKEN'))
+      setIsLogin(true)
+      setUserInfo(user)
+      setLoginComplete(true)
+    }
+  }, [])
+
+
+  const [form] = Form.useForm();
+
+  const onFinish = async (values) => {
     console.log('Received values of form: ', values);
-    console.log(values.email);
-    console.log(values.password);
+    console.log(values.email)
+    console.log(values.password)
     const body = {
       email: values.email,
       password: values.password,
-    };
+    }
 
     try {
       const createUser = await axios.post('/user/loginUser', body);
-      localStorage.setItem('ACCESS_TOKEN', createUser.data.token);
-      console.log(`${localStorage.getItem('ACCESS_TOKEN')}`);
+      localStorage.setItem(storageItem.ACCESS_TOKEN, createUser.data.token);
+      localStorage.setItem(storageItem.role, 'user');
+      props.setRole(localStorage.getItem(storageItem.role));
+      console.log('logged in role', props.role)
+      
+      alert('Welcome to Rider')
+      console.log(`${localStorage.getItem(storageItem.ACCESS_TOKEN)}`);
       console.log('OK');
-      alert('Welcome to Rider');
+      // alert('Welcome to Rider');
       form.resetFields();
       history.push('/search-driver');
     } catch (err) {
-      console.log('fail');
-      console.log(err);
-      form.resetFields();
-      alert('login failed');
+      console.log('fail')
+      console.log(err)
+      form.resetFields()
+      alert('login failed')
     }
   };
 
+
+
   return (
     <div>
-      <Navbar />
       <Row
         justify='center'
         style={{ paddingTop: '50px', paddingBottom: '10px' }}
@@ -132,36 +156,36 @@ function LoginUser() {
             >
               <Input.Password />
             </Form.Item>
+
           </Col>
         </Row>
 
         <Row justify='center'>
           <Col span={4}>
-            <Form.Item {...tailFormItemLayout}>
+            <Form.Item {...tailFormItemLayout} >
               <Button
                 type='primary'
                 htmlType='submit'
-                style={{
-                  backgroundColor: '#40CE5D',
-                  borderRadius: 'none',
-                  marginBottom: '50px',
-                }}
+                style={{ backgroundColor: '#40CE5D', borderRadius: 'none', marginBottom: '50px' }}
               >
                 Login
-              </Button>
+        </Button>
             </Form.Item>
           </Col>
         </Row>
 
         <Row justify='center'>
           <Col xs={12} sm={6}>
-            <Link to='/register'>Register</Link> |{' '}
-            <Link to=''>Forget Password?</Link>
+            <Link to='/register'>Register</Link> | <Link to=''>Forget Password?</Link>
           </Col>
+
         </Row>
+
+        {LoginComplete ? <Redirect to='/driver/route' /> : null}
       </Form>
-    </div>
-  );
+
+    </div >
+  )
 }
 
 export default LoginUser;

@@ -64,6 +64,7 @@ function UserRegisterRoute() {
       first_name: values.name,
       last_name: values.surname,
       address: values.address,
+      phone_number: values.phone_number,
     };
 
     try {
@@ -101,7 +102,9 @@ function UserRegisterRoute() {
 
   return (
     <div>
-      <div className='navTop'></div>
+      <div className='App__heading'>
+        <h2>Register</h2>
+      </div>
       <Row
         justify='center'
         style={{ paddingTop: '20px', paddingBottom: '10px' }}
@@ -243,6 +246,29 @@ function UserRegisterRoute() {
         <Row justify='center'>
           <Col xs={20} sm={22}>
             <Form.Item
+              name='phone_number'
+              label={
+                <span>
+                  Phone number&nbsp;
+                  <Tooltip title='Please Enter Your Phone number'></Tooltip>
+                </span>
+              }
+              rules={[
+                {
+                  required: true,
+                  message: 'Please Enter Your Phone number',
+                  whitespace: true,
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Row justify='center'>
+          <Col xs={20} sm={22}>
+            <Form.Item
               name='address'
               label={
                 <span>
@@ -262,6 +288,7 @@ function UserRegisterRoute() {
             </Form.Item>
           </Col>
         </Row>
+
         <Row justify='center'>
           <Col xs={20} sm={22}>
             <Upload {...imageUploadProps}>

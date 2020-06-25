@@ -1,56 +1,34 @@
-import React, { useState } from 'react';
-
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import PrivateRoute from '../components/PrivateRoutes/PrivateRoute';
 import Navbar from '../components/Navbar';
-import DriverRoute from '../components/pages/DriverRoute';
-import UserRegisterRoute from '../components/pages/UserRegisterRoute';
-import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
-import { Route, Switch } from 'react-router-dom';
-import PrivacyPolicy from '../components/pages/PrivacyPolicy';
-import Login from '../components/pages/LoginUser';
-import DriverRegister from '../components/pages/DriverRegister';
-import UserRoute from '../components/pages/UserRoute';
+import * as storageItem from '../configs/localStorageItems';
 
+import jwtDecode from 'jwt-decode';
 import 'antd/dist/antd.css';
-import RouteDetails from '../components/pages/RouteDetails';
+import './App.css';
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
-  const [userInfo, setUserInfo] = useState({});
+  const [role, setRole] = useState('guest');
+
+  const onLogOut = () => {
+    localStorage.removeItem(storageItem.ACCESS_TOKEN);
+    localStorage.setItem(storageItem.role, 'guest');
+  };
+
+  let token = localStorage.getItem(storageItem.ACCESS_TOKEN);
+  let userInfo;
+
+  if (token) {
+    userInfo = jwtDecode(token);
+  } else {
+    onLogOut();
+  }
 
   return (
-    <Switch>
-      <Route exact path='/'>
-        <div className='App'>
-          <Login />
-        </div>
-      </Route>
-      <Route path='/privacy-policy'>
-        <PrivacyPolicy />
-      </Route>
-      <Route path='/register'>
-        <UserRegisterRoute />
-      </Route>
-      <Route path='/driver/register'>
-        <DriverRegister
-          isLogin={isLogin}
-          setIsLogin={setIsLogin}
-          userInfo={userInfo}
-          setUserInfo={setUserInfo}
-        />
-      </Route>
-      <Route path='/driver/route'>
-        <DriverRoute />
-      </Route>
-      <Route path='/search-driver'>
-        <UserRoute />
-      </Route>
-      <Route
-        exact
-        path='/driver/route-details/:id'
-        render={routeProps => <RouteDetails {...routeProps} />}
-      ></Route>
-    </Switch>
+    <div className='App'>
+      <PrivateRoute role={role} setRole={setRole} />
+      <Navbar />
+    </div>
   );
 }
 
