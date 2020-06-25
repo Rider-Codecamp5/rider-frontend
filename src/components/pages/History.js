@@ -7,7 +7,7 @@ function History() {
   return (
     <div className='history'>
       <div className='App__heading'>
-        <h2>Trip  History</h2>
+        <h2>Trip History</h2>
       </div>
       <div className='history__display'>
         <RoleButton />

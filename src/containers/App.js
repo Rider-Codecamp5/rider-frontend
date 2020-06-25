@@ -8,7 +8,7 @@ import 'antd/dist/antd.css';
 import './App.css';
 
 function App() {
-  const [role, setRole] = useState('guest');
+  const [role, setRole] = useState(localStorage.getItem(storageItem.role) || 'guest');
 
   const onLogOut = () => {
     localStorage.removeItem(storageItem.ACCESS_TOKEN);

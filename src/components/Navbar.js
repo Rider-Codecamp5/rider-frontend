@@ -6,20 +6,6 @@ function Navbar(props) {
 
   const navItems = () => {
     switch(props.role) {
-      case 'guest': 
-        return(
-          <ul>
-            <li>
-              <a href="/">Login</a>
-            </li>
-            <li>
-              <a href="/register">Register</a>
-            </li>
-            <li>
-              <a href="/privacy-policy">Policy</a>
-            </li>
-          </ul>
-        )
       case 'user':
         return(
           <ul>
@@ -27,7 +13,7 @@ function Navbar(props) {
               <a href="/search-driver">Search</a>
             </li>
             <li>
-              <a href="#">Inbox</a>
+              <a href="/history">History</a>
             </li>
             <li>
               <a href="#">Profile</a>

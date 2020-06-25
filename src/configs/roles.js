@@ -4,6 +4,7 @@ import Login from '../components/pages/LoginUser';
 import DriverRegister from '../components/pages/DriverRegister';
 import UserRoute from '../components/pages/UserRoute';
 import PrivacyPolicy from '../components/pages/PrivacyPolicy';
+import History from '../components/pages/History';
 
 const components = {
   Login: {
@@ -29,7 +30,11 @@ const components = {
   DriverRoute: {
     component: DriverRoute,
     url: '/driver/route'
-  }
+  },
+  History: {
+    component: History,
+    url: '/history'
+  },
 }
 
 const configRoute = {
@@ -47,6 +52,7 @@ const configRoute = {
       components.PrivacyPolicy,
       components.UserRoute,
       components.DriverRoute,
+      components.History,
     ],
     redirect: '/search-driver'
   }

@@ -9,7 +9,7 @@ function PrivateRoute(props) {
     <div className='main-container'>
       <Switch>
         {configRoute[props.role].route.map(route => {
-          console.log('map', route)
+          console.log('private role', props.role)
           return (
             <Route
               exact path = {route.url}
