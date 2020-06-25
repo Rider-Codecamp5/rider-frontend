@@ -21,6 +21,7 @@ const formItemLayout = {
   wrapperCol: {
     xs: {
       span: 24,
+
     },
     sm: {
       span: 16,
@@ -86,7 +87,7 @@ function LoginUser(props) {
       </Row>
 
       <Row justify='center'>
-        <h1 className='login__header'>Welcome to Rider</h1>
+        <h1 className='App__header'>Welcome to Rider</h1>
       </Row>
     
       <Row justify='center'>

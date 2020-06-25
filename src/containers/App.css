@@ -22,11 +22,18 @@
   margin: 0;
 }
 
+.App__header {
+  font-weight: bolder;
+  font-size: 1.5rem;
+  padding: 0.5rem 0 2rem 0;
+}
+
 .App .App__button,
 .App .App__button:focus {
   margin: 0.7rem 0;
   background-color: #40CE5D;
   width: auto;
+  min-width: 100%;
   font-weight: bold;
   font-size: 1.2rem;
   border: 1px solid #40CE5D;
