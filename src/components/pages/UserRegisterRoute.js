@@ -102,7 +102,9 @@ function UserRegisterRoute() {
 
   return (
     <div>
-      <div className='navTop'></div>
+      <div className='App__heading'>
+        <h2>Register</h2>
+      </div>
       <Row
         justify='center'
         style={{ paddingTop: '20px', paddingBottom: '10px' }}

@@ -3,9 +3,8 @@ import axios from '../../configs/axios';
 import { Form, Input, Select, Row, Col, Button, Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import '../../styles/UserRegisterRoute.css';
-import { Link, Redirect, useHistory } from 'react-router-dom';
-import Navbar from '../Navbar';
-import jwtDecode from 'jwt-decode'
+import { Link, useHistory } from 'react-router-dom';
+import * as storageItem from '../../configs/localStorageItems';
 
 
 const { Option } = Select;
@@ -45,6 +44,7 @@ function LoginUser(props) {
 
   const { isLogin, setIsLogin, userInfo, setUserInfo } = props;
   const [LoginComplete, setLoginComplete] = useState(false);
+  const [form] = Form.useForm();
   let history = useHistory();
 
   useEffect(() => {
@@ -70,12 +70,16 @@ function LoginUser(props) {
 
     try {
       const createUser = await axios.post('/user/loginUser', body);
-      localStorage.setItem('ACCESS_TOKEN', createUser.data.token);
-      console.log(`${localStorage.getItem('ACCESS_TOKEN')}`)
-      console.log('OK')
+      localStorage.setItem(storageItem.ACCESS_TOKEN, createUser.data.token);
+      localStorage.setItem(storageItem.role, 'user');
+      props.setRole(localStorage.getItem(storageItem.role));
+      console.log('logged in role', props.role)
+      
       alert('Welcome to Rider')
-      setLoginComplete(true)
-      form.resetFields()
+      console.log(`${localStorage.getItem(storageItem.ACCESS_TOKEN)}`);
+      console.log('OK');
+      // alert('Welcome to Rider');
+      form.resetFields();
       history.push('/search-driver');
     } catch (err) {
       console.log('fail')
@@ -89,9 +93,10 @@ function LoginUser(props) {
 
   return (
     <div>
-      <Navbar />
-
-      <Row justify='center' style={{ paddingTop: '50px', paddingBottom: '10px' }}>
+      <Row
+        justify='center'
+        style={{ paddingTop: '50px', paddingBottom: '10px' }}
+      >
         <Col xs={4} sm={2}>
           <Avatar size={80} icon={<UserOutlined />} />
         </Col>
@@ -155,9 +160,7 @@ function LoginUser(props) {
 
         <Row justify='center'>
           <Col span={4}>
-            <Form.Item
-              {...tailFormItemLayout}
-            >
+            <Form.Item {...tailFormItemLayout} >
               <Button
                 type='primary'
                 htmlType='submit'
