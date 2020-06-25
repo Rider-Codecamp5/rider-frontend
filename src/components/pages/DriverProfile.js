@@ -55,13 +55,19 @@ function DriverProfile(props) {
         {passenger ? <h2>{passenger.first_name} {passenger.last_name}</h2> : null}
       </div>
 
-      <div className='card__img-box'>
-        <img
-          src="https://cdn.mos.cms.futurecdn.net/vJvY6J485ReQFXAgx5DSJ3-650-80.jpg"
-          alt="profile-pic"
-          className='card__profile-img'
-        />
-      </div>
+      {
+        passenger ?
+          <div className='card__img-box'>
+            <img
+              src={`${passenger.profile_pic}`}
+              alt="profile-pic"
+              className='card__profile-img'
+            />
+          </div>
+          :
+          null
+      }
+
 
       <div className="driver__display">
         <h2>Profile information</h2>

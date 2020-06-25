@@ -10,7 +10,8 @@ import PrivacyPolicy from '../components/pages/PrivacyPolicy';
 import Login from '../components/pages/LoginUser';
 import DriverRegister from '../components/pages/DriverRegister';
 import History from '../components/pages/History';
-import DriverProfile from '../components/pages/DriverProfile'
+import DriverProfile from '../components/pages/DriverProfile';
+import UserRoute from '../components/pages/UserRoute'
 
 import 'antd/dist/antd.css';
 
