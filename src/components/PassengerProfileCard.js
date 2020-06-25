@@ -16,8 +16,6 @@ function PassengerProfileCard(props) {
                     <br />
                     <span><b>Address :</b> {Data.address}</span>
                     <br />
-                    <span><b>Bank :</b> {props.to}</span>
-                    <br />
                 </div>
             </div>
         </div>

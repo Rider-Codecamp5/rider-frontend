@@ -2,7 +2,7 @@ import React from 'react'
 
 function DriverProfileCard(props) {
 
-    const {Data} = props;
+    const { Data } = props;
 
     return (
         <div>
@@ -17,6 +17,8 @@ function DriverProfileCard(props) {
                         <span><b>Car Color :</b> {Data.car_color}</span>
                         <br />
                         <span><b>Seat Available :</b> {Data.seat}</span>
+                        <br />
+                        <span><b>Bank :</b> {Data.bank_account}</span>
                         <br />
                     </div>
                 </div>
