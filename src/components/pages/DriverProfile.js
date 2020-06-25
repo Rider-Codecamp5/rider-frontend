@@ -9,17 +9,16 @@ import HistoryCard from '../HistoryCard'
 import RoleButton from '../RoleButton'
 import PassengerProfileCard from '../PassengerProfileCard';
 import jwtDecode from 'jwt-decode'
+import DriverProfileCard from '../DriverProfileCard';
 
 function DriverProfile(props) {
 
-  const { isLogin, setIsLogin, userInfo, setUserInfo } = props;
-
+  const [isLogin, setIsLogin] = useState(false);
+  const [userInfo, setUserInfo ] = useState({});
   const [passenger, setPassenger] = useState({});
-
+  const [driver, setDriver] = useState(false);
   const [currentRole, setCurrentRole] = useState('passenger');
-
   const [isPassenger, setIsPassenger] = useState(true)
-
 
   useEffect(() => {
     if (localStorage.getItem("ACCESS_TOKEN")) {
@@ -31,6 +30,7 @@ function DriverProfile(props) {
 
   useEffect(() => {
     passengerData();
+    driverData();
   }, [userInfo])
 
   useEffect(() => {
@@ -47,6 +47,19 @@ function DriverProfile(props) {
     console.log(passengerData.data.userData)
     setPassenger(passengerData.data.userData)
   }
+
+  const driverData = async () => {
+    const headers = { Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}` }
+    const driverData = await axios.get(`/driver/getDriverInformation/${userInfo.id}`, { headers: headers });
+    console.log(driverData)
+    try {
+      console.log('driver from db', driverData.data.driver)
+      setDriver(driverData.data.driver)
+    } catch (error) {
+      setDriver(false)
+    }
+  }
+
 
   return (
 
@@ -72,20 +85,12 @@ function DriverProfile(props) {
       <div className="driver__display">
         <h2>Profile information</h2>
         <RoleButton currentRole={currentRole} setCurrentRole={setCurrentRole} />
-        {/* <HistoryCard /> */}
-
-        {isPassenger ? <> {passenger ? <PassengerProfileCard Data={passenger} /> : null} </> : null}
-
-
-
-
-
-
-
-
-
+        {isPassenger ?
+          <> {passenger ? <PassengerProfileCard Data={passenger} /> : null} </>
+          :
+          <> {driver ? <> <DriverProfileCard Data={driver} /> <PassengerProfileCard Data={passenger} /></> : <h1 className="driver__display">Driver profile not found</h1>}</>
+        }
       </div>
-
     </div>
 
   )

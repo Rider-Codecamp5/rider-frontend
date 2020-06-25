@@ -4,12 +4,6 @@ import '../components/PassengerProfileCard.css'
 function PassengerProfileCard(props) {
     
     const {Data} = props;
-    // useEffect(() => {
-    //     console.log("Hello")
-    //     console.log(Data)
-
-    // }, [])
-
 
     return (
         <div className='card'>
