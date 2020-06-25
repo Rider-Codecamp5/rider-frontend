@@ -7,8 +7,6 @@ import jwtDecode from 'jwt-decode';
 import 'antd/dist/antd.css';
 import './App.css';
 
-
-
 function App() {
   const [role, setRole] = useState('guest');
 
@@ -38,7 +36,7 @@ function App() {
 
   return (
     <div className='App'>
-      <PrivateRoute role={role} setRole={setRole} />
+      <PrivateRoute role={role} setRole={setRole} userInfo={userInfo} />
       <Navbar role={role} onLogOut={onLogOut} />
     </div>
   );

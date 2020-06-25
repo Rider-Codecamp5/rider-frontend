@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from '../../configs/axios';
 import { Form, Input, Select, Row, Col, Button, Avatar } from 'antd';
 import { Link, Redirect, useHistory } from 'react-router-dom';
-import Navbar from '../Navbar';
 import jwtDecode from 'jwt-decode'
 import { UserOutlined } from '@ant-design/icons';
 import '../../styles/UserRegisterRoute.css';
 import * as storageItem from '../../configs/localStorageItems';
-
+import './LoginUser.css';
 
 const { Option } = Select;
 const formItemLayout = {
@@ -29,18 +28,18 @@ const formItemLayout = {
   },
 };
 
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
+// const tailFormItemLayout = {
+//   wrapperCol: {
+//     xs: {
+//       span: 24,
+//       offset: 0,
+//     },
+//     sm: {
+//       span: 16,
+//       offset: 8,
+//     },
+//   },
+// };
 
 function LoginUser(props) {
   const [LoginComplete, setLoginComplete] = useState(false);
@@ -55,9 +54,9 @@ function LoginUser(props) {
   }, [])
 
   const onFinish = async (values) => {
-    console.log('Received values of form: ', values);
-    console.log(values.email)
-    console.log(values.password)
+    // console.log('Received values of form: ', values);
+    // console.log(values.email)
+    // console.log(values.password)
     const body = {
       email: values.email,
       password: values.password,
@@ -71,112 +70,97 @@ function LoginUser(props) {
       
       alert('Welcome to Rider')
       console.log(`${localStorage.getItem(storageItem.ACCESS_TOKEN)}`);
-      console.log('OK');
-      // alert('Welcome to Rider');
       form.resetFields();
       history.push('/search-driver');
     } catch (err) {
-      console.log('fail')
       console.log(err)
       form.resetFields()
       alert('login failed')
     }
   };
 
-
-
   return (
-    <div>
-      <Row
-        justify='center'
-        style={{ paddingTop: '50px', paddingBottom: '10px' }}
-      >
-        <Col xs={4} sm={2}>
-          <Avatar size={80} icon={<UserOutlined />} />
-        </Col>
-      </Row>
+    <Col className='login' >
       <Row justify='center'>
-        <Col xs={8} sm={4} md={4} lg={3}>
-          <h1 className='h1'>Welcome to Rider</h1>
-        </Col>
+        <Avatar size={80} icon={<UserOutlined />} />
       </Row>
 
-      <Form
-        {...formItemLayout}
-        form={form}
-        name='login'
-        onFinish={onFinish}
-        initialValues={{
-          residence: ['zhejiang', 'hangzhou', 'xihu'],
-          prefix: '86',
-        }}
-        scrollToFirstError
-      >
-        <Row justify='center'>
-          <Col xs={20} sm={22}>
-            <Form.Item
-              name='email'
-              label='E-mail'
-              rules={[
-                {
-                  type: 'email',
-                  message: 'The input is not valid E-mail!',
-                },
-                {
-                  required: true,
-                  message: 'Please input your E-mail!',
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
-        </Row>
+      <Row justify='center'>
+        <h1 className='login__header'>Welcome to Rider</h1>
+      </Row>
+    
+      <Row justify='center'>
+        <Col span={24}>
+          <Form
+            {...formItemLayout}
+            form={form}
+            name='login'
+            onFinish={onFinish}
+            initialValues={{
+              residence: ['zhejiang', 'hangzhou', 'xihu'],
+              prefix: '86',
+            }}
+            scrollToFirstError
+          >
+            <Row justify='center' align='middle'>
+              <Col xs={24} md={15}>
+                <Form.Item
+                  name='email'
+                  label='E-mail'
+                  rules={[
+                    {
+                      type: 'email',
+                      message: 'The input is not valid E-mail!',
+                    },
+                    {
+                      required: true,
+                      message: 'Please input your E-mail!',
+                    },
+                  ]}
+                >
+                  <Input className='login__input' />
+                </Form.Item>
+              </Col>
+            </Row>
 
-        <Row justify='center'>
-          <Col xs={20} sm={22}>
-            <Form.Item
-              name='password'
-              label='Password'
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input your password!',
-                },
-              ]}
-              hasFeedback
-            >
-              <Input.Password />
-            </Form.Item>
+            <Row justify='center'>
+              <Col xs={24} md={15}>
+                <Form.Item
+                  name='password'
+                  label='Password'
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please input your password!',
+                    },
+                  ]}
+                  hasFeedback
+                >
+                  <Input.Password className='login__input' />
+                </Form.Item>
+              </Col>
+            </Row>
 
-          </Col>
-        </Row>
+            <Row justify='center'>
+              <Form.Item >
+                <Button
+                  type='primary'
+                  htmlType='submit'
+                  className='App__button'
+                >
+                  Login
+                </Button>
+              </Form.Item>
+            </Row>
 
-        <Row justify='center'>
-          <Col span={4}>
-            <Form.Item {...tailFormItemLayout} >
-              <Button
-                type='primary'
-                htmlType='submit'
-                style={{ backgroundColor: '#40CE5D', borderRadius: 'none', marginBottom: '50px' }}
-              >
-                Login
-        </Button>
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Row justify='center'>
-          <Col xs={12} sm={6}>
-            <Link to='/register'>Register</Link> | <Link to=''>Forget Password?</Link>
-          </Col>
-
-        </Row>
-
-        {LoginComplete ? <Redirect to='/driver/route' /> : null}
-      </Form>
-
-    </div >
+            <Row justify='center'>
+              <Link to='/register'>Register</Link> <span style={{padding: '0 0.5rem'}}>|</span> <Link to=''>Forget Password?</Link>
+            </Row>
+            {LoginComplete ? <Redirect to='/driver/route' /> : null}
+          </Form>
+        </Col>
+      </Row>
+    </Col>
   )
 }
 

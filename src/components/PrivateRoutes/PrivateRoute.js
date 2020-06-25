@@ -15,7 +15,7 @@ function PrivateRoute(props) {
               exact path = {route.url}
               key = {route.url}
               render={(routeProps) => (
-                <route.component {...routeProps} role={props.role} setRole={props.setRole} />
+                <route.component {...routeProps} role={props.role} setRole={props.setRole} userInfo={props.userInfo} />
               )}
             />
           )
