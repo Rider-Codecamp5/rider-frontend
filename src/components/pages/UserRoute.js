@@ -112,10 +112,8 @@ function UserRoute() {
     let result = await axios.get(
       `/user/trip?destinationLat=${destinationLat}&destinationLng=${destinationLng}`
     );
-    console.log(result.data);
+
     setDrivers(result.data);
-    // why need to click second time to render
-    console.log('driver from result', drivers);
   };
 
   const renderResult = () => {
@@ -136,6 +134,10 @@ function UserRoute() {
       >
         <p>From: {driver.from}</p>
         <p>From: {driver.to}</p>
+        <p>Car: {driver.car_model}</p>{' '}
+        <span>
+          <p>Seat available: {driver.seating_capacity}</p>
+        </span>
       </Card>
     ));
   };
@@ -227,8 +229,8 @@ function UserRoute() {
         >
           Search
         </Button>
+        {renderResult()}
       </div>
-      {renderResult()}
     </div>
   );
 }
