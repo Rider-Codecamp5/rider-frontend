@@ -43,23 +43,16 @@ const tailFormItemLayout = {
 };
 
 function LoginUser(props) {
-
-  const { isLogin, setIsLogin, userInfo, setUserInfo } = props;
   const [LoginComplete, setLoginComplete] = useState(false);
-  // const [form] = Form.useForm();
+  const [form] = Form.useForm();
   let history = useHistory();
 
   useEffect(() => {
     if (localStorage.getItem('ACCESS_TOKEN')) {
       const user = jwtDecode(localStorage.getItem('ACCESS_TOKEN'))
-      setIsLogin(true)
-      setUserInfo(user)
       setLoginComplete(true)
     }
   }, [])
-
-
-  const [form] = Form.useForm();
 
   const onFinish = async (values) => {
     console.log('Received values of form: ', values);
@@ -75,7 +68,6 @@ function LoginUser(props) {
       localStorage.setItem(storageItem.ACCESS_TOKEN, createUser.data.token);
       localStorage.setItem(storageItem.role, 'user');
       props.setRole(localStorage.getItem(storageItem.role));
-      console.log('logged in role', props.role)
       
       alert('Welcome to Rider')
       console.log(`${localStorage.getItem(storageItem.ACCESS_TOKEN)}`);
