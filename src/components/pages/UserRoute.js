@@ -16,6 +16,8 @@ import {
   Space,
 } from 'antd';
 import moment from 'moment';
+import HistoryCard from '../HistoryCard';
+import { Link } from 'react-router-dom';
 
 const libraries = ['places'];
 
@@ -126,19 +128,19 @@ function UserRoute() {
     }
 
     return drivers.map(driver => (
-      <Card
-        key={driver.id}
-        bordered={false}
-        style={{ width: 300 }}
-        title='Driver name'
-      >
-        <p>From: {driver.from}</p>
-        <p>From: {driver.to}</p>
-        <p>Car: {driver.car_model}</p>{' '}
-        <span>
-          <p>Seat available: {driver.seating_capacity}</p>
-        </span>
-      </Card>
+      <Link to={`/driver/route-details/${driver.id}`}>
+        <HistoryCard
+          id={driver.id}
+          key={driver.id}
+          driverName='Driver Name'
+          from={driver.from}
+          to={driver.to}
+          carModel={driver.car_model}
+          seat={driver.seatingCapacity}
+          price={driver.price}
+          dateTime={driver.createdAt}
+        />
+      </Link>
     ));
   };
 
