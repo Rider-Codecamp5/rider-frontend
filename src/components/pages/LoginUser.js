@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../configs/axios';
 import { Form, Input, Select, Row, Col, Button, Avatar } from 'antd';
+import { Link, Redirect, useHistory } from 'react-router-dom';
+import Navbar from '../Navbar';
+import jwtDecode from 'jwt-decode'
 import { UserOutlined } from '@ant-design/icons';
 import '../../styles/UserRegisterRoute.css';
-import { Link, useHistory } from 'react-router-dom';
 import * as storageItem from '../../configs/localStorageItems';
 
 
@@ -44,7 +46,7 @@ function LoginUser(props) {
 
   const { isLogin, setIsLogin, userInfo, setUserInfo } = props;
   const [LoginComplete, setLoginComplete] = useState(false);
-  const [form] = Form.useForm();
+  // const [form] = Form.useForm();
   let history = useHistory();
 
   useEffect(() => {

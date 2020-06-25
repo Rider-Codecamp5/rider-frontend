@@ -41,7 +41,7 @@ const tailFormItemLayout = {
 };
 
 function DriverRegister() {
-
+    const [registerFinish, setRegisterFinish] = useState(false);
     const [isLogin, setIsLogin] = useState(false);
     const [userInfo, setUserInfo] = useState({});
 
