@@ -11,7 +11,6 @@ import {
   InputNumber,
   Slider,
   Button,
-  Card,
   Spin,
   Space,
 } from 'antd';
@@ -128,10 +127,9 @@ function UserRoute() {
     }
 
     return drivers.map(driver => (
-      <Link to={`/driver/route-details/${driver.id}`}>
+      <Link to={`/driver/route-details/${driver.id}`} key={driver.id}>
         <HistoryCard
           id={driver.id}
-          key={driver.id}
           driverName='Driver Name'
           from={driver.from}
           to={driver.to}

@@ -1,20 +1,24 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
-import { GoogleMap, useLoadScript, DirectionsRenderer, DirectionsService } from '@react-google-maps/api';
+import React, { useState, useRef, useCallback } from 'react';
+import {
+  GoogleMap,
+  DirectionsRenderer,
+  DirectionsService,
+} from '@react-google-maps/api';
 
 const containerStyle = {
   width: '100%',
-  height: '40vh'
+  height: '40vh',
 };
 
 const center = {
   lat: 13.7563,
-  lng: 100.5018
+  lng: 100.5018,
 };
 
 const options = {
   // styles: mapStyle,
-  disableDefaultUI: true
-}
+  disableDefaultUI: true,
+};
 
 function DriverMap(props) {
   const mapRef = useRef();
@@ -25,25 +29,31 @@ function DriverMap(props) {
   const { origin, destination } = props;
   const [response, setResponse] = useState(null);
 
-
-  const directionsCallback = (googleResponse) => {
+  const directionsCallback = googleResponse => {
     if (googleResponse) {
-      if(response) {
-        if (googleResponse.status === 'OK' && googleResponse.routes.overview_polyline !== response.routes.overview_polyline) {
-          setResponse(() => googleResponse)
+      if (response) {
+        if (
+          googleResponse.status === 'OK' &&
+          googleResponse.routes.overview_polyline !==
+            response.routes.overview_polyline
+        ) {
+          setResponse(() => googleResponse);
         } else {
-          console.log(googleResponse.routes.overview_polyline == response.routes.overview_polyline)
-          console.log('response: ', googleResponse)
+          console.log(
+            googleResponse.routes.overview_polyline ===
+              response.routes.overview_polyline
+          );
+          console.log('response: ', googleResponse);
         }
       } else {
         if (googleResponse.status === 'OK') {
-          setResponse(() => googleResponse)
+          setResponse(() => googleResponse);
         } else {
-          console.log('response: ', googleResponse)
+          console.log('response: ', googleResponse);
         }
       }
-    } 
-  }
+    }
+  };
 
   return (
     <div className='route__map'>
@@ -54,23 +64,23 @@ function DriverMap(props) {
         options={options}
         onLoad={onMapLoad}
       >
-        { /* Child components, such as markers, info windows, etc. */ }
+        {/* Child components, such as markers, info windows, etc. */}
         <>
           {destination !== '' && origin !== '' && (
-            <DirectionsService 
+            <DirectionsService
               options={{
                 origin,
                 destination,
-                travelMode: 'DRIVING'
+                travelMode: 'DRIVING',
               }}
               callback={directionsCallback}
             />
           )}
 
           {response !== null && (
-            <DirectionsRenderer 
+            <DirectionsRenderer
               options={{
-                directions: response
+                directions: response,
               }}
             />
           )}
@@ -78,7 +88,6 @@ function DriverMap(props) {
       </GoogleMap>
     </div>
   );
-};
-
+}
 
 export default React.memo(DriverMap);

@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import moment from 'moment';
-import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import {
+  CheckCircleOutlined,
+  CloseCircleOutlined,
+  CarOutlined,
+  CalendarOutlined,
+  PushpinOutlined,
+  DollarOutlined,
+} from '@ant-design/icons';
 import './HistoryCard.css';
 
 function HistoryCard(props) {
@@ -21,14 +28,23 @@ function HistoryCard(props) {
           </span>
           <br />
           <span>
+            <PushpinOutlined />
             <b>To</b> {props.to}
           </span>
           <br />
-          <span>{moment(props.dateTime).format('MMMM Do YYYY')}</span>
+          <span>
+            <CalendarOutlined />
+            {moment(props.dateTime).format('MMMM Do YYYY')}
+          </span>
           <br />
-          <span>{props.carModel}</span>
+          <span>
+            <CarOutlined /> {props.carModel}
+          </span>
           <br />
-          <span className='card__price'>Price {props.price} Baht</span>
+          <span className='card__price'>
+            <DollarOutlined />
+            Price {props.price} Baht
+          </span>
         </div>
       </div>
       <div className='card__divider'>{/* horizontal line */}</div>

@@ -12,6 +12,7 @@ import DriverRegister from '../components/pages/DriverRegister';
 import UserRoute from '../components/pages/UserRoute';
 
 import 'antd/dist/antd.css';
+import RouteDetails from '../components/pages/RouteDetails';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -44,6 +45,11 @@ function App() {
       <Route path='/search-driver'>
         <UserRoute />
       </Route>
+      <Route
+        exact
+        path='/driver/route-details/:id'
+        render={routeProps => <RouteDetails {...routeProps} />}
+      ></Route>
     </Switch>
   );
 }
