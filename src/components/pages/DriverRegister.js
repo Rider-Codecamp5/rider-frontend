@@ -40,9 +40,10 @@ const tailFormItemLayout = {
     },
 };
 
-function DriverRegister(props) {
+function DriverRegister() {
 
-    const { isLogin, setIsLogin, userInfo, setUserInfo } = props
+    const [isLogin, setIsLogin] = useState(false);
+    const [userInfo, setUserInfo] = useState({});
 
     useEffect(() => {
         if (localStorage.getItem("ACCESS_TOKEN")) {
@@ -106,7 +107,9 @@ function DriverRegister(props) {
     return (
         <div>
 
-            <div className="navTop"></div>
+            <div className="App__heading">
+                <h2>Driver Register</h2>
+            </div>
             <Row justify="center" style={{ paddingTop: "20px", paddingBottom: "10px" }}>
                 <Col xs={4} sm={2}><Avatar size={60} icon={<UserOutlined />} /></Col>
             </Row>

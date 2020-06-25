@@ -4,7 +4,8 @@ import { Form, Input, Select, Row, Col, Button, Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import '../../styles/UserRegisterRoute.css';
 import { Link, useHistory } from 'react-router-dom';
-import Navbar from '../Navbar';
+import * as storageItem from '../../configs/localStorageItems';
+
 
 const { Option } = Select;
 const formItemLayout = {
@@ -39,7 +40,7 @@ const tailFormItemLayout = {
   },
 };
 
-function LoginUser() {
+function LoginUser(props) {
   const [form] = Form.useForm();
   let history = useHistory();
 
@@ -54,10 +55,15 @@ function LoginUser() {
 
     try {
       const createUser = await axios.post('/user/loginUser', body);
-      localStorage.setItem('ACCESS_TOKEN', createUser.data.token);
-      console.log(`${localStorage.getItem('ACCESS_TOKEN')}`);
+      localStorage.setItem(storageItem.ACCESS_TOKEN, createUser.data.token);
+      localStorage.setItem(storageItem.role, 'user');
+      props.setRole(localStorage.getItem(storageItem.role));
+      console.log('logged in role', props.role)
+      
+      alert('Welcome to Rider')
+      console.log(`${localStorage.getItem(storageItem.ACCESS_TOKEN)}`);
       console.log('OK');
-      alert('Welcome to Rider');
+      // alert('Welcome to Rider');
       form.resetFields();
       history.push('/search-driver');
     } catch (err) {
@@ -70,7 +76,6 @@ function LoginUser() {
 
   return (
     <div>
-      <Navbar />
       <Row
         justify='center'
         style={{ paddingTop: '50px', paddingBottom: '10px' }}
@@ -137,7 +142,7 @@ function LoginUser() {
 
         <Row justify='center'>
           <Col span={4}>
-            <Form.Item {...tailFormItemLayout}>
+            <Form.Item {...tailFormItemLayout} >
               <Button
                 type='primary'
                 htmlType='submit'
