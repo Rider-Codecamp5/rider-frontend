@@ -8,14 +8,33 @@ import Navbar from '../Navbar';
 import HistoryCard from '../HistoryCard'
 import RoleButton from '../RoleButton'
 import PassengerProfileCard from '../PassengerProfileCard';
+import jwtDecode from 'jwt-decode'
 
-function DriverProfile() {
+function DriverProfile(props) {
 
-  useEffect(()=>{
-    if(localStorage.getItem("ACCESS_TOKEN")){
-      alert("Have Token")
+  const { isLogin, setIsLogin, userInfo, setUserInfo } = props
+
+  const [driver, setDriver] = useState({})
+
+  useEffect(() => {
+    if (localStorage.getItem("ACCESS_TOKEN")) {
+      const user = jwtDecode(localStorage.getItem('ACCESS_TOKEN'))
+      // console.log(user)
+      setIsLogin(true)
+      setUserInfo(user)
     }
-  })
+  },[])
+
+  useEffect(() => {
+    driverData()
+  },[userInfo])
+
+  const driverData = async () => {
+    const headers = { Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}` }
+    const driverData = await axios.get(`/driver/get/${userInfo.id}`, { headers: headers })
+    console.log(userInfo.id)
+    console.log(driverData.data)
+  }
 
   return (
 

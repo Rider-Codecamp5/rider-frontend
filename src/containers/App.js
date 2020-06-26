@@ -49,7 +49,7 @@ function App() {
 
 
         <Route path="/profile/driver">
-          <DriverProfile />
+          <DriverProfile isLogin={isLogin} setIsLogin={setIsLogin} userInfo={userInfo} setUserInfo={setUserInfo} />
         </Route>
       </Switch>
     </div>
