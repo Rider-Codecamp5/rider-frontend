@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PlaceSearch from '../PlaceSearch';
 import axios from '../../configs/axios';
-import './DriverRoute.css';
+import '../../styles/DriverRoute.css';
 
 import { useLoadScript } from '@react-google-maps/api';
 import {

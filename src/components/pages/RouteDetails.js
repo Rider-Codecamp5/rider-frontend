@@ -6,7 +6,7 @@ import { useLoadScript } from '@react-google-maps/api';
 import DriverMap from '../DriverMap';
 import HistoryCard from '../HistoryCard';
 
-import './DriverRoute.css';
+import '../../styles/DriverRoute.css';
 import '../../containers/App.css';
 
 const libraries = ['places'];

@@ -5,8 +5,8 @@ import { Link, Redirect, useHistory } from 'react-router-dom';
 import jwtDecode from 'jwt-decode'
 import { UserOutlined } from '@ant-design/icons';
 import '../../styles/UserRegisterRoute.css';
+import '../../styles/LoginUser.css';
 import * as storageItem from '../../configs/localStorageItems';
-import './LoginUser.css';
 
 const { Option } = Select;
 const formItemLayout = {

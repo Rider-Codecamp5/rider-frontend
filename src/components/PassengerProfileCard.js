@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react'
-import '../components/PassengerProfileCard.css'
+import '../styles/PassengerProfileCard.css'
 
 function PassengerProfileCard(props) {
     

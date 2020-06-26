@@ -8,7 +8,7 @@ import {
   PushpinOutlined,
   DollarOutlined,
 } from '@ant-design/icons';
-import './HistoryCard.css';
+import '../styles/HistoryCard.css';
 
 function HistoryCard(props) {
   return (

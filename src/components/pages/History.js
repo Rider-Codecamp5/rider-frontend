@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './History.css';
+import '../../styles/HistoryCard.css';
 import HistoryCard from '../HistoryCard';
 import RoleButton from '../RoleButton';
 
