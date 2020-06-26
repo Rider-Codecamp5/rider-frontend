@@ -3,6 +3,7 @@ import axios from '../../configs/axios';
 import jwtDecode from 'jwt-decode'
 import { Redirect } from 'react-router-dom';
 import RoleButton from '../RoleButton'
+import '../pages/UserSetting.css'
 
 function UserSetting() {
 
@@ -72,10 +73,10 @@ function UserSetting() {
 
             {isPassenger ?
                 <>
-                    <h1>Passenger</h1>
-                    <div>
-                        <div><label>Name</label></div>
-                        <input placeholder={oldUserData.first_name} onChange={(e) => setName(e.target.value)} value={name}></input>
+                    <h1 className='title'>Passenger</h1>
+                    <div className='textBox'>
+                        <div className='textBox__label'><label>Name</label></div>
+                        <input className='textBox__Input' placeholder={oldUserData.first_name} onChange={(e) => setName(e.target.value)} value={name}></input>
                         <br />
                         <br />
                     </div>
