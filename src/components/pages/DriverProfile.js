@@ -13,6 +13,7 @@ import DriverProfileCard from '../DriverProfileCard';
 
 function DriverProfile(props) {
 
+  
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo ] = useState({});
   const [passenger, setPassenger] = useState({});
@@ -33,13 +34,6 @@ function DriverProfile(props) {
     driverData();
   }, [userInfo])
 
-  useEffect(() => {
-    if (currentRole == 'driver') {
-      setIsPassenger(false)
-    } else {
-      setIsPassenger(true)
-    }
-  }, [currentRole])
 
   const passengerData = async () => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}` }
@@ -50,7 +44,7 @@ function DriverProfile(props) {
 
   const driverData = async () => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}` }
-    const driverData = await axios.get(`/driver/getDriverInformation/${userInfo.id}`, { headers: headers });
+    const driverData = await axios.get(`/driver/get`, { headers: headers });
     console.log(driverData)
     try {
       console.log('driver from db', driverData.data.driver)
@@ -84,7 +78,7 @@ function DriverProfile(props) {
 
       <div className="driver__display">
         <h2>Profile information</h2>
-        <RoleButton currentRole={currentRole} setCurrentRole={setCurrentRole} />
+        <RoleButton isPassenger={isPassenger} setIsPassenger={setIsPassenger} />
         {isPassenger ?
           <> {passenger ? <PassengerProfileCard Data={passenger} /> : null} </>
           :
