@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../configs/axios';
+import jwtDecode from 'jwt-decode';
 import { Button } from 'antd';
 import { useLoadScript } from '@react-google-maps/api';
 // import moment from 'moment';
@@ -30,22 +31,44 @@ function RouteDetails(props) {
     getDriver();
   }, []);
 
-  console.log(props);
-
   // --------- call API ----------------
   const getDriver = async () => {
-    const result = await axios.get(`/user/trip/${props.match.params.id}`);
-    const originGeoCode = {
-      lat: result.data.from_lat,
-      lng: result.data.from_lng,
-    };
-    const destinationGeoCode = {
-      lat: result.data.to_lat,
-      lng: result.data.to_lng,
-    };
-    setRouteDetails(result.data);
-    setOrigin(originGeoCode);
-    setDestination(destinationGeoCode);
+    try {
+      const result = await axios.get(`/user/trip/${props.match.params.id}`);
+      const originGeoCode = {
+        lat: result.data.from_lat,
+        lng: result.data.from_lng,
+      };
+      const destinationGeoCode = {
+        lat: result.data.to_lat,
+        lng: result.data.to_lng,
+      };
+
+      setRouteDetails(result.data);
+      setOrigin(originGeoCode);
+      setDestination(destinationGeoCode);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // const token = localStorage.getItem('ACCESS_TOKEN');
+  // const info = jwtDecode(token);
+  // console.log('decoded token', info);
+  // console.log(props);
+
+  const selectDriver = async () => {
+    await axios({
+      method: 'patch',
+      url: `/driver/service/join`,
+      data: {
+        passengerId: props.userInfo.id,
+        driverId: Number(props.match.params.id),
+      },
+      // headers: {
+      //   Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+      // },
+    });
   };
 
   if (loadError) return 'Error loading maps';
@@ -109,7 +132,7 @@ function RouteDetails(props) {
         <Button type='primary' block style={{ marginBottom: '1rem' }}>
           Call Driver
         </Button>
-        <Button type='#95de64' block>
+        <Button type='#95de64' block onClick={selectDriver}>
           Join Trip
         </Button>
       </div>
