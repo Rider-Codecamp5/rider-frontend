@@ -39,7 +39,7 @@ function App() {
   return (
     <div className='App'>
       <PrivateRoute role={role} setRole={setRole} userInfo={userInfo} />
-      <Navbar role={role} onLogOut={onLogOut} />
+      <Navbar role={role} onLogOut={onLogOut} userInfo={userInfo} />
     </div>
   );
 }
