@@ -144,7 +144,7 @@ function UserRoute() {
 
   return (
     <div className='route'>
-      <div className='route__heading'>
+      <div className='App__heading'>
         <h2>Search Rider</h2>
       </div>
       <div className='route__form'>
@@ -225,7 +225,7 @@ function UserRoute() {
           type='primary'
           size='large'
           onClick={findDrivers}
-          className='route__button'
+          className='App__button'
         >
           Search
         </Button>

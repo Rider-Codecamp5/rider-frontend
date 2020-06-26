@@ -105,7 +105,7 @@ function UserRegisterRoute() {
       <div className='App__heading'>
         <h2>Register</h2>
       </div>
-      <Col span={24}>
+      <Col span={24} >
         <Row
           justify='center'
           style={{ paddingTop: '20px', paddingBottom: '10px' }}
@@ -132,7 +132,7 @@ function UserRegisterRoute() {
           scrollToFirstError
         >
           <Row justify='center'>
-            <Col xs={20} sm={22}>
+            <Col xs={20} sm={22} md={15} >
               <Form.Item
                 name='email'
                 label='E-mail'
@@ -152,7 +152,7 @@ function UserRegisterRoute() {
             </Col>
           </Row>
           <Row justify='center'>
-            <Col xs={20} sm={22}>
+            <Col xs={20} sm={22} md={15}>
               <Form.Item
                 name='password'
                 label='Password'
@@ -169,7 +169,7 @@ function UserRegisterRoute() {
             </Col>
           </Row>
           <Row justify='center'>
-            <Col xs={20} sm={22}>
+            <Col xs={20} sm={22} md={15}>
               <Form.Item
                 name='confirm'
                 label='Confirm Password'
@@ -199,7 +199,7 @@ function UserRegisterRoute() {
           </Row>
 
           <Row justify='center'>
-            <Col xs={20} sm={22}>
+            <Col xs={20} sm={22} md={15}>
               <Form.Item
                 name='name'
                 label={
@@ -222,7 +222,7 @@ function UserRegisterRoute() {
           </Row>
 
           <Row justify='center'>
-            <Col xs={20} sm={22}>
+            <Col xs={20} sm={22} md={15}>
               <Form.Item
                 name='surname'
                 label={
@@ -245,7 +245,7 @@ function UserRegisterRoute() {
           </Row>
 
           <Row justify='center'>
-            <Col xs={20} sm={22}>
+            <Col xs={20} sm={22} md={15}>
               <Form.Item
                 name='phone_number'
                 label={
@@ -268,7 +268,7 @@ function UserRegisterRoute() {
           </Row>
 
           <Row justify='center'>
-            <Col xs={20} sm={22}>
+            <Col xs={20} sm={22} md={15}>
               <Form.Item
                 name='address'
                 label={
