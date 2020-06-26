@@ -1,25 +1,50 @@
 import React from "react";
 import "../styles/Navbar.css";
 
-function Navbar() {
-  return (
-    <div className="Navbar">
-      <nav>
-        <div className="">
+function Navbar(props) {
+
+
+  const navItems = () => {
+    switch(props.role) {
+      case 'user':
+        return(
           <ul>
             <li>
-              <a href="#">Search</a>
+              <a href="/search-driver">Search</a>
             </li>
             <li>
-              <a href="#">Inbox</a>
+              <a href="/history">History</a>
             </li>
             <li>
               <a href="#">Profile</a>
             </li>
+            <li>
+              <a href='/' onClick={props.onLogOut}>Log out</a>
+            </li>
           </ul>
-        </div>
-      </nav>
-    </div>
+        )
+      default:
+        return(
+          <ul>
+            <li>
+              <a href="/">Login</a>
+            </li>
+            <li>
+              <a href="/register">Register</a>
+            </li>
+            <li>
+              <a href="/privacy-policy">Policy</a>
+            </li>
+          </ul>
+        )
+    }
+  }
+
+
+  return (
+    <nav className="Navbar">
+      {navItems()}
+    </nav>
   );
 }
 

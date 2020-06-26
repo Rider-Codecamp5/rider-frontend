@@ -1,9 +1,10 @@
+import Login from '../components/pages/LoginUser';
 import DriverRoute from '../components/pages/DriverRoute';
 import UserRegisterRoute from '../components/pages/UserRegisterRoute';
-import Login from '../components/pages/LoginUser';
 import DriverRegister from '../components/pages/DriverRegister';
 import UserRoute from '../components/pages/UserRoute';
 import PrivacyPolicy from '../components/pages/PrivacyPolicy';
+import History from '../components/pages/History';
 import RouteDetails from '../components/pages/RouteDetails';
 
 const components = {
@@ -31,9 +32,13 @@ const components = {
     component: DriverRoute,
     url: '/driver/route',
   },
+  History: {
+    component: History,
+    url: '/history',
+  },
   RouteDetails: {
     component: RouteDetails,
-    url: 'driver/route-details',
+    url: '/driver/route-details',
   },
 };
 
@@ -48,6 +53,7 @@ const configRoute = {
       components.PrivacyPolicy,
       components.UserRoute,
       components.DriverRoute,
+      components.History,
       components.RouteDetails,
     ],
     redirect: '/search-driver',

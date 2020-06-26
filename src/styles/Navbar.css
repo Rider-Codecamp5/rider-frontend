@@ -1,14 +1,16 @@
 .Navbar {
+  display: flex;
+  justify-content: center;
   background-color: #1788fb;
   bottom: 0;
   padding-bottom: 0;
   text-align: center;
-  font-size: 1.3rem;
   font-weight: 600;
   position: absolute;
   bottom: 0;
   width: 100%;
   height: 4rem;
+  box-shadow: inset 0px -14px 20px rgba(0, 0, 0, 0.16);
 }
 
 .Navbar ul {
@@ -18,21 +20,26 @@
 }
 
 .Navbar li {
-  /* margin: auto 0; */
   justify-self: center;
-  padding: 1rem 2rem;
+  align-self: center;
+  padding: 0 1rem;
   list-style: none;
+  font-size: 1rem;
 }
 
-nav a {
+.Navbar a {
   color: white;
 }
 
-.btn-cancel{
-  padding: 5px 10px;
-  width: 100%;
-  background-color: #FF425E;
-  border-style: none;
-  color: #FCFCFC;
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+  .Navbar li {
+    font-size: 1.3rem;
+  }
 }
 
+@media only screen and (min-width: 769px) {
+  .Navbar li {
+    padding: 0 2rem;
+    font-size: 1.3rem;
+  }
+}

@@ -8,12 +8,24 @@ import 'antd/dist/antd.css';
 import './App.css';
 
 function App() {
-  const [role, setRole] = useState('guest');
+  const [role, setRole] = useState(
+    localStorage.getItem(storageItem.role) || 'guest'
+  );
 
   const onLogOut = () => {
     localStorage.removeItem(storageItem.ACCESS_TOKEN);
     localStorage.setItem(storageItem.role, 'guest');
   };
+
+  useEffect(() => {
+    // persistState
+    let storageRole = localStorage.getItem(storageItem.role);
+    if (storageRole) {
+      setRole(storageRole);
+    } else {
+      onLogOut();
+    }
+  }, []);
 
   let token = localStorage.getItem(storageItem.ACCESS_TOKEN);
   let userInfo;
@@ -26,8 +38,8 @@ function App() {
 
   return (
     <div className='App'>
-      <PrivateRoute role={role} setRole={setRole} />
-      <Navbar />
+      <PrivateRoute role={role} setRole={setRole} userInfo={userInfo} />
+      <Navbar role={role} onLogOut={onLogOut} />
     </div>
   );
 }
