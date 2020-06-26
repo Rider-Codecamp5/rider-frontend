@@ -1,46 +1,45 @@
 .Navbar {
+  display: flex;
+  justify-content: center;
   background-color: #1788fb;
-  height: 49pt;
-  position: fixed;
-  left: 0;
+  bottom: 0;
+  padding-bottom: 0;
+  text-align: center;
+  font-weight: 600;
+  position: absolute;
   bottom: 0;
   width: 100%;
-  text-align: center;
-}
-
-nav {
-  /* margin-left: 10%;
-  margin-right: 10%; */
-}
-
-nav li {
-  display: inline;
-  /* margin: 0 8%; */
-}
-
-nav a {
-  padding: 25px 24.5pt;
-  color: white;
-  text-decoration: none;
-}
-
-nav ul {
-  padding: 5% 0;
+  height: 4rem;
+  box-shadow: inset 0px -14px 20px rgba(0, 0, 0, 0.16);
 }
 
 .Navbar ul {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0;
 }
 
-/* .RowCenter{
-  margin: ;
-} */
-
-.btn-cancel{
-  padding: 5px 10px;
-  width: 100%;
-  background-color: #FF425E;
-  border-style: none;
-  color: #FCFCFC;
+.Navbar li {
+  justify-self: center;
+  align-self: center;
+  padding: 0 1rem;
+  list-style: none;
+  font-size: 1rem;
 }
 
+.Navbar a {
+  color: white;
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+  .Navbar li {
+    font-size: 1.3rem;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .Navbar li {
+    padding: 0 2rem;
+    font-size: 1.3rem;
+  }
+}

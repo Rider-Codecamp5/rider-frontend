@@ -1,59 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
-import Navbar from "../components/Navbar";
-import DriverRoute from '../components/pages/DriverRoute';
-import UserRegisterRoute from '../components/pages/UserRegisterRoute';
-import { DatePicker } from 'antd';
-import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
-import { Route, Switch } from 'react-router-dom';
-import PrivacyPolicy from '../components/pages/PrivacyPolicy';
-import Login from '../components/pages/LoginUser';
-import DriverRegister from '../components/pages/DriverRegister';
-import History from '../components/pages/History';
-import DriverProfile from '../components/pages/DriverProfile'
+import PrivateRoute from '../components/PrivateRoutes/PrivateRoute';
+import Navbar from '../components/Navbar';
+import * as storageItem from '../configs/localStorageItems';
 
+import jwtDecode from 'jwt-decode';
 import 'antd/dist/antd.css';
+import './App.css';
 
 function App() {
+  const [role, setRole] = useState(localStorage.getItem(storageItem.role) || 'guest');
 
-  const [isLogin, setIsLogin] = useState(false);
-  const [userInfo, setUserInfo] = useState({});
+  const onLogOut = () => {
+    localStorage.removeItem(storageItem.ACCESS_TOKEN);
+    localStorage.setItem(storageItem.role, 'guest');
+  }
+
+  useEffect(()=> {
+    // persistState
+    let storageRole = localStorage.getItem(storageItem.role);
+    if (storageRole) {
+      setRole(storageRole)
+    } else {
+      onLogOut();  
+    }
+  }, [])
+
+  let token = localStorage.getItem(storageItem.ACCESS_TOKEN);
+  let userInfo;
+
+  if(token){
+    userInfo = jwtDecode(token);
+  } else {
+    onLogOut();
+  }
 
   return (
-
-    <div className="App">
-      <Switch>
-        <Route exact path='/'>
-          <Login isLogin={isLogin} setIsLogin={setIsLogin} userInfo={userInfo} setUserInfo={setUserInfo} />
-        </Route>
-
-        <Route path="/privacy-policy">
-          <PrivacyPolicy />
-        </Route>
-
-        <Route path="/register">
-          <UserRegisterRoute />
-        </Route>
-
-        <Route path="/driver/register">
-          <DriverRegister isLogin={isLogin} setIsLogin={setIsLogin} userInfo={userInfo} setUserInfo={setUserInfo} />
-        </Route>
-
-        <Route path="/driver/route">
-          <DriverRoute />
-        </Route>
-
-        <Route path="/history">
-          <History />
-        </Route>
-
-
-        <Route path="/profile/driver">
-          <DriverProfile isLogin={isLogin} setIsLogin={setIsLogin} userInfo={userInfo} setUserInfo={setUserInfo} />
-        </Route>
-      </Switch>
+    <div className='App'>
+      <PrivateRoute role={role} setRole={setRole} userInfo={userInfo} />
+      <Navbar role={role} onLogOut={onLogOut} />
     </div>
-
   );
 }
 

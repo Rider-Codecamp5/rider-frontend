@@ -1,0 +1,13 @@
+.login {
+  padding: 2rem;
+}
+
+.login form,
+.login .ant-form-item-label label {
+  font-size: 1rem;
+}
+
+.login .login__input {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}

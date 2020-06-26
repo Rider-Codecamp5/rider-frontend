@@ -1,37 +1,35 @@
 import React, { useState } from 'react';
-import DriverMap from '../DriverMap';
 import PlaceSearch from '../PlaceSearch';
 import axios from '../../configs/axios';
 import './DriverRoute.css';
 
 import { useLoadScript } from '@react-google-maps/api';
 import {
-  Form,
   DatePicker,
   TimePicker,
   Checkbox,
   InputNumber,
   Slider,
   Button,
+  Card,
+  Spin,
+  Space,
 } from 'antd';
 import moment from 'moment';
 
-const libraries = ['places']
-const marks = {
-  0: '฿0',
-  1000: '฿1,000'
-}
+const libraries = ['places'];
 
-function DriverRoute() {
+function UserRoute() {
   const [origin, setOrigin] = useState('Origin');
   const [destination, setDestination] = useState('Destination');
-  const [geocodeOrigin, setGeocodeOrigin] = useState({});
+  const [, setGeocodeOrigin] = useState({});
   const [geocodeDestination, setGeocodeDestination] = useState([]);
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [luggage, setLuggage] = useState(false);
   const [seatingCapacity, setSeatingCapacity] = useState('1');
   const [price, setPrice] = useState([30, 500]);
+  const [drivers, setDrivers] = useState([]);
 
   // ------------- required google places setting -----------
   const { isLoaded, loadError } = useLoadScript({
@@ -59,6 +57,11 @@ function DriverRoute() {
   // --------------  input function  --------------------------
 
   // antD slider mark
+  const marks = {
+    0: '฿0',
+    1000: '฿1,000',
+  };
+
   function onDateChange(date, dateString) {
     console.log(date, dateString);
     setDate(dateString);
@@ -101,44 +104,48 @@ function DriverRoute() {
     setPrice(value);
   };
 
-  const getRoute = () => {
-    if (origin !== '' && destination !== '') {
-      setOrigin(origin);
-      setDestination(destination);
-    }
+  // --------- call API ----------------
+  const findDrivers = async () => {
+    const destinationLat = geocodeDestination.lat;
+    const destinationLng = geocodeDestination.lng;
+
+    let result = await axios.get(
+      `/user/trip?destinationLat=${destinationLat}&destinationLng=${destinationLng}`
+    );
+
+    setDrivers(result.data);
   };
 
-  // --------- call API ----------------
-  const createRoute = async () => {
-    getRoute();
-
-    const headers = { Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}` }
-
-    let body = {
-      origin,
-      originLat: geocodeOrigin.lat,
-      originLng: geocodeOrigin.lng,
-      destination,
-      destinationLat: geocodeDestination.lat,
-      destinationLng: geocodeDestination.lng,
-      date,
-      time,
-      luggage,
-      seatingCapacity,
-    };
-
-    try {
-      let result = await axios.patch('/driver/service', body, { headers: headers });
-      console.log(result)
-    } catch(error) {
-      console.log(error)
+  const renderResult = () => {
+    if (!drivers) {
+      return (
+        <Space size='middle'>
+          <Spin size='large' />
+        </Space>
+      );
     }
+
+    return drivers.map(driver => (
+      <Card
+        key={driver.id}
+        bordered={false}
+        style={{ width: 300 }}
+        title='Driver name'
+      >
+        <p>From: {driver.from}</p>
+        <p>From: {driver.to}</p>
+        <p>Car: {driver.car_model}</p>{' '}
+        <span>
+          <p>Seat available: {driver.seating_capacity}</p>
+        </span>
+      </Card>
+    ));
   };
 
   return (
     <div className='route'>
-      <div className='App__heading'>
-        <h2>Create Route</h2>
+      <div className='route__heading'>
+        <h2>Search Rider</h2>
       </div>
       <div className='route__form'>
         <PlaceSearch place={origin} setPlace={setOrigin} getPlace={getOrigin} />
@@ -163,7 +170,13 @@ function DriverRoute() {
 
         <div>
           <span>Seating Capacity: </span>
-          <InputNumber min={1} max={13} defaultValue={1} onChange={onSeatingChange} className='route__input--small' />
+          <InputNumber
+            min={1}
+            max={13}
+            defaultValue={1}
+            onChange={onSeatingChange}
+            className='route__input--small'
+          />
         </div>
         <Checkbox onChange={onLuggageChange} className='route__input'>
           Luggage
@@ -208,23 +221,18 @@ function DriverRoute() {
           </div>
         </div>
 
-        <button type='primary' size='large' onClick={createRoute} className='App__button'>Post</button>
-        <DriverMap 
-          origin={origin} 
-          destination={destination}
-        />
+        <Button
+          type='primary'
+          size='large'
+          onClick={findDrivers}
+          className='route__button'
+        >
+          Search
+        </Button>
+        {renderResult()}
       </div>
-      {console.log('ori des', origin, destination)}
-      {console.log('geo ori des', geocodeOrigin, geocodeDestination)}
-      {console.log(
-        'lat lng ori des',
-        geocodeOrigin.lat,
-        geocodeOrigin.lng,
-        geocodeDestination.lat,
-        geocodeDestination.lng
-      )}
     </div>
   );
 }
 
-export default React.memo(DriverRoute);
+export default UserRoute;

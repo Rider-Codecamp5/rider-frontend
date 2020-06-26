@@ -4,12 +4,15 @@
   padding: 0;
 }
 
+.App {
+  position: relative;
+  min-height: 100vh;
+}
+
 .App__heading {
   text-align: center;
   padding: 1rem;
   background-color: #1788FB;
-  position: sticky;
-  top: 0;
   width: 100%;
 }
 
@@ -19,20 +22,28 @@
   margin: 0;
 }
 
+.App__header {
+  font-weight: bolder;
+  font-size: 1.5rem;
+  padding: 0.5rem 0 2rem 0;
+}
+
 .App .App__button,
 .App .App__button:focus {
   margin: 0.7rem 0;
   background-color: #40CE5D;
-  width: 100%;
+  width: auto;
+  min-width: 100%;
   font-weight: bold;
   font-size: 1.2rem;
   border: 1px solid #40CE5D;
   outline: none;
   cursor: pointer;
-  padding: 0.4rem;
+  padding: 0.3rem 0.8rem;
   color: #ffffff;
   border-radius: 4px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.16);
+  height: auto;
 }
 
 .App .App__button:hover {

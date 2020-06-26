@@ -1,180 +1,168 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../configs/axios';
-import { Space, Form, Input, Tooltip, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, Avatar, } from 'antd';
-import { InfoCircleOutlined, UserOutlined, EyeInvisibleOutlined, EyeTwoTone, QuestionCircleOutlined } from '@ant-design/icons';
-import '../../styles/UserRegisterRoute.css';
-import { Link, Redirect } from 'react-router-dom';
-import Navbar from '../Navbar';
+import { Form, Input, Select, Row, Col, Button, Avatar } from 'antd';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import jwtDecode from 'jwt-decode'
-
+import { UserOutlined } from '@ant-design/icons';
+import '../../styles/UserRegisterRoute.css';
+import * as storageItem from '../../configs/localStorageItems';
+import './LoginUser.css';
 
 const { Option } = Select;
 const formItemLayout = {
-    labelCol: {
-        xs: {
-            span: 24,
-        },
-        sm: {
-            span: 5,
-        },
+  labelCol: {
+    xs: {
+      span: 24,
     },
-    wrapperCol: {
-        xs: {
-            span: 24,
-        },
-        sm: {
-            span: 16,
-        },
+    sm: {
+      span: 5,
     },
+  },
+  wrapperCol: {
+    xs: {
+      span: 24,
+
+    },
+    sm: {
+      span: 16,
+    },
+  },
 };
 
-const tailFormItemLayout = {
-    wrapperCol: {
-        xs: {
-            span: 24,
-            offset: 0,
-        },
-        sm: {
-            span: 16,
-            offset: 8,
-        },
-    },
-};
+// const tailFormItemLayout = {
+//   wrapperCol: {
+//     xs: {
+//       span: 24,
+//       offset: 0,
+//     },
+//     sm: {
+//       span: 16,
+//       offset: 8,
+//     },
+//   },
+// };
 
 function LoginUser(props) {
+  const [LoginComplete, setLoginComplete] = useState(false);
+  const [form] = Form.useForm();
+  let history = useHistory();
 
-    const { isLogin, setIsLogin, userInfo, setUserInfo } = props;
-    const [LoginComplete, setLoginComplete] = useState(false);
+  useEffect(() => {
+    if (localStorage.getItem('ACCESS_TOKEN')) {
+      const user = jwtDecode(localStorage.getItem('ACCESS_TOKEN'))
+      setLoginComplete(true)
+    }
+  }, [])
 
-    useEffect(() => {
-        if (localStorage.getItem('ACCESS_TOKEN')) {
-            const user = jwtDecode(localStorage.getItem('ACCESS_TOKEN'))
-            setIsLogin(true)
-            setUserInfo(user)
-            setLoginComplete(true)
-        }
-    }, [])
+  const onFinish = async (values) => {
+    // console.log('Received values of form: ', values);
+    // console.log(values.email)
+    // console.log(values.password)
+    const body = {
+      email: values.email,
+      password: values.password,
+    }
 
+    try {
+      const createUser = await axios.post('/user/loginUser', body);
+      localStorage.setItem(storageItem.ACCESS_TOKEN, createUser.data.token);
+      localStorage.setItem(storageItem.role, 'user');
+      props.setRole(localStorage.getItem(storageItem.role));
+      
+      alert('Welcome to Rider')
+      console.log(`${localStorage.getItem(storageItem.ACCESS_TOKEN)}`);
+      form.resetFields();
+      history.push('/search-driver');
+    } catch (err) {
+      console.log(err)
+      form.resetFields()
+      alert('login failed')
+    }
+  };
 
-    const [form] = Form.useForm();
+  return (
+    <Col className='login' >
+      <Row justify='center'>
+        <Avatar size={80} icon={<UserOutlined />} />
+      </Row>
 
-    const onFinish = async (values) => {
-        console.log('Received values of form: ', values);
-        console.log(values.email)
-        console.log(values.password)
-        const body = {
-            email: values.email,
-            password: values.password,
-        }
-
-        try {
-            const createUser = await axios.post('/user/loginUser', body);
-            localStorage.setItem("ACCESS_TOKEN", createUser.data.token);
-            console.log(`${localStorage.getItem("ACCESS_TOKEN")}`)
-            console.log("OK")
-            alert("Welcome to Rider")
-            setLoginComplete(true)
-            form.resetFields()
-        } catch (err) {
-            console.log("fail")
-            console.log(err)
-            form.resetFields()
-            alert("login failed")
-        }
-    };
-
-
-
-    return (
-        <div>
-            <Navbar />
-
-            <Row justify="center" style={{ paddingTop: "50px", paddingBottom: "10px" }}>
-                <Col xs={4} sm={2}><Avatar size={80} icon={<UserOutlined />} /></Col>
+      <Row justify='center'>
+        <h1 className='App__header'>Welcome to Rider</h1>
+      </Row>
+    
+      <Row justify='center'>
+        <Col span={24}>
+          <Form
+            {...formItemLayout}
+            form={form}
+            name='login'
+            onFinish={onFinish}
+            initialValues={{
+              residence: ['zhejiang', 'hangzhou', 'xihu'],
+              prefix: '86',
+            }}
+            scrollToFirstError
+          >
+            <Row justify='center' align='middle'>
+              <Col xs={24} md={15}>
+                <Form.Item
+                  name='email'
+                  label='E-mail'
+                  rules={[
+                    {
+                      type: 'email',
+                      message: 'The input is not valid E-mail!',
+                    },
+                    {
+                      required: true,
+                      message: 'Please input your E-mail!',
+                    },
+                  ]}
+                >
+                  <Input className='login__input' />
+                </Form.Item>
+              </Col>
             </Row>
-            <Row justify="center">
-                <Col xs={8} sm={4} md={4} lg={3}><h1 className="h1">Welcome to Rider</h1></Col>
+
+            <Row justify='center'>
+              <Col xs={24} md={15}>
+                <Form.Item
+                  name='password'
+                  label='Password'
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please input your password!',
+                    },
+                  ]}
+                  hasFeedback
+                >
+                  <Input.Password className='login__input' />
+                </Form.Item>
+              </Col>
             </Row>
 
-            <Form
-                {...formItemLayout}
-                form={form}
-                name="login"
-                onFinish={onFinish}
-                initialValues={{
-                    residence: ['zhejiang', 'hangzhou', 'xihu'],
-                    prefix: '86',
-                }}
-                scrollToFirstError
-            >
-                <Row justify="center">
-                    <Col xs={20} sm={22}>
-                        <Form.Item
-                            name="email"
-                            label="E-mail"
-                            rules={[
-                                {
-                                    type: 'email',
-                                    message: 'The input is not valid E-mail!',
-                                },
-                                {
-                                    required: true,
-                                    message: 'Please input your E-mail!',
-                                },
-                            ]}
-                        >
-                            <Input />
-                        </Form.Item>
-                    </Col>
-                </Row>
+            <Row justify='center'>
+              <Form.Item >
+                <Button
+                  type='primary'
+                  htmlType='submit'
+                  className='App__button'
+                >
+                  Login
+                </Button>
+              </Form.Item>
+            </Row>
 
-                <Row justify="center">
-                    <Col xs={20} sm={22}>
-                        <Form.Item
-                            name="password"
-                            label="Password"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your password!',
-                                },
-                            ]}
-                            hasFeedback
-                        >
-                            <Input.Password />
-                        </Form.Item>
-
-                    </Col>
-                </Row>
-
-                <Row justify="center">
-                    <Col span={4}>
-                        <Form.Item
-                            {...tailFormItemLayout}
-                        >
-                            <Button
-                                type="primary"
-                                htmlType="submit"
-                                style={{ backgroundColor: "#40CE5D", borderRadius: "none", marginBottom: "50px" }}
-                            >
-                                Login
-        </Button>
-                        </Form.Item>
-                    </Col>
-                </Row>
-
-                <Row justify="center">
-                    <Col xs={12} sm={6}>
-                        <Link to="/register">Register</Link> | <Link to="">Forget Password?</Link>
-                    </Col>
-
-                </Row>
-
-                {LoginComplete ? <Redirect to='/driver/route' /> : null}
-            </Form>
-
-        </div >
-    )
+            <Row justify='center'>
+              <Link to='/register'>Register</Link> <span style={{padding: '0 0.5rem'}}>|</span> <Link to=''>Forget Password?</Link>
+            </Row>
+            {LoginComplete ? <Redirect to='/driver/route' /> : null}
+          </Form>
+        </Col>
+      </Row>
+    </Col>
+  )
 }
 
-export default LoginUser
+export default LoginUser;

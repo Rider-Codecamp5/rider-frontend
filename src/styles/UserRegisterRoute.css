@@ -12,3 +12,17 @@
 
 }
 
+.register {
+
+}
+
+.register form,
+.register .ant-form-item-label label,
+.register span {
+    font-size: 1rem;
+}
+
+.register .register__input {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+}
