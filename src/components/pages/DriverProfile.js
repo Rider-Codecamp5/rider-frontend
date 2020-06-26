@@ -43,7 +43,7 @@ function DriverProfile(props) {
 
   const passengerData = async () => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}` }
-    const passengerData = await axios.get(`/user/getUser/${userInfo.id}`, { headers: headers });
+    const passengerData = await axios.get(`/user/get`, { headers: headers });
     console.log(passengerData.data.userData)
     setPassenger(passengerData.data.userData)
   }
