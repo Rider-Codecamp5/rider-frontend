@@ -38,7 +38,7 @@ const components = {
   },
   RouteDetails: {
     component: RouteDetails,
-    url: '/driver/route-details',
+    url: '/driver/route-details/:id',
   },
 };
 

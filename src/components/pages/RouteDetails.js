@@ -30,6 +30,8 @@ function RouteDetails(props) {
     getDriver();
   }, []);
 
+  console.log(props);
+
   // --------- call API ----------------
   const getDriver = async () => {
     const result = await axios.get(`/user/trip/${props.match.params.id}`);
