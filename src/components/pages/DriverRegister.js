@@ -303,9 +303,7 @@ function DriverRegister() {
           </Col>
         </Row>
       </Form>
-
       {registerFinish ? <Redirect to='/driver/route' /> : null}
-
       <Navbar />
     </div>
   );
