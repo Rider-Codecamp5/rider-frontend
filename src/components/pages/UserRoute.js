@@ -137,6 +137,7 @@ function UserRoute() {
           seat={driver.seatingCapacity}
           price={driver.price}
           dateTime={driver.createdAt}
+          status={driver.status}
         />
       </Link>
     ));
@@ -230,6 +231,11 @@ function UserRoute() {
           Search
         </Button>
         {renderResult()}
+        <div style={{textAlign: 'center'}}>
+          <span>Wanna become a driver too?</span>
+          <br/>
+          <a href='/driver/register'>Join us now!</a>
+        </div>
       </div>
     </div>
   );

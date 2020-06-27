@@ -11,7 +11,7 @@ function History() {
       </div>
       <div className='history__display'>
         <RoleButton />
-        <HistoryCard name='Shinzo Abe' from='Siam' to='Silom' dateTime='Friday 55555555' carModel='Tesla T' price='300' result='Deny' />
+        <HistoryCard name='Shinzo Abe' from='Siam' to='Silom' dateTime='Friday 55555555' carModel='Tesla T' price='300' history='Deny' />
         <button className='App__button App__button--red'>Back</button>
       </div>
     </div>

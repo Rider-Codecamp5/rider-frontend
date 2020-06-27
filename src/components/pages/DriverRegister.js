@@ -296,9 +296,7 @@ function DriverRegister() {
                             {...tailFormItemLayout}
                         >
                             <Checkbox>
-                                <Link to="">
-                                    Accept Privacy
-                                    </Link>
+                                Accept our <a href='/privacy-policy'>privacy policy</a>
                             </Checkbox>
                         </Form.Item>
                     </Col>
