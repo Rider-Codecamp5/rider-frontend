@@ -7,7 +7,6 @@ import DriverMap from '../DriverMap';
 import HistoryCard from '../HistoryCard';
 
 import '../../styles/DriverRoute.css';
-import '../../containers/App.css';
 
 const libraries = ['places'];
 

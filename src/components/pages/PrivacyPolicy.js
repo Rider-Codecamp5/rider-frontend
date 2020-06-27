@@ -10,9 +10,7 @@ export class PrivacyPolicy extends Component {
                 <div className="navTop">
                     <Row justify="center" >
                         <Col span={8}>
-
                                 <h1 style={{color:"#FFFFFF"}}>PrivacyPolicy</h1>
-                   
                         </Col>
                     </Row>
 

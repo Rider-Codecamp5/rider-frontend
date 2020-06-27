@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './RoleButton.css'
+import '../styles/RoleButton.css'
 
 export default function RoleButton(props) {
   const [ currentRole, setCurrentRole ] = useState('passenger');

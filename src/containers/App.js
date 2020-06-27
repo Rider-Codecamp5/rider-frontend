@@ -5,7 +5,7 @@ import * as storageItem from '../configs/localStorageItems';
 
 import jwtDecode from 'jwt-decode';
 import 'antd/dist/antd.css';
-import './App.css';
+import '../styles/App.css';
 
 function App() {
   const [role, setRole] = useState(

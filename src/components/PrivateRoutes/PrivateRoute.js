@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import configRoute from '../../configs/roles';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import './PrivateRoute.css';
+import '../../styles/PrivateRoute.css';
 
 function PrivateRoute(props) {
   return (
