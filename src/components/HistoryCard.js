@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import moment from 'moment';
 import {
-  CheckCircleOutlined,
-  CloseCircleOutlined,
   CarOutlined,
   CalendarOutlined,
   PushpinOutlined,
@@ -16,7 +14,7 @@ function HistoryCard(props) {
       <div className='card__content'>
         <div className='card__img-box'>
           <img
-            src='https://cdn.mos.cms.futurecdn.net/vJvY6J485ReQFXAgx5DSJ3-650-80.jpg'
+            src={props.profilePic}
             alt='profile-pic'
             className='card__profile-img'
           />
@@ -48,9 +46,7 @@ function HistoryCard(props) {
         </div>
       </div>
       <div className='card__divider'>{/* horizontal line */}</div>
-      <div className='card__footer'>
-        {props.status}
-      </div>
+      <div className='card__footer'>{props.status}</div>
     </div>
   );
 }

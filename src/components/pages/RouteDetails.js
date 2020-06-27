@@ -50,13 +50,8 @@ function RouteDetails(props) {
     }
   };
 
-  // const token = localStorage.getItem('ACCESS_TOKEN');
-  // const info = jwtDecode(token);
-  // console.log('decoded token', info);
-  // console.log(props);
-
   const selectDriver = async () => {
-    try{
+    try {
       await axios({
         method: 'patch',
         url: `/driver/service/join`,
@@ -65,8 +60,8 @@ function RouteDetails(props) {
           driverId: Number(props.match.params.id),
         },
       });
-    } catch(err) {
-      console.log(err)
+    } catch (err) {
+      console.log(err);
     }
   };
 
