@@ -6,13 +6,12 @@ import '../../styles/DriverRoute.css';
 
 import { useLoadScript } from '@react-google-maps/api';
 import {
-  Form,
   DatePicker,
   TimePicker,
   Checkbox,
   InputNumber,
   Slider,
-  Button,
+  Modal,
 } from 'antd';
 import moment from 'moment';
 
@@ -23,6 +22,7 @@ const marks = {
 }
 
 function DriverRoute() {
+  // Map
   const [origin, setOrigin] = useState('Origin');
   const [destination, setDestination] = useState('Destination');
   const [geocodeOrigin, setGeocodeOrigin] = useState({});
@@ -32,6 +32,11 @@ function DriverRoute() {
   const [luggage, setLuggage] = useState(false);
   const [seatingCapacity, setSeatingCapacity] = useState('1');
   const [price, setPrice] = useState([30, 500]);
+  // Modal
+  const [visible, setVisible] = useState(false);
+  const [driverStatus, setDriverStatus] = useState('create');
+  const [passengerData, setPassengerData] = useState({});
+  const [isSelected, setIsSelected] = useState(false);
 
   // ------------- required google places setting -----------
   const { isLoaded, loadError } = useLoadScript({
@@ -108,10 +113,25 @@ function DriverRoute() {
     }
   };
 
+  // ----------- AntD confirmation modal ------------
+  const showModal = () => {
+    setVisible(true);
+  };
+
+  const handleOk = e => {
+    console.log(e);
+    setVisible(false);
+  };
+
+  const handleCancel = e => {
+    console.log(e);
+    setVisible(false);
+  };
+
   // --------- call API ----------------
   const createRoute = async () => {
     getRoute();
-
+    setDriverStatus('decise');
     const headers = { Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}` }
     let body = {
       origin,
@@ -128,10 +148,16 @@ function DriverRoute() {
     
     try {
       let routeData = await axios.patch('/driver/service', body, { headers: headers });
-      let bookedDriver = await axios.patch('/driver/service/wait');
-      console.log('routedata', routeData)
-      console.log('booked driver', bookedDriver)
-      alert('finish')
+      let selectedDriver = await axios.patch('/driver/service/wait');
+      let passenger = await axios.get(`/user/getUser/${selectedDriver.data.driver.passenger_id}`)
+      console.log('routedata', routeData);
+      alert('finish');
+      setIsSelected(true);
+      setPassengerData(passenger.data.userData);
+      console.log('passenger', passenger)
+      console.log('passenger data', passenger.data.userData)
+      console.log('passengerData state', passengerData)
+      console.log(passenger.id)
     } catch(error) {
       console.log(error)
     }
@@ -142,75 +168,107 @@ function DriverRoute() {
       <div className='App__heading'>
         <h2>Create Route</h2>
       </div>
+
+
       <div className='route__form'>
-        <PlaceSearch place={origin} setPlace={setOrigin} getPlace={getOrigin} />
-        <PlaceSearch
-          place={destination}
-          setPlace={setDestination}
-          getPlace={getDestination}
-        />
-
-        <div className='route__box--two'>
-          <DatePicker
-            onChange={onDateChange}
-            format={'Do MMMM YYYY, dddd'}
-            className='route__input--half'
+      {(driverStatus === 'decise') 
+        ? 
+        <>
+          <button className='App__button' onClick={showModal}>Confirm</button> 
+          <Modal
+            title="Basic Modal"
+            visible={visible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+          >
+            {(isSelected)
+            ? 
+              <>
+                <p>Passenger</p>
+                <p>{passengerData.first_name}</p>
+                <p>{passengerData.phone_number}</p>
+              </>
+            :
+              <p>
+                You have no companion yet<br/>
+                Please wait for your passenger or cancel your offer.
+              </p>
+            }
+          </Modal>
+        </>
+        : 
+        <>
+          <PlaceSearch place={origin} setPlace={setOrigin} getPlace={getOrigin} />
+          <PlaceSearch
+            place={destination}
+            setPlace={setDestination}
+            getPlace={getDestination}
           />
-          <TimePicker
-            onChange={onTimeChange}
-            defaultValue={moment('00:00:00', 'HH:mm:ss')}
-            className='route__input--half'
-          />
-        </div>
 
-        <div>
-          <span>Seating Capacity: </span>
-          <InputNumber min={1} max={13} defaultValue={1} onChange={onSeatingChange} className='route__input--small' />
-        </div>
-        <Checkbox onChange={onLuggageChange} className='route__input'>
-          Luggage
-        </Checkbox>
-
-        {/* Price Range Slider & inputNumber */}
-        <div className='route__price'>
-          <b>Price range</b>
-          <Slider
-            range
-            marks={marks}
-            defaultValue={[30, 500]}
-            value={[
-              typeof price[0] === 'number' ? price[0] : 0,
-              typeof price[1] === 'number' ? price[1] : 0,
-            ]}
-            min={0}
-            max={1000}
-            onChange={onAfterPriceChange}
-            className='route__input'
-          />
-          <br />
           <div className='route__box--two'>
-            <InputNumber
-              min={0}
-              max={1000}
-              step={10.0}
-              value={price[0]}
-              onChange={onMinPriceChange}
-              formatter={value => `฿ ${value}`}
+            <DatePicker
+              onChange={onDateChange}
+              format={'Do MMMM YYYY, dddd'}
               className='route__input--half'
             />
-            <InputNumber
-              min={0}
-              max={1000}
-              step={10.0}
-              value={price[1]}
-              onChange={onMaxPriceChange}
-              formatter={value => `฿ ${value}`}
+            <TimePicker
+              onChange={onTimeChange}
+              defaultValue={moment('00:00:00', 'HH:mm:ss')}
               className='route__input--half'
             />
           </div>
-        </div>
 
-        <button type='primary' size='large' onClick={createRoute} className='App__button'>Post</button>
+          <div>
+            <span>Seating Capacity: </span>
+            <InputNumber min={1} max={13} defaultValue={1} onChange={onSeatingChange} className='route__input--small' />
+          </div>
+          <Checkbox onChange={onLuggageChange} className='route__input'>
+            Luggage
+          </Checkbox>
+
+          {/* Price Range Slider & inputNumber */}
+          <div className='route__price'>
+            <b>Price range</b>
+            <Slider
+              range
+              marks={marks}
+              defaultValue={[30, 500]}
+              value={[
+                typeof price[0] === 'number' ? price[0] : 0,
+                typeof price[1] === 'number' ? price[1] : 0,
+              ]}
+              min={0}
+              max={1000}
+              onChange={onAfterPriceChange}
+              className='route__input'
+            />
+            <br />
+            <div className='route__box--two'>
+              <InputNumber
+                min={0}
+                max={1000}
+                step={10.0}
+                value={price[0]}
+                onChange={onMinPriceChange}
+                formatter={value => `฿ ${value}`}
+                className='route__input--half'
+              />
+              <InputNumber
+                min={0}
+                max={1000}
+                step={10.0}
+                value={price[1]}
+                onChange={onMaxPriceChange}
+                formatter={value => `฿ ${value}`}
+                className='route__input--half'
+              />
+            </div>
+          </div>
+
+          <button type='primary' size='large' onClick={createRoute} className='App__button'>Post</button>
+        </>
+        }
+
         <DriverMap 
           origin={origin} 
           destination={destination}
