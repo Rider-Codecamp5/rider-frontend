@@ -113,7 +113,6 @@ function DriverRoute() {
     getRoute();
 
     const headers = { Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}` }
-
     let body = {
       origin,
       originLat: geocodeOrigin.lat,
@@ -126,10 +125,13 @@ function DriverRoute() {
       luggage,
       seatingCapacity,
     };
-
+    
     try {
-      let result = await axios.patch('/driver/service', body, { headers: headers });
-      console.log(result)
+      let routeData = await axios.patch('/driver/service', body, { headers: headers });
+      let bookedDriver = await axios.patch('/driver/service/wait');
+      console.log('routedata', routeData)
+      console.log('booked driver', bookedDriver)
+      alert('finish')
     } catch(error) {
       console.log(error)
     }
@@ -221,7 +223,7 @@ function DriverRoute() {
         geocodeOrigin.lat,
         geocodeOrigin.lng,
         geocodeDestination.lat,
-        geocodeDestination.lng
+        geocodeDestination.lng,
       )}
     </div>
   );

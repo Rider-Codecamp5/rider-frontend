@@ -137,6 +137,7 @@ function UserRoute() {
           seat={driver.seatingCapacity}
           price={driver.price}
           dateTime={driver.createdAt}
+          status={driver.status}
         />
       </Link>
     ));

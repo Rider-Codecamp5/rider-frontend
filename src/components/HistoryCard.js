@@ -49,12 +49,7 @@ function HistoryCard(props) {
       </div>
       <div className='card__divider'>{/* horizontal line */}</div>
       <div className='card__footer'>
-        {props.result === 'Success' ? (
-          <CheckCircleOutlined style={{ color: '#33a44a' }} />
-        ) : (
-          <CloseCircleOutlined style={{ color: '#FF425E' }} />
-        )}{' '}
-        {props.result}
+        {props.status}
       </div>
     </div>
   );

@@ -57,17 +57,18 @@ function RouteDetails(props) {
   // console.log(props);
 
   const selectDriver = async () => {
-    await axios({
-      method: 'patch',
-      url: `/driver/service/join`,
-      data: {
-        passengerId: props.userInfo.id,
-        driverId: Number(props.match.params.id),
-      },
-      // headers: {
-      //   Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
-      // },
-    });
+    try{
+      await axios({
+        method: 'patch',
+        url: `/driver/service/join`,
+        data: {
+          passengerId: props.userInfo.id,
+          driverId: Number(props.match.params.id),
+        },
+      });
+    } catch(err) {
+      console.log(err)
+    }
   };
 
   if (loadError) return 'Error loading maps';
