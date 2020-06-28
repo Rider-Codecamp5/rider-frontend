@@ -101,14 +101,13 @@ function UserRegisterRoute() {
   };
 
   return (
-    <div className='register'>
+    <div>
       <div className='App__heading'>
         <h2>Register</h2>
       </div>
-      <Col span={24} >
+      <Col span={24} className='register'>
         <Row
           justify='center'
-          style={{ paddingTop: '20px', paddingBottom: '10px' }}
         >
           {/* <Col xs={4} sm={2}> */}
             <Avatar size={60} icon={<UserOutlined />} />
@@ -311,7 +310,7 @@ function UserRegisterRoute() {
                       value
                         ? Promise.resolve()
                         : Promise.reject('Should accept agreement'),
-                      },
+                  },
                 ]}
                 // {...tailFormItemLayout}
               >
