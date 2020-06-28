@@ -66,9 +66,19 @@ function LoginUser(props) {
     try {
       const createUser = await axios.post('/user/loginUser', body);
       localStorage.setItem(storageItem.ACCESS_TOKEN, createUser.data.token);
-      localStorage.setItem(storageItem.role, 'user');
-      props.setRole(localStorage.getItem(storageItem.role));
+
+      try{
+        console.log('isDriver', createUser.data.isDriver)
+        if(createUser.data.isDriver) {
+          localStorage.setItem(storageItem.role, 'driver');
+        } else {
+          localStorage.setItem(storageItem.role, 'user');
+        }
+      } catch(err) {
+        console.log(err)
+      }
       
+      props.setRole(localStorage.getItem(storageItem.role));
       alert('Welcome to Rider')
       console.log(`${localStorage.getItem(storageItem.ACCESS_TOKEN)}`);
       form.resetFields();

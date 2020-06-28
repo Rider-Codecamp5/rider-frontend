@@ -49,7 +49,16 @@ const configRoute = {
   },
   user: {
     route: [
+      components.PrivacyPolicy,
+      components.UserRoute,
+      components.History,
+      components.RouteDetails,
       components.DriverRegister,
+    ],
+    redirect: '/search-driver',
+  },
+  driver: {
+    route: [
       components.PrivacyPolicy,
       components.UserRoute,
       components.DriverRoute,
@@ -57,7 +66,8 @@ const configRoute = {
       components.RouteDetails,
     ],
     redirect: '/search-driver',
-  },
+
+  }
 };
 
 export default configRoute;
