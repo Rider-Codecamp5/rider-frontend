@@ -1,8 +1,18 @@
-import React, { useState, useEffect } from 'react'
-import jwtDecode from 'jwt-decode'
+import React, { useState, useEffect } from 'react';
+import jwtDecode from 'jwt-decode';
 import axios from '../../configs/axios';
-import { Space, Form, Input, Tooltip, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, Avatar, } from 'antd';
-import { InfoCircleOutlined, UserOutlined, EyeInvisibleOutlined, EyeTwoTone, QuestionCircleOutlined } from '@ant-design/icons';
+import {
+  Form,
+  Input,
+  Tooltip,
+  Select,
+  Row,
+  Col,
+  Checkbox,
+  Button,
+  Avatar,
+} from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 import { Link, Redirect } from 'react-router-dom';
 import * as storageItem from '../../configs/localStorageItems';
 
@@ -45,22 +55,24 @@ function DriverRegister(props) {
   const [userInfo, setUserInfo] = useState({});
 
   useEffect(() => {
-    if (localStorage.getItem("ACCESS_TOKEN")) {
-      const user = jwtDecode(localStorage.getItem("ACCESS_TOKEN"));
+    if (localStorage.getItem('ACCESS_TOKEN')) {
+      const user = jwtDecode(localStorage.getItem('ACCESS_TOKEN'));
       setIsLogin(true);
       setUserInfo(user);
     }
-      checkRegister();
-  }, [])
+    checkRegister();
+  }, []);
 
   const checkRegister = async () => {
-    const headers = { Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}` };
-    const driver = await axios.get(`/driver/registered/${userInfo.id}`, { headers: headers });
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+    };
+    const driver = await axios.get(`/driver/registered/${userInfo.id}`, {
+      headers: headers,
+    });
     try {
-      setRegisterFinish(true)
-    } catch (error) {
-
-    }
+      setRegisterFinish(true);
+    } catch (error) {}
     // console.log(driver)
     // if(driver){
     //     // console.log("already register")
@@ -69,11 +81,11 @@ function DriverRegister(props) {
     //     // console.log("OK")
     //     alert("OK")
     // }
-  }
+  };
 
   const [form] = Form.useForm();
 
-  const onFinish = async (values) => {
+  const onFinish = async values => {
     // console.log('Received values of form: ', values);
     const body = {
       id: userInfo.id,
@@ -82,63 +94,61 @@ function DriverRegister(props) {
       car_model: values.car_model,
       car_color: values.car_color,
       bank_account: values.bank_account,
-    }
+    };
     // console.log({body: body})
-    const headers = { Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}` }
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+    };
     // console.log({headers: headers})
-    const createUser = await axios.post(`/driver/register`, body, { headers: headers });
+    const createUser = await axios.post(`/driver/register`, body, {
+      headers: headers,
+    });
     try {
       // const createUser = await axios.post(`/driver/register`,body,{headers: headers});
-      console.log("OK")
+      console.log('OK');
       localStorage.setItem(storageItem.role, 'driver');
       props.setRole(localStorage.getItem(storageItem.role));
-      alert("User created")
-      form.resetFields()
-      setRegisterFinish(true)
+      alert('User created');
+      form.resetFields();
+      setRegisterFinish(true);
     } catch (err) {
-      console.log("fail")
-      console.log(err)
-      form.resetFields()
-      alert("Invalid email")
+      console.log('fail');
+      console.log(err);
+      form.resetFields();
+      alert('Invalid email');
     }
   };
 
   return (
     <div>
-      <div className="App__heading">
+      <div className='App__heading'>
         <h2>Driver Register</h2>
       </div>
       <Col className='register'>
-        <Row justify="center" >
+        <Row justify='center'>
           <Col>
             <Avatar size={60} icon={<UserOutlined />} />
           </Col>
         </Row>
-        <Row justify="center">
-          <h1 className="App__header">
-            Create Driver Account
-          </h1>
+        <Row justify='center'>
+          <h1 className='App__header'>Create Driver Account</h1>
         </Row>
 
         <Form
           {...formItemLayout}
           form={form}
-          name="register"
+          name='register'
           onFinish={onFinish}
-          initialValues={{
-          }}
+          initialValues={{}}
           scrollToFirstError
         >
-
-          <Row justify="center">
+          <Row justify='center'>
             <Col xs={20} sm={22}>
               <Form.Item
-                name="driver_license"
+                name='driver_license'
                 label={
-                  <Tooltip title="Please Enter Your Driver License">
-                    <span>
-                      Driver License&nbsp;
-                    </span>
+                  <Tooltip title='Please Enter Your Driver License'>
+                    <span>Driver License&nbsp;</span>
                   </Tooltip>
                 }
                 rules={[
@@ -149,21 +159,18 @@ function DriverRegister(props) {
                   },
                 ]}
               >
-                  <Input className='register__input' />
+                <Input className='register__input' />
               </Form.Item>
             </Col>
           </Row>
 
-          <Row justify="center">
+          <Row justify='center'>
             <Col xs={20} sm={22}>
-
               <Form.Item
-                name="car_model"
+                name='car_model'
                 label={
-                  <Tooltip title="Please Enter Your Car Model">
-                    <span>
-                      Car Model&nbsp;
-                    </span>
+                  <Tooltip title='Please Enter Your Car Model'>
+                    <span>Car Model&nbsp;</span>
                   </Tooltip>
                 }
                 rules={[
@@ -179,15 +186,13 @@ function DriverRegister(props) {
             </Col>
           </Row>
 
-          <Row justify="center">
+          <Row justify='center'>
             <Col xs={20} sm={22}>
               <Form.Item
-                name="car_color"
+                name='car_color'
                 label={
-                  <Tooltip title="Please Enter Your Car Color">
-                    <span>
-                      Car Color&nbsp;
-                    </span>
+                  <Tooltip title='Please Enter Your Car Color'>
+                    <span>Car Color&nbsp;</span>
                   </Tooltip>
                 }
                 rules={[
@@ -203,16 +208,13 @@ function DriverRegister(props) {
             </Col>
           </Row>
 
-
-          <Row justify="center">
+          <Row justify='center'>
             <Col xs={20} sm={22}>
               <Form.Item
-                name="seat"
+                name='seat'
                 label={
-                  <Tooltip title="Please Enter Your Seat">
-                    <span>
-                      Seat&nbsp;
-                    </span>
+                  <Tooltip title='Please Enter Your Seat'>
+                    <span>Seat&nbsp;</span>
                   </Tooltip>
                 }
                 rules={[
@@ -228,15 +230,13 @@ function DriverRegister(props) {
             </Col>
           </Row>
 
-          <Row justify="center">
+          <Row justify='center'>
             <Col xs={20} sm={22}>
               <Form.Item
-                name="bank_account"
+                name='bank_account'
                 label={
-                  <Tooltip title="Please Enter Your Bank account">
-                    <span>
-                      Bank account&nbsp;
-                    </span>
+                  <Tooltip title='Please Enter Your Bank account'>
+                    <span>Bank account&nbsp;</span>
                   </Tooltip>
                 }
                 rules={[
@@ -252,17 +252,17 @@ function DriverRegister(props) {
             </Col>
           </Row>
 
-          <Row justify="center">
-            <Col span={24} style={{textAlign: 'center'}}>
+          <Row justify='center'>
+            <Col span={24} style={{ textAlign: 'center' }}>
               <Form.Item
-                name="agreement"
-                valuePropName="checked"
+                name='agreement'
+                valuePropName='checked'
                 rules={[
                   {
                     validator: (_, value) =>
                       value
-                      ? Promise.resolve() 
-                      : Promise.reject('Should accept agreement'),
+                        ? Promise.resolve()
+                        : Promise.reject('Should accept agreement'),
                   },
                 ]}
               >
@@ -273,23 +273,18 @@ function DriverRegister(props) {
             </Col>
           </Row>
 
-          <Row justify="center">
-            <Form.Item
-            >
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="App__button"
-              >
+          <Row justify='center'>
+            <Form.Item>
+              <Button type='primary' htmlType='submit' className='App__button'>
                 Driver Register
               </Button>
             </Form.Item>
           </Row>
         </Form>
-        {registerFinish ? <Redirect to="/driver-route" /> : null}
+        {registerFinish ? <Redirect to='/driver-route' /> : null}
       </Col>
     </div>
-  )
+  );
 }
 
-export default DriverRegister
+export default DriverRegister;

@@ -50,14 +50,8 @@ function RouteDetails(props) {
     }
   };
 
-  // const token = localStorage.getItem('ACCESS_TOKEN');
-  // const info = jwtDecode(token);
-  // console.log('decoded token', info);
-  // console.log(props);
-
   const selectDriver = async () => {
-    console.log('select driver function')
-    try{
+    try {
       await axios({
         method: 'patch',
         url: `/driver/service/join`,
@@ -66,12 +60,11 @@ function RouteDetails(props) {
           driverId: Number(props.match.params.id),
         },
       });
-      console.log('start passenger interval')
-      let confirmation = await axios.get('/user/trip/confirmation')
+      let confirmation = await axios.get('/user/trip/confirmation');
       console.log('confirmation', confirmation);
       alert(confirmation.data.message);
-    } catch(err) {
-      console.log(err)
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -105,22 +98,30 @@ function RouteDetails(props) {
     }
 
     const {
+      first_name,
+      last_name,
+      phone_number,
       from,
       to,
       car_model,
       price,
       seating_capacity,
       updatedAt,
+      profile_pic,
     } = routeDetails;
 
     return (
       <HistoryCard
+        firstname={first_name}
+        lastname={last_name}
+        phoneNumber={phone_number}
         from={from}
         to={to}
         carModel={car_model}
         price={price}
         seat={seating_capacity}
         dateTime={updatedAt}
+        profilePic={profile_pic}
       />
     );
   };

@@ -111,8 +111,16 @@ function UserRoute() {
     const destinationLng = geocodeDestination.lng;
 
     let result = await axios.get(
-      `/user/trip?destinationLat=${destinationLat}&destinationLng=${destinationLng}`
+      `/user/trip?destinationLat=${destinationLat}
+      &destinationLng=${destinationLng}
+      &date=${date}&price=${price}
+      &time=${time}&luggage=${luggage}
+      &seatingCapacity=${seatingCapacity}`
     );
+
+    console.log(date);
+    console.log(time);
+    console.log(price);
 
     setDrivers(result.data);
   };
@@ -130,7 +138,10 @@ function UserRoute() {
       <Link to={`/driver/route-details/${driver.id}`} key={driver.id}>
         <HistoryCard
           id={driver.id}
-          driverName='Driver Name'
+          firstName={driver.first_name}
+          lastName={driver.last_name}
+          profilePic={driver.profile_pic}
+          phoneNumber={driver.phone_number}
           from={driver.from}
           to={driver.to}
           carModel={driver.car_model}
@@ -231,9 +242,9 @@ function UserRoute() {
           Search
         </Button>
         {renderResult()}
-        <div style={{textAlign: 'center'}}>
+        <div style={{ textAlign: 'center' }}>
           <span>Wanna become a driver too?</span>
-          <br/>
+          <br />
           <a href='/driver/register'>Join us now!</a>
         </div>
       </div>

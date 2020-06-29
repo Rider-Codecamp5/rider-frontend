@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import moment from 'moment';
 import {
-  CheckCircleOutlined,
-  CloseCircleOutlined,
   CarOutlined,
   CalendarOutlined,
   PushpinOutlined,
   DollarOutlined,
+  PhoneOutlined,
 } from '@ant-design/icons';
 import '../styles/HistoryCard.css';
 
@@ -16,10 +15,11 @@ function HistoryCard(props) {
       <div className='card__content'>
         <div className='card__img-box'>
           <img
-            src='https://cdn.mos.cms.futurecdn.net/vJvY6J485ReQFXAgx5DSJ3-650-80.jpg'
-            alt='profile-pic'
+            src={props.profilePic}
+            alt={`${props.firstname} ${props.lastname}`}
             className='card__profile-img'
           />
+          <div>{props.firstname}</div>
         </div>
         <div className='card__text'>
           <h3>{props.name}</h3>
@@ -41,6 +41,10 @@ function HistoryCard(props) {
             <CarOutlined /> {props.carModel}
           </span>
           <br />
+          <span>
+            <PhoneOutlined /> {props.phoneNumber}
+          </span>
+          <br />
           <span className='card__price'>
             <DollarOutlined />
             Price {props.price} Baht
@@ -48,9 +52,7 @@ function HistoryCard(props) {
         </div>
       </div>
       <div className='card__divider'>{/* horizontal line */}</div>
-      <div className='card__footer'>
-        {props.status}
-      </div>
+      <div className='card__footer'>{props.status}</div>
     </div>
   );
 }
