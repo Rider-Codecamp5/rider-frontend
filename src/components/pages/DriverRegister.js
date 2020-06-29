@@ -66,10 +66,6 @@ function DriverRegister() {
     checkRegister();
   }, []);
 
-  useEffect(() => {
-    checkRegister();
-  }, []);
-
   const checkRegister = async () => {
     const headers = {
       Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
