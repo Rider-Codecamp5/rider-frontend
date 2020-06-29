@@ -29,7 +29,7 @@ function UserRoute() {
   const [time, setTime] = useState('');
   const [luggage, setLuggage] = useState(false);
   const [seatingCapacity, setSeatingCapacity] = useState('1');
-  const [price, setPrice] = useState([30, 500]);
+  const [price, setPrice] = useState(10);
   const [drivers, setDrivers] = useState([]);
 
   // ------------- required google places setting -----------
@@ -56,13 +56,6 @@ function UserRoute() {
   };
 
   // --------------  input function  --------------------------
-
-  // antD slider mark
-  const marks = {
-    0: '฿0',
-    1000: '฿1,000',
-  };
-
   function onDateChange(date, dateString) {
     console.log(date, dateString);
     setDate(dateString);
@@ -83,25 +76,7 @@ function UserRoute() {
     setSeatingCapacity(value);
   }
 
-  const onMinPriceChange = value => {
-    if (isNaN(value)) {
-      return;
-    }
-    if (value < price[1]) {
-      setPrice([value, price[1]]);
-    }
-  };
-
-  const onMaxPriceChange = value => {
-    if (isNaN(value)) {
-      return;
-    }
-    if (value > price[0]) {
-      setPrice([price[0], value]);
-    }
-  };
-
-  const onAfterPriceChange = value => {
+  const onPriceChange = value => {
     setPrice(value);
   };
 
@@ -175,7 +150,8 @@ function UserRoute() {
           />
           <TimePicker
             onChange={onTimeChange}
-            defaultValue={moment('00:00:00', 'HH:mm:ss')}
+            defaultValue={moment()}
+            format='HH:mm'
             className='route__input--half'
           />
         </div>
@@ -196,37 +172,15 @@ function UserRoute() {
 
         {/* Price Range Slider & inputNumber */}
         <div className='route__price'>
-          <b>Price range</b>
-          <Slider
-            range
-            marks={marks}
-            defaultValue={[30, 500]}
-            value={[
-              typeof price[0] === 'number' ? price[0] : 0,
-              typeof price[1] === 'number' ? price[1] : 0,
-            ]}
-            min={0}
-            max={1000}
-            onChange={onAfterPriceChange}
-            className='route__input'
-          />
+          <b>Price</b>
           <br />
           <div className='route__box--two'>
             <InputNumber
               min={0}
               max={1000}
               step={10.0}
-              value={price[0]}
-              onChange={onMinPriceChange}
-              formatter={value => `฿ ${value}`}
-              className='route__input--half'
-            />
-            <InputNumber
-              min={0}
-              max={1000}
-              step={10.0}
-              value={price[1]}
-              onChange={onMaxPriceChange}
+              value={price}
+              onChange={onPriceChange}
               formatter={value => `฿ ${value}`}
               className='route__input--half'
             />
