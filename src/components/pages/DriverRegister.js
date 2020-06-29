@@ -4,8 +4,7 @@ import axios from '../../configs/axios';
 import { Space, Form, Input, Tooltip, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, Avatar, } from 'antd';
 import { InfoCircleOutlined, UserOutlined, EyeInvisibleOutlined, EyeTwoTone, QuestionCircleOutlined } from '@ant-design/icons';
 import { Link, Redirect } from 'react-router-dom';
-import Navbar from '../Navbar';
-
+import * as storageItem from '../../configs/localStorageItems';
 
 const { Option } = Select;
 const formItemLayout = {
@@ -40,7 +39,7 @@ const formItemLayout = {
 //   },
 // };
 
-function DriverRegister() {
+function DriverRegister(props) {
   const [registerFinish, setRegisterFinish] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState({});
@@ -51,11 +50,7 @@ function DriverRegister() {
       setIsLogin(true);
       setUserInfo(user);
     }
-  }, [])
-
-
-  useEffect(() => {
-    checkRegister();
+      checkRegister();
   }, [])
 
   const checkRegister = async () => {
@@ -76,8 +71,6 @@ function DriverRegister() {
     // }
   }
 
-
-
   const [form] = Form.useForm();
 
   const onFinish = async (values) => {
@@ -97,6 +90,8 @@ function DriverRegister() {
     try {
       // const createUser = await axios.post(`/driver/register`,body,{headers: headers});
       console.log("OK")
+      localStorage.setItem(storageItem.role, 'driver');
+      props.setRole(localStorage.getItem(storageItem.role));
       alert("User created")
       form.resetFields()
       setRegisterFinish(true)

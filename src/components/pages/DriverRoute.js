@@ -118,13 +118,21 @@ function DriverRoute() {
     setVisible(true);
   };
 
-  const handleOk = e => {
+  const handleOk = async(e) => {
     console.log(e);
+    if(isSelected) {
+      let result = await axios.patch('/driver/service/confirm', { confirmation: true });
+      console.log('handleOk result', result);
+    }
     setVisible(false);
   };
 
-  const handleCancel = e => {
+  const handleCancel = async(e) => {
     console.log(e);
+    if(isSelected) {
+      let result = await axios.patch('/driver/service/confirm', { confirmation: false });
+      console.log('handleCancel result', result)
+    }
     setVisible(false);
   };
 
