@@ -95,22 +95,30 @@ function RouteDetails(props) {
     }
 
     const {
+      first_name,
+      last_name,
+      phone_number,
       from,
       to,
       car_model,
       price,
       seating_capacity,
       updatedAt,
+      profile_pic,
     } = routeDetails;
 
     return (
       <HistoryCard
+        firstname={first_name}
+        lastname={last_name}
+        phoneNumber={phone_number}
         from={from}
         to={to}
         carModel={car_model}
         price={price}
         seat={seating_capacity}
         dateTime={updatedAt}
+        profilePic={profile_pic}
       />
     );
   };

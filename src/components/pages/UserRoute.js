@@ -111,10 +111,16 @@ function UserRoute() {
     const destinationLng = geocodeDestination.lng;
 
     let result = await axios.get(
-      `/user/trip?destinationLat=${destinationLat}&destinationLng=${destinationLng}`
+      `/user/trip?destinationLat=${destinationLat}
+      &destinationLng=${destinationLng}
+      &date=${date}&price=${price}
+      &time=${time}&luggage=${luggage}
+      &seatingCapacity=${seatingCapacity}`
     );
 
-    console.log(result.data);
+    console.log(date);
+    console.log(time);
+    console.log(price);
 
     setDrivers(result.data);
   };
