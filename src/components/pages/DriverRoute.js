@@ -162,10 +162,7 @@ function DriverRoute() {
       alert('finish');
       setIsSelected(true);
       setPassengerData(passenger.data.userData);
-      console.log('passenger', passenger)
-      console.log('passenger data', passenger.data.userData)
-      console.log('passengerData state', passengerData)
-      console.log(passenger.id)
+      console.log(passenger.data.userData.id)
     } catch(error) {
       console.log(error)
     }

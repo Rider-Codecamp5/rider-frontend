@@ -56,6 +56,7 @@ function RouteDetails(props) {
   // console.log(props);
 
   const selectDriver = async () => {
+    console.log('select driver function')
     try{
       await axios({
         method: 'patch',
@@ -65,6 +66,10 @@ function RouteDetails(props) {
           driverId: Number(props.match.params.id),
         },
       });
+      console.log('start passenger interval')
+      let confirmation = await axios.get('/user/trip/confirmation')
+      console.log('confirmation', confirmation);
+      alert(confirmation.data.message);
     } catch(err) {
       console.log(err)
     }
