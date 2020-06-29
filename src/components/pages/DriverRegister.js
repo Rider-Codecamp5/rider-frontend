@@ -21,32 +21,6 @@ const formItemLayout = {
   labelCol: {
     xs: {
       span: 24,
-<<<<<<< HEAD
-    },
-    sm: {
-      span: 5,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
-  },
-};
-
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-=======
     },
     sm: {
       span: 5,
@@ -58,13 +32,10 @@ const tailFormItemLayout = {
     },
     sm: {
       span: 24,
->>>>>>> develop
     },
   },
 };
 
-<<<<<<< HEAD
-=======
 // const tailFormItemLayout = {
 //   wrapperCol: {
 //     xs: {
@@ -78,36 +49,27 @@ const tailFormItemLayout = {
 //   },
 // };
 
->>>>>>> develop
 function DriverRegister() {
   const [registerFinish, setRegisterFinish] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState({});
 
   useEffect(() => {
-<<<<<<< HEAD
     if (localStorage.getItem('ACCESS_TOKEN')) {
       const user = jwtDecode(localStorage.getItem('ACCESS_TOKEN'));
-      // console.log(user)
       setIsLogin(true);
       setUserInfo(user);
-      // setRegisterFinish(true);
     }
   }, []);
-=======
-    if (localStorage.getItem("ACCESS_TOKEN")) {
-      const user = jwtDecode(localStorage.getItem("ACCESS_TOKEN"));
-      setIsLogin(true);
-      setUserInfo(user);
-    }
-  }, [])
->>>>>>> develop
 
   useEffect(() => {
     checkRegister();
   }, []);
 
-<<<<<<< HEAD
+  useEffect(() => {
+    checkRegister();
+  }, []);
+
   const checkRegister = async () => {
     const headers = {
       Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
@@ -117,27 +79,7 @@ function DriverRegister() {
     });
     try {
       setRegisterFinish(true);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const [form] = Form.useForm();
-
-  const onFinish = async values => {
-=======
-  useEffect(() => {
-    checkRegister();
-  }, [])
-
-  const checkRegister = async () => {
-    const headers = { Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}` };
-    const driver = await axios.get(`/driver/registered/${userInfo.id}`, { headers: headers });
-    try {
-      setRegisterFinish(true)
-    } catch (error) {
-
-    }
+    } catch (error) {}
     // console.log(driver)
     // if(driver){
     //     // console.log("already register")
@@ -146,14 +88,11 @@ function DriverRegister() {
     //     // console.log("OK")
     //     alert("OK")
     // }
-  }
-
-
+  };
 
   const [form] = Form.useForm();
 
-  const onFinish = async (values) => {
->>>>>>> develop
+  const onFinish = async values => {
     // console.log('Received values of form: ', values);
     const body = {
       id: userInfo.id,
@@ -162,7 +101,6 @@ function DriverRegister() {
       car_model: values.car_model,
       car_color: values.car_color,
       bank_account: values.bank_account,
-<<<<<<< HEAD
     };
     // console.log({body: body})
     const headers = {
@@ -183,243 +121,39 @@ function DriverRegister() {
       console.log(err);
       form.resetFields();
       alert('Invalid email');
-=======
-    }
-    // console.log({body: body})
-    const headers = { Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}` }
-    // console.log({headers: headers})
-    const createUser = await axios.post(`/driver/register`, body, { headers: headers });
-    try {
-      // const createUser = await axios.post(`/driver/register`,body,{headers: headers});
-      console.log("OK")
-      alert("User created")
-      form.resetFields()
-      setRegisterFinish(true)
-    } catch (err) {
-      console.log("fail")
-      console.log(err)
-      form.resetFields()
-      alert("Invalid email")
->>>>>>> develop
     }
   };
 
   return (
     <div>
-<<<<<<< HEAD
       <div className='App__heading'>
         <h2>Driver Register</h2>
       </div>
-      <Row
-        justify='center'
-        style={{ paddingTop: '20px', paddingBottom: '10px' }}
-      >
-        <Col xs={4} sm={2}>
-          <Avatar size={60} icon={<UserOutlined />} />
-        </Col>
-      </Row>
-      <Row justify='center'>
-        <Col xs={10} sm={8} md={5} lg={4}>
-          <h1 className='h1'>Create Driver Account</h1>
-        </Col>
-      </Row>
-
-      <Form
-        {...formItemLayout}
-        form={form}
-        name='register'
-        onFinish={onFinish}
-        initialValues={
-          {
-            // residence: ['zhejiang', 'hangzhou', 'xihu'],
-            // prefix: '86',
-          }
-        }
-        scrollToFirstError
-      >
-        <Row justify='center'>
-          <Col xs={20} sm={22}>
-            <Form.Item
-              name='driver_license'
-              label={
-                <span>
-                  Driver License&nbsp;
-                  <Tooltip title='Please Enter Your Driver License'></Tooltip>
-                </span>
-              }
-              rules={[
-                {
-                  required: true,
-                  message: 'Please Enter Your Driver License',
-                  whitespace: true,
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Row justify='center'>
-          <Col xs={20} sm={22}>
-            <Form.Item
-              name='car_model'
-              label={
-                <span>
-                  Car Model&nbsp;
-                  <Tooltip title='Please Enter Your Car Model'></Tooltip>
-                </span>
-              }
-              rules={[
-                {
-                  required: true,
-                  message: 'Please Enter Your Car Model',
-                  whitespace: true,
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Row justify='center'>
-          <Col xs={20} sm={22}>
-            <Form.Item
-              name='car_color'
-              label={
-                <span>
-                  Car Color&nbsp;
-                  <Tooltip title='Please Enter Your Car Color'></Tooltip>
-                </span>
-              }
-              rules={[
-                {
-                  required: true,
-                  message: 'Please Enter Your Car Color',
-                  whitespace: true,
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Row justify='center'>
-          <Col xs={20} sm={22}>
-            <Form.Item
-              name='seat'
-              label={
-                <span>
-                  Seat&nbsp;
-                  <Tooltip title='Please Enter Your Seat'></Tooltip>
-                </span>
-              }
-              rules={[
-                {
-                  required: true,
-                  message: 'Please Enter Your Seat',
-                  whitespace: true,
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Row justify='center'>
-          <Col xs={20} sm={22}>
-            <Form.Item
-              name='bank_account'
-              label={
-                <span>
-                  Bank account&nbsp;
-                  <Tooltip title='Please Enter Your Bank account'></Tooltip>
-                </span>
-              }
-              rules={[
-                {
-                  required: true,
-                  message: 'Please Enter Your Bank account',
-                  whitespace: true,
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Row justify='end'>
-          <Col xs={10} sm={12} md={11}>
-            <Form.Item
-              name='agreement'
-              valuePropName='checked'
-              rules={[
-                {
-                  validator: (_, value) =>
-                    value
-                      ? Promise.resolve()
-                      : Promise.reject('Should accept agreement'),
-                },
-              ]}
-              {...tailFormItemLayout}
-            >
-              <Checkbox>
-                Accept our <a href='/privacy-policy'>privacy policy</a>
-              </Checkbox>
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Row justify='center'>
-          <Col span={8}>
-            <Form.Item {...tailFormItemLayout}>
-              <Button
-                type='primary'
-                htmlType='submit'
-                style={{
-                  backgroundColor: '#40CE5D',
-                  borderRadius: 'none',
-                  marginBottom: '60px',
-                }}
-=======
-      <div className="App__heading">
-        <h2>Driver Register</h2>
-      </div>
       <Col className='register'>
-        <Row justify="center" >
+        <Row justify='center'>
           <Col>
             <Avatar size={60} icon={<UserOutlined />} />
           </Col>
         </Row>
-        <Row justify="center">
-          <h1 className="App__header">
-            Create Driver Account
-          </h1>
+        <Row justify='center'>
+          <h1 className='App__header'>Create Driver Account</h1>
         </Row>
 
         <Form
           {...formItemLayout}
           form={form}
-          name="register"
+          name='register'
           onFinish={onFinish}
-          initialValues={{
-          }}
+          initialValues={{}}
           scrollToFirstError
         >
-
-          <Row justify="center">
+          <Row justify='center'>
             <Col xs={20} sm={22}>
               <Form.Item
-                name="driver_license"
+                name='driver_license'
                 label={
-                  <Tooltip title="Please Enter Your Driver License">
-                    <span>
-                      Driver License&nbsp;
-                    </span>
+                  <Tooltip title='Please Enter Your Driver License'>
+                    <span>Driver License&nbsp;</span>
                   </Tooltip>
                 }
                 rules={[
@@ -430,21 +164,18 @@ function DriverRegister() {
                   },
                 ]}
               >
-                  <Input className='register__input' />
+                <Input className='register__input' />
               </Form.Item>
             </Col>
           </Row>
 
-          <Row justify="center">
+          <Row justify='center'>
             <Col xs={20} sm={22}>
-
               <Form.Item
-                name="car_model"
+                name='car_model'
                 label={
-                  <Tooltip title="Please Enter Your Car Model">
-                    <span>
-                      Car Model&nbsp;
-                    </span>
+                  <Tooltip title='Please Enter Your Car Model'>
+                    <span>Car Model&nbsp;</span>
                   </Tooltip>
                 }
                 rules={[
@@ -460,15 +191,13 @@ function DriverRegister() {
             </Col>
           </Row>
 
-          <Row justify="center">
+          <Row justify='center'>
             <Col xs={20} sm={22}>
               <Form.Item
-                name="car_color"
+                name='car_color'
                 label={
-                  <Tooltip title="Please Enter Your Car Color">
-                    <span>
-                      Car Color&nbsp;
-                    </span>
+                  <Tooltip title='Please Enter Your Car Color'>
+                    <span>Car Color&nbsp;</span>
                   </Tooltip>
                 }
                 rules={[
@@ -484,16 +213,13 @@ function DriverRegister() {
             </Col>
           </Row>
 
-
-          <Row justify="center">
+          <Row justify='center'>
             <Col xs={20} sm={22}>
               <Form.Item
-                name="seat"
+                name='seat'
                 label={
-                  <Tooltip title="Please Enter Your Seat">
-                    <span>
-                      Seat&nbsp;
-                    </span>
+                  <Tooltip title='Please Enter Your Seat'>
+                    <span>Seat&nbsp;</span>
                   </Tooltip>
                 }
                 rules={[
@@ -509,15 +235,13 @@ function DriverRegister() {
             </Col>
           </Row>
 
-          <Row justify="center">
+          <Row justify='center'>
             <Col xs={20} sm={22}>
               <Form.Item
-                name="bank_account"
+                name='bank_account'
                 label={
-                  <Tooltip title="Please Enter Your Bank account">
-                    <span>
-                      Bank account&nbsp;
-                    </span>
+                  <Tooltip title='Please Enter Your Bank account'>
+                    <span>Bank account&nbsp;</span>
                   </Tooltip>
                 }
                 rules={[
@@ -533,17 +257,17 @@ function DriverRegister() {
             </Col>
           </Row>
 
-          <Row justify="center">
-            <Col span={24} style={{textAlign: 'center'}}>
+          <Row justify='center'>
+            <Col span={24} style={{ textAlign: 'center' }}>
               <Form.Item
-                name="agreement"
-                valuePropName="checked"
+                name='agreement'
+                valuePropName='checked'
                 rules={[
                   {
                     validator: (_, value) =>
                       value
-                      ? Promise.resolve() 
-                      : Promise.reject('Should accept agreement'),
+                        ? Promise.resolve()
+                        : Promise.reject('Should accept agreement'),
                   },
                 ]}
               >
@@ -554,34 +278,18 @@ function DriverRegister() {
             </Col>
           </Row>
 
-          <Row justify="center">
-            <Form.Item
-            >
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="App__button"
->>>>>>> develop
-              >
+          <Row justify='center'>
+            <Form.Item>
+              <Button type='primary' htmlType='submit' className='App__button'>
                 Driver Register
               </Button>
             </Form.Item>
-<<<<<<< HEAD
-          </Col>
-        </Row>
-      </Form>
-      {registerFinish ? <Redirect to='/driver/route' /> : null}
-      <Navbar />
-    </div>
-  );
-=======
           </Row>
         </Form>
-        {registerFinish ? <Redirect to="/driver-route" /> : null}
+        {registerFinish ? <Redirect to='/driver-route' /> : null}
       </Col>
     </div>
-  )
->>>>>>> develop
+  );
 }
 
 export default DriverRegister;
