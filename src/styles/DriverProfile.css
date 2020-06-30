@@ -1,6 +1,6 @@
 .h1{
   color:#000000;
-  font-size: 15px;
+  font-size: 1rem;
   margin-right: 0;
   padding-right: 0;
 }
@@ -12,7 +12,7 @@
 }
 
 .card__img-box {
-  margin: 0 auto auto auto;
+  margin: 1rem auto auto auto;
   width: 5.5rem;
   min-width: 5.5rem;
   height: 5.5rem;
@@ -21,7 +21,7 @@
   border-radius: 100%;
 }
 
-driver {
+.driver {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -35,11 +35,13 @@ driver {
 @media only screen and (min-width: 481px) and (max-width: 768px) {
   .driver__display {
     width: 70%;
+    font-size: 1.3rem;
   }
 } 
 
 @media only screen and (min-width: 769px) { 
   .driver__display {
+    font-size: 1.3rem;
     width: 50%;
   }
 } 

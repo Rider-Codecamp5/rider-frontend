@@ -1,0 +1,38 @@
+.Setting__heading{
+    text-align: center;
+    padding: 1rem;
+    background-color: #1788FB;
+    width: 100%;
+  }
+  
+.Setting__heading h2{
+    color: #ffffff;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  
+  .userSetting {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .userSetting__display {
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    .userSetting__display {
+      width: 70%;
+      font-size: 1.3rem;
+    }
+  } 
+  
+  @media only screen and (min-width: 769px) { 
+    .userSetting__display {
+      font-size: 1.3rem;
+      width: 50%;
+    }
+  } 

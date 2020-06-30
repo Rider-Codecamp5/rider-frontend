@@ -11,7 +11,7 @@ function Navbar(props) {
               <a href='/search-driver'>Search</a>
             </li>
             <li>
-              <a href='#'>Profile</a>
+              <a href='/profile'>Profile</a>
             </li>
             <li>
               <a href='/' onClick={props.onLogOut}>Log out</a>
@@ -28,7 +28,7 @@ function Navbar(props) {
             <a href='/driver/route'>Drive Now</a>
           </li>
           <li>
-            <a href='#'>Profile</a>
+            <a href='/profile'>Profile</a>
           </li>
           <li>
             <a href='/' onClick={props.onLogOut}>Log out</a>
