@@ -19,6 +19,7 @@ function HistoryCard(props) {
             alt={`${props.firstname} ${props.lastname}`}
             className='card__profile-img'
           />
+          {props.firstname}
           <div>{props.firstname}</div>
         </div>
         <div className='card__text'>
