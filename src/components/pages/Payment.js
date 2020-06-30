@@ -1,6 +1,7 @@
 import React from 'react';
+import HistoryCard from '../HistoryCard';
 
-const Payment = () => {
+const Payment = props => {
   return <div></div>;
 };
 

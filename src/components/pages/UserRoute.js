@@ -86,11 +86,7 @@ function UserRoute() {
 
     try {
       let result = await axios.get(
-        `/user/trip?destinationLat=${destinationLat}
-      &destinationLng=${destinationLng}
-      &date=${date}&price=${price}
-      &time=${time}&luggage=${luggage}
-      &seatingCapacity=${seatingCapacity}`
+        `/user/trip?destinationLat=${destinationLat}&destinationLng=${destinationLng}&date=${date}&price=${price}&time=${time}&luggage=${luggage}&seatingCapacity=${seatingCapacity}`
       );
 
       setDrivers(result.data);
