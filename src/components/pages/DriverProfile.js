@@ -10,12 +10,13 @@ import RoleButton from '../RoleButton'
 import PassengerProfileCard from '../PassengerProfileCard';
 import jwtDecode from 'jwt-decode'
 import DriverProfileCard from '../DriverProfileCard';
+import { SettingTwoTone,SettingFilled,SettingOutlined    } from '@ant-design/icons';
 
 function DriverProfile(props) {
 
-  
+
   const [isLogin, setIsLogin] = useState(false);
-  const [userInfo, setUserInfo ] = useState({});
+  const [userInfo, setUserInfo] = useState({});
   const [passenger, setPassenger] = useState({});
   const [driver, setDriver] = useState(false);
   const [currentRole, setCurrentRole] = useState('passenger');
@@ -59,7 +60,8 @@ function DriverProfile(props) {
 
     <div className="driver">
       <div className="App__heading">
-        {passenger ? <h2>{passenger.first_name} {passenger.last_name}</h2> : null}
+        {passenger ? <h2>{passenger.first_name} {passenger.last_name}  <a href="/setting"><SettingOutlined  style={{ fontSize: '25px'}} /></a></h2> : null}
+
       </div>
 
       {
@@ -84,7 +86,11 @@ function DriverProfile(props) {
           :
           <> {driver ? <> <DriverProfileCard Data={driver} /> <PassengerProfileCard Data={passenger} /></> : <h1 className="driver__display">Driver profile not found</h1>}</>
         }
+      <button type="button" class="ant-btn App__button ant-btn-primary ant-btn-lg" ><a href="/history"><span>History</span></a></button>
       </div>
+
+
+
     </div>
 
   )
