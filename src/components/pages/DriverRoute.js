@@ -5,7 +5,8 @@ import axios from '../../configs/axios';
 import '../../styles/DriverRoute.css';
 
 import { useLoadScript } from '@react-google-maps/api';
-import { DatePicker, TimePicker, Checkbox, InputNumber, Modal } from 'antd';
+import { DatePicker, TimePicker, Checkbox, InputNumber, Modal,  } from 'antd';
+import { CarOutlined } from '@ant-design/icons';
 import moment from 'moment';
 
 const libraries = ['places'];
@@ -111,6 +112,9 @@ function DriverRoute() {
     setVisible(false);
   };
 
+  let yellowButton = (isSelected ? '': 'App__button--yellow')
+  let buttonStatus = (isSelected ? 'Confirm your trip': 'Waiting for Passenger')
+  
   // --------- call API ----------------
   const createRoute = async () => {
     getRoute();
@@ -152,26 +156,28 @@ function DriverRoute() {
   return (
     <div className='route'>
       <div className='App__heading'>
-        <h2>Create Route</h2>
+        <h2>Create Route <CarOutlined /></h2>
       </div>
 
       <div className='route__form'>
-        {driverStatus === 'decise' ? (
+        {driverStatus === 'decise' 
+        ? 
+        (
           <>
-            <button className='App__button' onClick={showModal}>
-              Confirm
+            <button className={`App__button ${yellowButton}`} onClick={showModal}>
+              {buttonStatus}
             </button>
             <Modal
-              title='Basic Modal'
+              title='Trip Confirmation'
               visible={visible}
               onOk={handleOk}
               onCancel={handleCancel}
             >
               {isSelected ? (
                 <>
-                  <p>Passenger</p>
-                  <p>{passengerData.first_name}</p>
-                  <p>{passengerData.phone_number}</p>
+                  <p><b>Passenger</b></p>
+                  <p>Name: {passengerData.first_name}</p>
+                  <p>Tel: {passengerData.phone_number}</p>
                 </>
               ) : (
                 <p>
@@ -182,7 +188,9 @@ function DriverRoute() {
               )}
             </Modal>
           </>
-        ) : (
+        ) 
+        : 
+        (
           <>
             <PlaceSearch
               place={origin}

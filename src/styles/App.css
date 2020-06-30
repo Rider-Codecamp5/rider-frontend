@@ -61,6 +61,17 @@
   border: 1px solid #FF425E;
 }
 
+.App .App__button--yellow, 
+.App .App__button--yellow:focus {
+  background-color: #FECF48;
+  border: 1px solid #FECF48;
+}
+
+.App .App__button--yellow:hover {
+  background-color: #FECF48;
+  border: 1px solid #fec215;
+}
+
 /* .App {
   text-align: center;
 }
