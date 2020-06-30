@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DriverMap from '../DriverMap';
 import PlaceSearch from '../PlaceSearch';
 import axios from '../../configs/axios';
@@ -28,6 +28,16 @@ function DriverRoute() {
   const [passengerData, setPassengerData] = useState({});
   const [isSelected, setIsSelected] = useState(false);
 
+  useEffect(() => {
+    async function checkConfrimation() {
+      let result = await axios.get('/driver/get');
+      let confirmationStatus = result.data.driver.confirmation;
+      if(confirmationStatus === 'pending')
+      setDriverStatus('decise');
+    }
+    checkConfrimation();
+  }, [])
+
   // ------------- required google places setting -----------
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -37,6 +47,8 @@ function DriverRoute() {
   if (loadError) return 'Error loading maps';
   if (!isLoaded) return 'Loading Maps';
 
+
+  
   const getOrigin = ref => {
     console.log('ref origin', ref);
     if (ref) {
