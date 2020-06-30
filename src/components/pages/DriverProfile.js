@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from '../../configs/axios';
 import { Space, Form, Input, Tooltip, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, Avatar, } from 'antd';
 import { InfoCircleOutlined, UserOutlined, EyeInvisibleOutlined, EyeTwoTone, QuestionCircleOutlined } from '@ant-design/icons';
-import '../pages/DriverProfile.css';
+import '../../styles/DriverProfile.css';
 import { Link, Redirect } from 'react-router-dom';
 import Navbar from '../Navbar';
 import HistoryCard from '../HistoryCard'

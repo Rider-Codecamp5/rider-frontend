@@ -2,45 +2,56 @@ import React from "react";
 import "../styles/Navbar.css";
 
 function Navbar(props) {
-
-
   const navItems = () => {
     switch(props.role) {
       case 'user':
         return(
           <ul>
             <li>
-              <a href="/search-driver">Search</a>
+              <a href='/search-driver'>Search</a>
             </li>
             <li>
-              <a href="/history">History</a>
-            </li>
-            <li>
-              <a href="#">Profile</a>
+              <a href='#'>Profile</a>
             </li>
             <li>
               <a href='/' onClick={props.onLogOut}>Log out</a>
             </li>
           </ul>
         )
+      case 'driver':
+        return(
+          <ul>
+          <li>
+            <a href='/search-driver'>Search</a>
+          </li>
+          <li>
+            <a href='/driver/route'>Drive Now</a>
+          </li>
+          <li>
+            <a href='#'>Profile</a>
+          </li>
+          <li>
+            <a href='/' onClick={props.onLogOut}>Log out</a>
+          </li>
+        </ul>
+        )
       default:
         return(
           <ul>
             <li>
-              <a href="/">Login</a>
+              <a href='/'>Login</a>
             </li>
             <li>
-              <a href="/register">Register</a>
+              <a href='/register'>Register</a>
             </li>
             <li>
-              <a href="/privacy-policy">Policy</a>
+              <a href='/privacy-policy'>Policy</a>
             </li>
           </ul>
         )
     }
   }
-
-
+  
   return (
     <nav className="Navbar">
       {navItems()}

@@ -1,7 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../configs/axios';
+import {
+    Form,
+    Input,
+    Tooltip,
+    Select,
+    Row,
+    Col,
+    Checkbox,
+    Button,
+    Avatar,
+    Upload,
+    message,
+} from 'antd';
+import { UserOutlined, UploadOutlined } from '@ant-design/icons';
 import jwtDecode from 'jwt-decode'
-import { Redirect } from 'react-router-dom';
+import {Link, Redirect } from 'react-router-dom';
 import RoleButton from '../RoleButton'
 import '../pages/UserSetting.css'
 
@@ -60,7 +74,7 @@ function UserSetting() {
     }
 
 
-    
+
 
 
 

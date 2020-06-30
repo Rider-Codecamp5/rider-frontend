@@ -3,49 +3,39 @@ import '../../styles/Navbar.css';
 import { Link } from 'react-router-dom';
 import { Row, Col, } from 'antd';
 export class PrivacyPolicy extends Component {
-    render() {
-        return (
-            <div>
-
-                <div className="navTop">
-                    <Row justify="center" >
-                        <Col span={8}>
-
-                                <h1 style={{color:"#FFFFFF"}}>PrivacyPolicy</h1>
-                   
-                        </Col>
-                    </Row>
-
-
-                </div>
-                <Row justify="center" style={{ marginTop: "20px" }}>
-                    <Col span={16}>
-                        <div className="Nav">
-                            <p>PrivacyPolicyPrivacyPolicyPrivacyPolicy
-                            PrivacyPolicyPrivacyPolicyPrivacyPolicyPrivacyPolicy
-                            PrivacyPolicyPrivacyPolicyPrivacyPolicyPrivacyPolicy
-                            PrivacyPolicyPrivacyPolicyPrivacyPolicyPrivacyPolicy
-                            PrivacyPolicyPrivacyPolicyPrivacyPolicyPrivacyPolicy
-                            PrivacyPolicyPrivacyPolicyPrivacyPolicyPrivacyPolicy
-                            PrivacyPolicyPrivacyPolicyPrivacyPolicyPrivacyPolicy
-                            PrivacyPolicyPrivacyPolicyPrivacyPolicyPrivacyPolicy
-                            PrivacyPolicyPrivacyPolicyPrivacyPolicyPrivacyPolicy
-                            PrivacyPolicyPrivacyPolicyPrivacyPolicyPrivacyPolicy
-                            PrivacyPolicyPrivacyPolicyPrivacyPolicyPrivacyPolicy
-                            </p>
-                        </div>
-                    </Col>
-                </Row>
-
-
-
-                <Row justify="center" style={{ marginTop: "50px" }}>
-                    <Col span={8}> <Link to="/"><button className="btn-cancel">BACK</button></Link></Col>
-                </Row>
-
+  render() {
+    return (
+      <Col>
+        <div className="App__heading">
+          <Row justify="center" >
+              <h2>PrivacyPolicy</h2>
+          </Row>
+        </div>
+        <Row justify="center" style={{ marginTop: "2rem" }}>
+            <div className="">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum odit at incidunt veniam pariatur tempora sit quis culpa odio, quos amet et officiis, molestias voluptate reprehenderit dolorum eos in inventore.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum odit at incidunt veniam pariatur tempora sit quis culpa odio, quos amet et officiis, molestias voluptate reprehenderit dolorum eos in inventore.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum odit at incidunt veniam pariatur tempora sit quis culpa odio, quos amet et officiis, molestias voluptate reprehenderit dolorum eos in inventore.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum odit at incidunt veniam pariatur tempora sit quis culpa odio, quos amet et officiis, molestias voluptate reprehenderit dolorum eos in inventore.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum odit at incidunt veniam pariatur tempora sit quis culpa odio, quos amet et officiis, molestias voluptate reprehenderit dolorum eos in inventore.
+              </p>
             </div>
-        )
-    }
+        </Row>
+        <Row justify="center">
+          <Link to="/"><button className="App__button App__button--red">BACK</button></Link>
+        </Row>
+      </Col>
+    )
+  }
 }
 
 export default PrivacyPolicy
