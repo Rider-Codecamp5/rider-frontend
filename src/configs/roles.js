@@ -64,6 +64,8 @@ const configRoute = {
       components.History,
       components.RouteDetails,
       components.DriverRegister,
+      components.Setting,
+      components.Profile,
     ],
     redirect: '/search-driver',
   },
