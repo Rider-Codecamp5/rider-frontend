@@ -281,7 +281,7 @@ function DriverRegister(props) {
             </Form.Item>
           </Row>
         </Form>
-        {registerFinish ? <Redirect to='/driver-route' /> : null}
+        {registerFinish ? <Redirect to='/driver/route' /> : null}
       </Col>
     </div>
   );

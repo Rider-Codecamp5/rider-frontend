@@ -9,7 +9,6 @@ import {
   TimePicker,
   Checkbox,
   InputNumber,
-  Slider,
   Button,
   Spin,
   Space,

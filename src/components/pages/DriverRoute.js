@@ -129,6 +129,7 @@ function DriverRoute() {
       time,
       luggage,
       seatingCapacity,
+      price,
     };
 
     try {
