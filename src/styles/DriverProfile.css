@@ -11,16 +11,6 @@
   background-color: #1890ff;
 }
 
-.card__img-box {
-  margin: 1rem auto auto auto;
-  width: 5.5rem;
-  min-width: 5.5rem;
-  height: 5.5rem;
-  min-height: 5.5rem;
-  overflow: hidden;
-  border-radius: 100%;
-}
-
 .driver {
   display: flex;
   flex-direction: column;

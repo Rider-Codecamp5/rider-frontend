@@ -68,8 +68,8 @@
 }
 
 .App .App__button--yellow:hover {
-  background-color: #FECF48;
-  border: 1px solid #fec215;
+  background-color: #fec215;
+  border: 1px solid #FECF48;
 }
 
 /* .App {

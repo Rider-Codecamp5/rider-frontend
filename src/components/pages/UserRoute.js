@@ -115,7 +115,7 @@ function UserRoute() {
           from={driver.from}
           to={driver.to}
           carModel={driver.car_model}
-          seat={driver.seatingCapacity}
+          seat={driver.seating_capacity}
           price={driver.price}
           dateTime={driver.createdAt}
           status={driver.status}

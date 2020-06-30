@@ -1,10 +1,11 @@
 .card {
-  background: #FFFFFF;
+  background: #FCFCFC;
   box-shadow: 2px 2px 11px rgba(0, 0, 0, 0.27);
   border-radius: 5px;
   padding: 1rem 1rem 0 1rem;
   width: 100%;
   margin: 0.5rem 0;
+  color: #8E8E8E;
 }
 
 .card__content {
@@ -12,26 +13,43 @@
   width: 100%;
 }
 
-.card__img-box {
+.card__profile {
   margin: 0 auto auto auto;
+}
+
+.card__profile h3{
+  color: #8E8E8E;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.card__img-box {
+  margin: 0;
   width: 5.5rem;
   min-width: 5.5rem;
   height: 5.5rem;
   min-height: 5.5rem;
   overflow: hidden;
-  border-radius: 100%;
+  border-radius: 50%;
+  margin: auto;
 }
 
 .card__profile-img {
-  width: 100%;
-  height: auto;
-  background-size: contain;
-  
+  display: block;
+  margin-top: 0rem;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  object-fit: cover;
 }
 
 .card__text {
+  display: flex;
+  flex-direction: column;
   width: 70%;
   padding: 0 0 0.5rem 1rem;
+  /* position: relative; */
 }
 
 .card__text span {
@@ -39,9 +57,14 @@
 }
 
 .card__price {
-  display: block;
-  margin-left: auto;
-  text-align: right;
+  justify-self: flex-end;
+  margin-top: auto;
+  align-self: flex-end;
+  /* display: block;
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0;
+  padding: 0.1rem; */
 }
 
 .card__divider {
@@ -53,15 +76,20 @@
   padding: 0.5rem 0;
 }
 
+.card__text--2items {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 @media only screen and (min-width: 481px) and (max-width: 768px) {
   .card__img-box {
-    width: 8rem;
-    min-width: 8rem;
-    height: 8rem;
-    min-height: 8rem;
+    width: 7rem;
+    min-width: 7rem;
+    height: 7rem;
+    min-height: 7rem;
   }
 
-  .card__text h3 {
+  .card__profile h3 {
     font-size: 1.4rem;
   }
 
@@ -77,18 +105,27 @@
 
 @media only screen and (min-width: 769px) { 
   .card__img-box {
-    width: 8.5rem;
-    min-width: 8.5rem;
-    height: 8.5rem;
-    min-height: 8.5rem;
+    width: 8rem;
+    min-width: 8rem;
+    height: 8rem;
+    min-height: 8rem;
   }
 
-  .card__text h3 {
+  .card__profile h3 {
     font-size: 1.4rem;
   }
 
+  .card__text {
+    width: 70%;
+  }
+
   .card__text span {
-    font-size: 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .card__text span::after {
+    width: 100%;
+    content: '';
   }
 
   .card__footer {
@@ -96,3 +133,13 @@
     font-size: 1.2rem;
   }
 } 
+
+@media only screen and (min-width: 1200px) {
+  .card__text {
+    width: 75%;
+  }
+
+  .card__text span {
+    font-size: 1rem;
+  }
+}

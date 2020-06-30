@@ -45,11 +45,17 @@
 
 @media only screen and (min-width: 481px) and (max-width: 768px) {
   .route__form{
-    width: 70%;
+    width: 75%;
   }
 } 
 
-@media only screen and (min-width: 769px) { 
+@media only screen and (min-width: 769px) and (max-width: 1024px) { 
+  .route__form{
+    width: 60%;
+  }
+} 
+
+@media only screen and (min-width: 1025px) { 
   .route__form{
     width: 50%;
   }
