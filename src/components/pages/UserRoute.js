@@ -114,6 +114,7 @@ function UserRoute() {
           phoneNumber={driver.phone_number}
           from={driver.from}
           to={driver.to}
+          carColor={driver.car_color}
           carModel={driver.car_model}
           seat={driver.seating_capacity}
           price={driver.price}

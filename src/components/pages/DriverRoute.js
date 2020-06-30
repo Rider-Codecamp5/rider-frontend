@@ -142,10 +142,10 @@ function DriverRoute() {
       });
       let selectedDriver = await axios.patch('/driver/service/wait');
       let passenger = await axios.get(
-        `/user/getUser/${selectedDriver.data.driver.passenger_id}`
+        `/user/get/${selectedDriver.data.driver.passenger_id}`
       );
       console.log('routedata', routeData);
-      alert('finish');
+      alert('You got selected by a passenger!');
       setIsSelected(true);
       setPassengerData(passenger.data.userData);
       console.log(passenger.data.userData.id);
@@ -177,7 +177,7 @@ function DriverRoute() {
               {isSelected ? (
                 <>
                   <p><b>Passenger</b></p>
-                  <p>Name: {passengerData.first_name}</p>
+                  <p>Name: {passengerData.first_name} {passengerData.last_name}</p>
                   <p>Tel: {passengerData.phone_number}</p>
                 </>
               ) : (

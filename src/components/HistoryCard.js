@@ -39,7 +39,7 @@ function HistoryCard(props) {
 
           <div className='card__text--2items'>
             <span style={{paddingRight: '1rem'}}>
-              <CarOutlined /> {props.carModel}
+              <CarOutlined /> {props.carModel} / {props.carColor}
             </span>
             <span>
               <TeamOutlined /> {props.seat} seats available
@@ -51,8 +51,7 @@ function HistoryCard(props) {
           </span>
 
           <span className='card__price'>
-            <DollarOutlined />
-            Price {props.price} Baht
+            <DollarOutlined /> Price {props.price} Baht
           </span>
         </div>
       </div>
