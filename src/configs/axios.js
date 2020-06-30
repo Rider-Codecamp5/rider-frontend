@@ -23,6 +23,7 @@ axios.interceptors.response.use(
     return config;
   },
   error => {
+    console.log('axios config response', error);
     if (error.response.status === 401) {
       localStorage.removeItem('ACCESS_TOKEN');
       window.location.reload();

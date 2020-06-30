@@ -62,7 +62,6 @@ function LoginUser(props) {
 
       props.setRole(localStorage.getItem(storageItem.role));
       alert('Welcome to Rider');
-      console.log(`${localStorage.getItem(storageItem.ACCESS_TOKEN)}`);
       form.resetFields();
       history.push('/search-driver');
     } catch (err) {

@@ -85,19 +85,19 @@ function UserRoute() {
     const destinationLat = geocodeDestination.lat;
     const destinationLng = geocodeDestination.lng;
 
-    let result = await axios.get(
-      `/user/trip?destinationLat=${destinationLat}
+    try {
+      let result = await axios.get(
+        `/user/trip?destinationLat=${destinationLat}
       &destinationLng=${destinationLng}
       &date=${date}&price=${price}
       &time=${time}&luggage=${luggage}
       &seatingCapacity=${seatingCapacity}`
-    );
+      );
 
-    console.log(date);
-    console.log(time);
-    console.log(price);
-
-    setDrivers(result.data);
+      setDrivers(result.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const renderResult = () => {
