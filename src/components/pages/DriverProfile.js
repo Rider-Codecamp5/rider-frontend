@@ -61,7 +61,6 @@ function DriverProfile(props) {
     <div className="driver">
       <div className="App__heading">
         {passenger ? <h2>{passenger.first_name} {passenger.last_name}  <a href="/setting"><SettingOutlined  style={{ fontSize: '25px'}} /></a></h2> : null}
-
       </div>
 
       {
@@ -75,12 +74,12 @@ function DriverProfile(props) {
           </div>
           :
           null
-      }
+        }
 
 
       <div className="driver__display">
-        <h2>Profile information</h2>
         <RoleButton isPassenger={isPassenger} setIsPassenger={setIsPassenger} />
+        <h2>Profile information</h2>
         {isPassenger ?
           <> {passenger ? <PassengerProfileCard Data={passenger} /> : null} </>
           :
