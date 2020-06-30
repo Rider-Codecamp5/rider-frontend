@@ -5,6 +5,8 @@ import DriverRegister from '../components/pages/DriverRegister';
 import UserRoute from '../components/pages/UserRoute';
 import PrivacyPolicy from '../components/pages/PrivacyPolicy';
 import History from '../components/pages/History';
+import Setting from '../components/pages/UserSetting';
+import Profile from '../components/pages/DriverProfile'
 import RouteDetails from '../components/pages/RouteDetails';
 
 const components = {
@@ -40,6 +42,14 @@ const components = {
     component: RouteDetails,
     url: '/driver/route-details/:id',
   },
+  Setting: {
+    component: Setting,
+    url: '/setting'
+  },
+  Profile: {
+    component: Profile,
+    url: '/profile'
+  },
 };
 
 const configRoute = {
@@ -54,6 +64,8 @@ const configRoute = {
       components.History,
       components.RouteDetails,
       components.DriverRegister,
+      components.Setting,
+      components.Profile,
     ],
     redirect: '/search-driver',
   },
@@ -63,6 +75,8 @@ const configRoute = {
       components.UserRoute,
       components.DriverRoute,
       components.History,
+      components.Setting,
+      components.Profile,
       components.RouteDetails,
     ],
     redirect: '/search-driver',

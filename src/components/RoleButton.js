@@ -4,14 +4,16 @@ import '../styles/RoleButton.css'
 export default function RoleButton(props) {
   const [ currentRole, setCurrentRole ] = useState('passenger');
 
-  // const { currentRole, setCurrentRole } = props;
+  const { isPassenger, setIsPassenger } = props;
 
   const onSelectPassenger = () => {
     setCurrentRole('passenger');
+    setIsPassenger(true)
   }
 
   const onSelectDriver = () => {
     setCurrentRole('driver');
+    setIsPassenger(false)
   }
 
   let passengerActive;
