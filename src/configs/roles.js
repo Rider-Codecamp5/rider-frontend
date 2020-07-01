@@ -6,8 +6,10 @@ import UserRoute from '../components/pages/UserRoute';
 import PrivacyPolicy from '../components/pages/PrivacyPolicy';
 import History from '../components/pages/History';
 import Setting from '../components/pages/UserSetting';
-import Profile from '../components/pages/DriverProfile'
+import Profile from '../components/pages/DriverProfile';
 import RouteDetails from '../components/pages/RouteDetails';
+import Payment from '../components/pages/Payment';
+import PaymentResult from '../components/pages/PaymentResult';
 
 const components = {
   Login: {
@@ -44,11 +46,19 @@ const components = {
   },
   Setting: {
     component: Setting,
-    url: '/setting'
+    url: '/setting',
   },
   Profile: {
     component: Profile,
-    url: '/profile'
+    url: '/profile',
+  },
+  Payment: {
+    component: Payment,
+    url: '/payment',
+  },
+  PaymentResult: {
+    component: PaymentResult,
+    url: '/payment-result',
   },
 };
 
@@ -66,6 +76,8 @@ const configRoute = {
       components.DriverRegister,
       components.Setting,
       components.Profile,
+      components.Payment,
+      components.PaymentResult,
     ],
     redirect: '/search-driver',
   },
@@ -78,10 +90,11 @@ const configRoute = {
       components.Setting,
       components.Profile,
       components.RouteDetails,
+      components.Payment,
+      components.PaymentResult,
     ],
     redirect: '/search-driver',
-
-  }
+  },
 };
 
 export default configRoute;

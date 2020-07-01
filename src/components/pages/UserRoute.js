@@ -91,7 +91,10 @@ function UserRoute() {
 
       setDrivers(result.data);
     } catch (err) {
-      alert(err.response.data.message);
+      if (err.response.status === 404) {
+        setDrivers([]);
+      }
+      // alert(err.response.data.message);
     }
   };
 
@@ -102,6 +105,10 @@ function UserRoute() {
           <Spin size='large' />
         </Space>
       );
+    }
+
+    if (drivers.length === 0) {
+      return <h1>No driver found</h1>;
     }
 
     return drivers.map(driver => (
