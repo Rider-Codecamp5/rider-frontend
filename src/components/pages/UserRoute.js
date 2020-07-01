@@ -30,6 +30,7 @@ function UserRoute() {
   const [seatingCapacity, setSeatingCapacity] = useState('1');
   const [price, setPrice] = useState(10);
   const [drivers, setDrivers] = useState([]);
+  const [timestamp, setTimeStamp] = useState(0);
 
   // ------------- required google places setting -----------
   const { isLoaded, loadError } = useLoadScript({
@@ -58,6 +59,7 @@ function UserRoute() {
   function onDateChange(date, dateString) {
     console.log(date, dateString);
     setDate(dateString);
+    setTimeStamp(Date.parse(date._d));
   }
 
   function onTimeChange(time, timeString) {
@@ -86,7 +88,7 @@ function UserRoute() {
 
     try {
       let result = await axios.get(
-        `/user/trip?destinationLat=${destinationLat}&destinationLng=${destinationLng}&date=${date}&price=${price}&time=${time}&luggage=${luggage}&seatingCapacity=${seatingCapacity}`
+        `/user/trip?destinationLat=${destinationLat}&destinationLng=${destinationLng}&date=${timestamp}&price=${price}&time=${time}&luggage=${luggage}&seatingCapacity=${seatingCapacity}`
       );
 
       setDrivers(result.data);
