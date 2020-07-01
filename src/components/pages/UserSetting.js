@@ -17,8 +17,7 @@ import { UserOutlined, UploadOutlined } from '@ant-design/icons';
 import jwtDecode from 'jwt-decode'
 import { Link, Redirect } from 'react-router-dom';
 import RoleButton from '../RoleButton'
-// import '../pages/UserSetting.css'
-import '../../styles/UserRegisterRoute.css';
+import '../../styles/UserSetting.css';
 
 
 const { Option } = Select;
@@ -150,203 +149,189 @@ function UserSetting() {
     }
 
     return (
-        <div>
-            {/* <h1>This pages is User Setting </h1> */}
+        <div className='userSetting'>
+                <div className='Setting__heading'>
+                    <h2>Setting</h2>
+                </div>
+            <div className='userSetting__display'>
+                <Row
+                    justify='center'
+                >
+                    {/* <Col xs={4} sm={2}> */}
+                    <Avatar style={{ margin: "1rem" }} size={120} src={oldUserData.profile_pic} />
+                    {/* </Col> */}
+                </Row>
+                <RoleButton isPassenger={isPassenger} setIsPassenger={setIsPassenger} onChange={resetForm} />
+                <Row justify='left'>
+                    <h3>Please enter your update data</h3>
+                </Row>
+            </div>
+
+
             {isPassenger ?
                 <>
                     <div>
-                        <div className='App__heading'>
-                            <h2>Setting</h2>
-                        </div>
-                        <RoleButton isPassenger={isPassenger} setIsPassenger={setIsPassenger} onChange={resetForm} />
                         <Col span={24} className='register'>
-                            <Row
-                                justify='center'
-                            >
-                                {/* <Col xs={4} sm={2}> */}
-                                <Avatar size={100} src={oldUserData.profile_pic} />
-                                {/* </Col> */}
-                            </Row>
-                            <Row justify='center'>
-                                {/* <Col xs={8} sm={4} md={4} lg={3}> */}
-                                <h1 className='App__header'>Edit Passenger Data</h1>
-                                {/* </Col> */}
-                            </Row>
+                            <div>
+                                <Form
+                                    {...formItemLayout}
+                                    form={form}
+                                    name='editPassengerData'
+                                    onFinish={onFinishPassenger}
+                                    initialValues={{}}
+                                    scrollToFirstError
+                                >
 
-                            <Form
-                                {...formItemLayout}
-                                form={form}
-                                name='editPassengerData'
-                                onFinish={onFinishPassenger}
-                                initialValues={{}}
-                                scrollToFirstError
-                            >
-
-                                <Row justify='center'>
-                                    <Col xs={20} sm={22} md={15}>
-                                        <Form.Item
-                                            name='name'
-                                            label={
-                                                <span>
-                                                    Name&nbsp;
+                                    <Row justify='center'>
+                                        <Col xs={20} sm={22} md={15}>
+                                            <Form.Item
+                                                name='name'
+                                                label={
+                                                    <span>
+                                                        Name&nbsp;
                     <Tooltip title='Please Enter Your Name'></Tooltip>
-                                                </span>
-                                            }
-                                            rules={[
-                                                {
-                                                    required: false,
-                                                    message: 'Please Enter Your Name',
-                                                    whitespace: true,
-                                                },
-                                            ]}
-                                        >
-                                            <Input className='register__input' placeholder={oldUserData.first_name} />
-                                        </Form.Item>
-                                    </Col>
-                                </Row>
-
-                                <Row justify='center'>
-                                    <Col xs={20} sm={22} md={15}>
-                                        <Form.Item
-                                            name='surname'
-                                            label={
-                                                <span>
-                                                    Surname&nbsp;
-                    <Tooltip title='Please Enter Your Surname'></Tooltip>
-                                                </span>
-                                            }
-                                            rules={[
-                                                {
-                                                    required: false,
-                                                    message: 'Please Enter Your Surname',
-                                                    whitespace: true,
-                                                },
-                                            ]}
-                                        >
-                                            <Input className='register__input' placeholder={oldUserData.last_name} />
-                                        </Form.Item>
-                                    </Col>
-                                </Row>
-
-                                <Row justify='center'>
-                                    <Col xs={20} sm={22} md={15}>
-                                        <Form.Item
-                                            name='phone_number'
-                                            label={
-                                                <span>
-                                                    Phone number&nbsp;
-                    <Tooltip title='Please Enter Your Phone number'></Tooltip>
-                                                </span>
-                                            }
-                                            rules={[
-                                                {
-                                                    required: false,
-                                                    message: 'Please Enter Your Phone number',
-                                                    whitespace: true,
-                                                },
-                                            ]}
-                                        >
-                                            <Input className='register__input' placeholder={oldUserData.phone_number} />
-                                        </Form.Item>
-                                    </Col>
-                                </Row>
-
-                                <Row justify='center'>
-                                    <Col xs={20} sm={22} md={15}>
-                                        <Form.Item
-
-                                            name='address'
-                                            label={
-                                                <span>
-                                                    Address&nbsp;
-                    <Tooltip title='Please Enter Your Address'></Tooltip>
-                                                </span>
-                                            }
-                                            rules={[
-                                                {
-                                                    required: false,
-                                                    message: 'Please Enter Your Address',
-                                                    whitespace: true,
-                                                },
-                                            ]}
-                                        >
-                                            <Input className='register__input' placeholder={oldUserData.address} />
-                                        </Form.Item>
-                                    </Col>
-                                </Row>
-
-                                <Row justify='center'>
-                                    {/* <Col xs={20} sm={22}> */}
-                                    <Upload {...imageUploadProps}>
-                                        <Button>
-                                            <UploadOutlined /> Click to upload
-                </Button>
-                                    </Upload>
-                                    {/* </Col> */}
-                                </Row>
-
-                                <Row justify='center' >
-                                    <Col span={24} style={{ textAlign: 'center' }}>
-                                        <Form.Item
-                                            name='agreement'
-                                            valuePropName='checked'
-                                            rules={[
-                                                {
-                                                    validator: (_, value) =>
-                                                        value
-                                                            ? Promise.resolve()
-                                                            : Promise.reject('Should accept agreement'),
-                                                },
-                                            ]}
-                                        // {...tailFormItemLayout}
-                                        >
-                                            <Checkbox>
-                                                Data is up to date.
-                                                {/* <Link to='/PrivacyPolicy' style={{ display: 'inline' }}>agreement</Link> */}
-                                            </Checkbox>
-                                        </Form.Item>
-                                    </Col>
-                                </Row>
-
-                                <Row justify='center'>
-                                    <Col>
-                                        <Form.Item>
-                                            <Button
-                                                type='primary'
-                                                htmlType='submit'
-                                                className='App__button'
+                                                    </span>
+                                                }
+                                                rules={[
+                                                    {
+                                                        required: false,
+                                                        message: 'Please Enter Your Name',
+                                                        whitespace: true,
+                                                    },
+                                                ]}
                                             >
-                                                Edit Passenger Data
+                                                <Input className='register__input' placeholder={oldUserData.first_name} />
+                                            </Form.Item>
+                                        </Col>
+                                    </Row>
+
+                                    <Row justify='center'>
+                                        <Col xs={20} sm={22} md={15}>
+                                            <Form.Item
+                                                name='surname'
+                                                label={
+                                                    <span>
+                                                        Surname&nbsp;
+                    <Tooltip title='Please Enter Your Surname'></Tooltip>
+                                                    </span>
+                                                }
+                                                rules={[
+                                                    {
+                                                        required: false,
+                                                        message: 'Please Enter Your Surname',
+                                                        whitespace: true,
+                                                    },
+                                                ]}
+                                            >
+                                                <Input className='register__input' placeholder={oldUserData.last_name} />
+                                            </Form.Item>
+                                        </Col>
+                                    </Row>
+
+                                    <Row justify='center'>
+                                        <Col xs={20} sm={22} md={15}>
+                                            <Form.Item
+                                                name='phone_number'
+                                                label={
+                                                    <span>
+                                                        Phone number&nbsp;
+                    <Tooltip title='Please Enter Your Phone number'></Tooltip>
+                                                    </span>
+                                                }
+                                                rules={[
+                                                    {
+                                                        required: false,
+                                                        message: 'Please Enter Your Phone number',
+                                                        whitespace: true,
+                                                    },
+                                                ]}
+                                            >
+                                                <Input className='register__input' placeholder={oldUserData.phone_number} />
+                                            </Form.Item>
+                                        </Col>
+                                    </Row>
+
+                                    <Row justify='center'>
+                                        <Col xs={20} sm={22} md={15}>
+                                            <Form.Item
+
+                                                name='address'
+                                                label={
+                                                    <span>
+                                                        Address&nbsp;
+                    <Tooltip title='Please Enter Your Address'></Tooltip>
+                                                    </span>
+                                                }
+                                                rules={[
+                                                    {
+                                                        required: false,
+                                                        message: 'Please Enter Your Address',
+                                                        whitespace: true,
+                                                    },
+                                                ]}
+                                            >
+                                                <Input className='register__input' placeholder={oldUserData.address} />
+                                            </Form.Item>
+                                        </Col>
+                                    </Row>
+
+                                    <Row justify='center'>
+                                        {/* <Col xs={20} sm={22}> */}
+                                        <Upload {...imageUploadProps}>
+                                            <Button>
+                                                <UploadOutlined /> Click to upload
                 </Button>
-                                        </Form.Item>
-                                    </Col>
-                                </Row>
-                            </Form>
+                                        </Upload>
+                                        {/* </Col> */}
+                                    </Row>
+
+                                    <Row justify='center' >
+                                        <Col span={24} style={{ textAlign: 'center' }}>
+                                            <Form.Item
+                                                name='agreement'
+                                                valuePropName='checked'
+                                                rules={[
+                                                    {
+                                                        validator: (_, value) =>
+                                                            value
+                                                                ? Promise.resolve()
+                                                                : Promise.reject('Should accept agreement'),
+                                                    },
+                                                ]}
+                                            // {...tailFormItemLayout}
+                                            >
+                                                <Checkbox>
+                                                    Data is up to date.
+                                                {/* <Link to='/PrivacyPolicy' style={{ display: 'inline' }}>agreement</Link> */}
+                                                </Checkbox>
+                                            </Form.Item>
+                                        </Col>
+                                    </Row>
+
+                                    <Row justify='center'>
+                                        <Col>
+                                            <Form.Item>
+                                                <Button
+                                                    type='primary'
+                                                    htmlType='submit'
+                                                    className='App__button'
+                                                >
+                                                    Edit Passenger Data
+                </Button>
+                                            </Form.Item>
+                                        </Col>
+                                    </Row>
+                                </Form>
+                            </div>
                         </Col>
                         {updatedFinish ? <Redirect to='/' /> : null}
                     </div>
+
                 </>
                 :
                 <>
                     <div>
-                        <div className='App__heading'>
-                            <h2>Setting</h2>
-                        </div>
-                        <RoleButton isPassenger={isPassenger} setIsPassenger={setIsPassenger} onChange={resetForm} />
                         <Col span={24} className='register'>
-                            <Row
-                                justify='center'
-                            >
-                                {/* <Col xs={4} sm={2}> */}
-                                <Avatar size={100} src={oldUserData.profile_pic} />
-                                {/* </Col> */}
-                            </Row>
-                            <Row justify='center'>
-                                {/* <Col xs={8} sm={4} md={4} lg={3}> */}
-                                <h1 className='App__header'>Edit Driver Data</h1>
-                                {/* </Col> */}
-                            </Row>
-
                             <Form
                                 {...formItemLayout}
                                 form={form}

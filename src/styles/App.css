@@ -19,7 +19,6 @@
 .App__heading h2 {
   color: #ffffff;
   font-weight: normal;
-  margin: 0;
 }
 
 .App__header {
@@ -68,8 +67,8 @@
 }
 
 .App .App__button--yellow:hover {
-  background-color: #FECF48;
-  border: 1px solid #fec215;
+  background-color: #fec215;
+  border: 1px solid #FECF48;
 }
 
 /* .App {

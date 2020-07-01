@@ -5,8 +5,17 @@ import { useLoadScript } from '@react-google-maps/api';
 // import moment from 'moment';
 import DriverMap from '../DriverMap';
 import HistoryCard from '../HistoryCard';
-
 import '../../styles/DriverRoute.css';
+
+import {
+  CarOutlined,
+  CalendarOutlined,
+  PushpinOutlined,
+  TeamOutlined,
+  DollarOutlined,
+  PhoneOutlined,
+} from '@ant-design/icons';
+
 
 const libraries = ['places'];
 
@@ -104,6 +113,7 @@ function RouteDetails(props) {
       from,
       to,
       car_model,
+      car_color,
       price,
       seating_capacity,
       updatedAt,
@@ -111,18 +121,33 @@ function RouteDetails(props) {
     } = routeDetails;
 
     return (
-      <HistoryCard
-        firstname={first_name}
-        lastname={last_name}
-        phoneNumber={phone_number}
-        from={from}
-        to={to}
-        carModel={car_model}
-        price={price}
-        seat={seating_capacity}
-        dateTime={updatedAt}
-        profilePic={profile_pic}
-      />
+      <div
+        className='card'
+      >
+        <div className='card__text' style={{width: '100%', padding: '0.2rem 1rem'}}>
+          <div className='card__profile'>
+            <div className='card__img-box'>
+              <img
+                src={profile_pic}
+                alt={`${first_name} ${last_name}`}
+                className='card__profile-img'
+              />
+            </div>
+            <h3 style={{fontSize: '1.4rem', marginBottom: '0'}}>{first_name} {last_name}</h3>
+          </div>
+          <span>{from}</span>
+          <span><PushpinOutlined /> {to}</span>
+          <span><CalendarOutlined /> {updatedAt}</span>
+          <div className='card__divider' style={{paddingTop: '1rem'}}>{/* horizontal line */}</div>
+          <div className='card__text card__footer' style={{width: '100%'}}>
+            <span><CarOutlined /> {car_model} / {car_color}</span>
+            <span><TeamOutlined /> {seating_capacity} seats available</span>
+            <span><PhoneOutlined /> {phone_number}</span>
+            <span className='card__price'><DollarOutlined />Price {price} Baht</span>
+          </div>
+          
+        </div>
+      </div>
     );
   };
 

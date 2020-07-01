@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DriverMap from '../DriverMap';
 import PlaceSearch from '../PlaceSearch';
 import axios from '../../configs/axios';
@@ -28,6 +28,16 @@ function DriverRoute() {
   const [passengerData, setPassengerData] = useState({});
   const [isSelected, setIsSelected] = useState(false);
 
+  useEffect(() => {
+    async function checkConfrimation() {
+      let result = await axios.get('/driver/get');
+      let confirmationStatus = result.data.driver.confirmation;
+      if(confirmationStatus === 'pending')
+      setDriverStatus('decise');
+    }
+    checkConfrimation();
+  }, [])
+
   // ------------- required google places setting -----------
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -37,6 +47,8 @@ function DriverRoute() {
   if (loadError) return 'Error loading maps';
   if (!isLoaded) return 'Loading Maps';
 
+
+  
   const getOrigin = ref => {
     console.log('ref origin', ref);
     if (ref) {
@@ -142,10 +154,10 @@ function DriverRoute() {
       });
       let selectedDriver = await axios.patch('/driver/service/wait');
       let passenger = await axios.get(
-        `/user/getUser/${selectedDriver.data.driver.passenger_id}`
+        `/user/get/${selectedDriver.data.driver.passenger_id}`
       );
       console.log('routedata', routeData);
-      alert('finish');
+      alert('You got selected by a passenger!');
       setIsSelected(true);
       setPassengerData(passenger.data.userData);
       console.log(passenger.data.userData.id);
@@ -177,7 +189,7 @@ function DriverRoute() {
               {isSelected ? (
                 <>
                   <p><b>Passenger</b></p>
-                  <p>Name: {passengerData.first_name}</p>
+                  <p>Name: {passengerData.first_name} {passengerData.last_name}</p>
                   <p>Tel: {passengerData.phone_number}</p>
                 </>
               ) : (
