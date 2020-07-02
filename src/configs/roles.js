@@ -8,6 +8,7 @@ import History from '../components/pages/History';
 import Settings from '../components/pages/Settings';
 import Profile from '../components/pages/Profile'
 import RouteDetails from '../components/pages/RouteDetails';
+import Trip from '../components/pages/Trip';
 
 const components = {
   Login: {
@@ -44,12 +45,16 @@ const components = {
   },
   Settings: {
     component: Settings,
-    url: '/settings'
+    url: '/settings',
   },
   Profile: {
     component: Profile,
-    url: '/profile'
+    url: '/profile',
   },
+  Trip: {
+    component: Trip,
+    url: '/trip/on-going',
+  }
 };
 
 const configRoute = {
@@ -66,6 +71,7 @@ const configRoute = {
       components.DriverRegister,
       components.Settings,
       components.Profile,
+      components.Trip,
     ],
     redirect: '/search-driver',
   },
@@ -78,6 +84,7 @@ const configRoute = {
       components.Settings,
       components.Profile,
       components.RouteDetails,
+      components.Trip,
     ],
     redirect: '/search-driver',
 

@@ -15,14 +15,14 @@ import {
 } from 'antd';
 import moment from 'moment';
 import HistoryCard from '../HistoryCard';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const libraries = ['places'];
 
 function UserRoute() {
   const [origin, setOrigin] = useState('Origin');
   const [destination, setDestination] = useState('Destination');
-  const [, setGeocodeOrigin] = useState({});
+  const [geocodeOrigin, setGeocodeOrigin] = useState({});
   const [geocodeDestination, setGeocodeDestination] = useState([]);
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
@@ -30,6 +30,22 @@ function UserRoute() {
   const [seatingCapacity, setSeatingCapacity] = useState('1');
   const [price, setPrice] = useState(10);
   const [drivers, setDrivers] = useState([]);
+
+  let history = useHistory();
+
+  try{
+    // user can be passenger or driver
+    const checkCurrentTrip = async() => {
+      let user = await axios.get('/driver/service/current');
+      if(user.data.currentTrip) {
+        history.push('/trip/on-going');
+      }
+    }
+    checkCurrentTrip();
+  } catch(err) {
+    console.log(err.response);
+  }
+
 
   // ------------- required google places setting -----------
   const { isLoaded, loadError } = useLoadScript({
@@ -90,6 +106,7 @@ function UserRoute() {
       );
 
       setDrivers(result.data);
+      console.log('UserRoute: driver data', result.data)
     } catch (err) {
       alert(err.response.data.message);
     }
@@ -116,6 +133,7 @@ function UserRoute() {
           to={driver.to}
           carColor={driver.car_color}
           carModel={driver.car_model}
+          driverLicense={driver.driver_license}
           seat={driver.seating_capacity}
           price={driver.price}
           dateTime={driver.createdAt}
