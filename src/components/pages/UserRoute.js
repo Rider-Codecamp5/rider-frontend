@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PlaceSearch from '../PlaceSearch';
 import axios from '../../configs/axios';
 import '../../styles/DriverRoute.css';
@@ -34,18 +34,22 @@ function UserRoute() {
 
   let history = useHistory();
 
-  try{
-    // user can be passenger or driver
-    const checkCurrentTrip = async() => {
-      let user = await axios.get('/driver/service/current');
-      if(user.data.currentTrip) {
-        history.push('/trip/on-going');
+  useEffect(() => {
+    try{
+      // user can be passenger or driver
+      const checkCurrentTrip = async() => {
+        let user = await axios.get('/driver/service/current');
+        console.log(user.data)
+        if(user.data.currentTrip) {
+          history.push('/trip/on-going');
+        }
       }
+      checkCurrentTrip();
+    } catch(err) {
+      console.log(err.response);
     }
-    checkCurrentTrip();
-  } catch(err) {
-    console.log(err.response);
-  }
+
+  }, [])
 
 
   // ------------- required google places setting -----------

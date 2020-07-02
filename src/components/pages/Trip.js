@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import DriverMap from '../DriverMap';
 import HistoryCard from '../HistoryCard';
 import axios from '../../configs/axios';
-import { useHistory } from 'react-router-dom';
 
 import { useLoadScript } from '@react-google-maps/api';
 const libraries = ['places'];
@@ -14,17 +13,14 @@ function Trip(props) {
   const [ destination, setDestination] = useState({lat: null, lng: null});
   const [ isDriver, setIsDriver] = useState(false);
 
-  let history = useHistory();
-
   // need useEffect because tripData state is changed
   useEffect(() => {
     try{
-      let currentTrip;
       // user can be passenger or driver
       const getCurrentTrip = async() => {
         console.log('try');
         let user = await axios.get('/driver/service/current');
-        currentTrip = user.data.currentTrip;
+        let currentTrip = user.data.currentTrip;
         setTripData(currentTrip);
 
         if(currentTrip) {

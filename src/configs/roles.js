@@ -83,6 +83,7 @@ const configRoute = {
       components.Profile,
       components.Payment,
       components.PaymentResult,
+      components.Trip,
     ],
     redirect: '/search-driver',
   },
