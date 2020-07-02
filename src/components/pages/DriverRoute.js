@@ -32,17 +32,25 @@ function DriverRoute() {
   let history = useHistory();
 
   useEffect(() => {
-    async function checkConfrimation() {
+    async function checkConfirmation() {
       let result = await axios.get('/driver/get');
       let status = result.data.driver.status;
-      if(status === 'available' || status === 'selected' || status === 'booked')
+      if(status === 'available' || status === 'selected')
       setDriverStatus('decise');
+        // if selected get passenger data
+        if(status === 'selected') {
+          let passenger = await axios.get(
+            `/user/get/${result.data.driver.passenger_id}`
+          );
+          setPassengerData(passenger.data.userData);
+          setIsSelected(true);
+        }
       // redirect if already booked
       if(status === 'booked') {
         history.push('/trip/on-going');
       }
     }
-    checkConfrimation();
+    checkConfirmation();
   }, [])
 
   // ------------- required google places setting -----------
@@ -53,8 +61,6 @@ function DriverRoute() {
 
   if (loadError) return 'Error loading maps';
   if (!isLoaded) return 'Loading Maps';
-
-
   
   const getOrigin = ref => {
     console.log('ref origin', ref);
@@ -116,9 +122,11 @@ function DriverRoute() {
         confirmation: true,
       });
       console.log('handleOk result', result);
+      if(result) {
+        history.push('/trip/on-going');
+      }
     }
     setVisible(false);
-    history.push('/trip/on-going');
   };
 
   const handleCancel = async e => {

@@ -24,6 +24,7 @@ function RouteDetails(props) {
   const [destination, setDestination] = useState('Destination');
   const [geocodeOrigin, setGeocodeOrigin] = useState({});
   const [geocodeDestination, setGeocodeDestination] = useState([]);
+  const [isWaiting, setIsWaiting] = useState(false);
 
   let history = useHistory();
 
@@ -72,6 +73,9 @@ function RouteDetails(props) {
           driverId: Number(props.match.params.id),
         },
       });
+
+      setIsWaiting(true);
+      // start interval waiting for driver confirmation
       let confirmation = await axios.get('/user/trip/confirmation');
       console.log('confirmation', confirmation);
       alert(confirmation.data.message);
@@ -167,9 +171,14 @@ function RouteDetails(props) {
         <Button type='primary' block style={{ marginBottom: '1rem' }}>
           Call Driver
         </Button>
-        <Button type='#95de64' block onClick={selectDriver}>
-          Join Trip
-        </Button>
+        {isWaiting 
+          ? 
+            <button className='App__button App__button--yellow'>Waiting for Driver Confirmation</button>
+          :
+          <Button type='#95de64' block onClick={selectDriver}>
+            Join Trip
+          </Button>
+        }
       </div>
     </div>
   );
