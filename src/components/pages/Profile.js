@@ -14,30 +14,21 @@ import { SettingTwoTone,SettingFilled,SettingOutlined    } from '@ant-design/ico
 
 function Profile(props) {
   const [isLogin, setIsLogin] = useState(false);
-  const [userInfo, setUserInfo] = useState({});
   const [passenger, setPassenger] = useState(false);
   const [driver, setDriver] = useState(false);
   const [currentRole, setCurrentRole] = useState('passenger');
   const [isPassenger, setIsPassenger] = useState(true)
 
   useEffect(() => {
-    if (localStorage.getItem("ACCESS_TOKEN")) {
-      const user = jwtDecode(localStorage.getItem('ACCESS_TOKEN'));
-      setIsLogin(true)
-      setUserInfo(user)
-    }
-  }, [])
-
-  useEffect(() => {
     passengerData();
     driverData();
-  }, [userInfo])
+  }, [])
 
 
   const passengerData = async () => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}` }
-    const passengerData = await axios.get(`/user/get/${userInfo.id}`, { headers: headers });
-    console.log(passengerData.data.userData)
+    const passengerData = await axios.get(`/user/get/${props.userInfo.id}`, { headers: headers });
+    console.log('data passenger', passengerData.data.userData)
     try{
       setPassenger(passengerData.data.userData)
     } catch {
