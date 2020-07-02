@@ -30,6 +30,7 @@ function UserRoute() {
   const [seatingCapacity, setSeatingCapacity] = useState('1');
   const [price, setPrice] = useState(10);
   const [drivers, setDrivers] = useState([]);
+  const [timestamp, setTimeStamp] = useState(0);
 
   let history = useHistory();
 
@@ -74,6 +75,7 @@ function UserRoute() {
   function onDateChange(date, dateString) {
     console.log(date, dateString);
     setDate(dateString);
+    setTimeStamp(Date.parse(date._d));
   }
 
   function onTimeChange(time, timeString) {
@@ -102,13 +104,16 @@ function UserRoute() {
 
     try {
       let result = await axios.get(
-        `/user/trip?destinationLat=${destinationLat}&destinationLng=${destinationLng}&date=${date}&price=${price}&time=${time}&luggage=${luggage}&seatingCapacity=${seatingCapacity}`
+        `/user/trip?destinationLat=${destinationLat}&destinationLng=${destinationLng}&date=${timestamp}&price=${price}&time=${time}&luggage=${luggage}&seatingCapacity=${seatingCapacity}`
       );
 
       setDrivers(result.data);
       console.log('UserRoute: driver data', result.data)
     } catch (err) {
-      alert(err.response.data.message);
+      if (err.response.status === 404) {
+        setDrivers([]);
+      }
+      // alert(err.response.data.message);
     }
   };
 
@@ -119,6 +124,10 @@ function UserRoute() {
           <Spin size='large' />
         </Space>
       );
+    }
+
+    if (drivers.length === 0) {
+      return <h1>No driver found</h1>;
     }
 
     return drivers.map(driver => (

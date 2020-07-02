@@ -5,7 +5,7 @@ import axios from '../../configs/axios';
 import '../../styles/DriverRoute.css';
 
 import { useLoadScript } from '@react-google-maps/api';
-import { DatePicker, TimePicker, Checkbox, InputNumber, Modal,  } from 'antd';
+import { DatePicker, TimePicker, Checkbox, InputNumber, Modal } from 'antd';
 import { CarOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
@@ -28,6 +28,7 @@ function DriverRoute() {
   const [driverStatus, setDriverStatus] = useState('create');
   const [passengerData, setPassengerData] = useState({});
   const [isSelected, setIsSelected] = useState(false);
+  const [timestamp, setTimestamp] = useState(0);
 
   let history = useHistory();
 
@@ -46,7 +47,7 @@ function DriverRoute() {
           setIsSelected(true);
         }
       // redirect if already booked
-      if(status === 'booked') {
+      if (status === 'booked') {
         history.push('/trip/on-going');
       }
     }
@@ -80,8 +81,10 @@ function DriverRoute() {
 
   // antD slider mark
   function onDateChange(date, dateString) {
-    console.log(date, dateString);
+    console.log(date._d);
+    // console.log('new Date', Date.parse(date._d));
     setDate(dateString);
+    setTimestamp(Date.parse(date._d));
   }
 
   function onTimeChange(time, timeString) {
@@ -140,9 +143,10 @@ function DriverRoute() {
     setVisible(false);
   };
 
-  let yellowButton = (isSelected ? '': 'App__button--yellow')
-  let buttonStatus = (isSelected ? 'Confirm your trip': 'Waiting for Passenger')
-  
+  let yellowButton = isSelected ? '' : 'App__button--yellow';
+  let buttonStatus = isSelected ? 'Confirm your trip' : 'Waiting for Passenger';
+
+  console.log('timestamp after setState', typeof timestamp);
   // --------- call API ----------------
   const createRoute = async () => {
     getRoute();
@@ -150,6 +154,7 @@ function DriverRoute() {
     const headers = {
       Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
     };
+
     let body = {
       origin,
       originLat: geocodeOrigin.lat,
@@ -157,7 +162,7 @@ function DriverRoute() {
       destination,
       destinationLat: geocodeDestination.lat,
       destinationLng: geocodeDestination.lng,
-      date,
+      date: timestamp,
       time,
       luggage,
       seatingCapacity,
@@ -185,15 +190,18 @@ function DriverRoute() {
   return (
     <div className='route'>
       <div className='App__heading'>
-        <h2>Create Route <CarOutlined /></h2>
+        <h2>
+          Create Route <CarOutlined />
+        </h2>
       </div>
 
       <div className='route__form'>
-        {driverStatus === 'decise' 
-        ? 
-        (
+        {driverStatus === 'decise' ? (
           <>
-            <button className={`App__button ${yellowButton}`} onClick={showModal}>
+            <button
+              className={`App__button ${yellowButton}`}
+              onClick={showModal}
+            >
               {buttonStatus}
             </button>
             <Modal
@@ -204,8 +212,12 @@ function DriverRoute() {
             >
               {isSelected ? (
                 <>
-                  <p><b>Passenger</b></p>
-                  <p>Name: {passengerData.first_name} {passengerData.last_name}</p>
+                  <p>
+                    <b>Passenger</b>
+                  </p>
+                  <p>
+                    Name: {passengerData.first_name} {passengerData.last_name}
+                  </p>
                   <p>Tel: {passengerData.phone_number}</p>
                 </>
               ) : (
@@ -217,9 +229,7 @@ function DriverRoute() {
               )}
             </Modal>
           </>
-        ) 
-        : 
-        (
+        ) : (
           <>
             <PlaceSearch
               place={origin}
@@ -235,7 +245,7 @@ function DriverRoute() {
             <div className='route__box--two'>
               <DatePicker
                 onChange={onDateChange}
-                format={'Do MMMM YYYY, dddd'}
+                format={'Do MMMM YYYY'}
                 className='route__input--half'
               />
               <TimePicker
