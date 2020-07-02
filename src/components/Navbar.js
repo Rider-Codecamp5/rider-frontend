@@ -10,8 +10,8 @@ function Navbar(props) {
             <li>
               <a href='/search-driver'>Search</a>
             </li>
-            <li>
-              <a href='/profile'>Profile</a>
+            <li onClick={props.showDrawer}>
+              <a>{props.userInfo.name}</a>
             </li>
             <li>
               <a href='/' onClick={props.onLogOut}>Log out</a>
@@ -27,8 +27,8 @@ function Navbar(props) {
           <li>
             <a href='/driver/route'>Drive Now</a>
           </li>
-          <li>
-            <a href='/profile'>Profile</a>
+          <li onClick={props.showDrawer}>
+            <a>{props.userInfo.name}</a>
           </li>
           <li>
             <a href='/' onClick={props.onLogOut}>Log out</a>
