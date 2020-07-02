@@ -60,6 +60,7 @@ function App() {
         bodyStyle={{fontSize: '1.2rem'}}
       >
         <p><a href='/trip/on-going'>Current Trip</a></p>
+        <p><a href='/history'>Trip History</a></p>
         <p><a href='/profile'>Profile</a></p>
         <p><a href='/settings'>Settings</a></p>
       </Drawer>
