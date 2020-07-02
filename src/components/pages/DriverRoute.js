@@ -31,8 +31,8 @@ function DriverRoute() {
   useEffect(() => {
     async function checkConfrimation() {
       let result = await axios.get('/driver/get');
-      let confirmationStatus = result.data.driver.confirmation;
-      if(confirmationStatus === 'pending')
+      let status = result.data.driver.status;
+      if(status === 'available' || status === 'selected')
       setDriverStatus('decise');
     }
     checkConfrimation();

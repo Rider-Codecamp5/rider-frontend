@@ -19,6 +19,7 @@
 .App__heading h2 {
   color: #ffffff;
   font-weight: normal;
+  margin: 0.5rem 0;
 }
 
 .App__header {
