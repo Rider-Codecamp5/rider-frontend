@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import * as storageItem from '../configs/localStorageItems';
 
 import jwtDecode from 'jwt-decode';
+import { Drawer } from 'antd';
 import 'antd/dist/antd.css';
 import '../styles/App.css';
 
@@ -11,6 +12,16 @@ function App() {
   const [role, setRole] = useState(
     localStorage.getItem(storageItem.role) || 'guest'
   );
+
+  // AntD drawer
+  const [visible, setVisible] = useState(false);
+  const showDrawer = () => {
+    setVisible(true);
+  };
+
+  const onClose = () => {
+    setVisible(false);
+  };
 
   const onLogOut = () => {
     localStorage.removeItem(storageItem.ACCESS_TOKEN);
@@ -39,7 +50,19 @@ function App() {
   return (
     <div className='App'>
       <PrivateRoute role={role} setRole={setRole} userInfo={userInfo} />
-      <Navbar role={role} onLogOut={onLogOut} userInfo={userInfo} />
+      <Navbar role={role} onLogOut={onLogOut} userInfo={userInfo} showDrawer={showDrawer} />
+      <Drawer
+        title='Menu'
+        placement='left'
+        closable={false}
+        onClose={onClose}
+        visible={visible}
+        bodyStyle={{fontSize: '1.2rem'}}
+      >
+        <p><a href='/trip/on-going'>Current Trip</a></p>
+        <p><a href='/profile'>Profile</a></p>
+        <p><a href='/settings'>Settings</a></p>
+      </Drawer>
     </div>
   );
 }
