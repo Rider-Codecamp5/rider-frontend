@@ -6,7 +6,7 @@ import UserRoute from '../components/pages/UserRoute';
 import PrivacyPolicy from '../components/pages/PrivacyPolicy';
 import History from '../components/pages/History';
 import Settings from '../components/pages/Settings';
-import Profile from '../components/pages/DriverProfile';
+import Profile from '../components/pages/Profile';
 import RouteDetails from '../components/pages/RouteDetails';
 import Payment from '../components/pages/Payment';
 import PaymentResult from '../components/pages/PaymentResult';
