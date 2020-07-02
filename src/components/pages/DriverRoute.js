@@ -8,6 +8,7 @@ import { useLoadScript } from '@react-google-maps/api';
 import { DatePicker, TimePicker, Checkbox, InputNumber, Modal } from 'antd';
 import { CarOutlined } from '@ant-design/icons';
 import moment from 'moment';
+import { useHistory } from 'react-router-dom';
 
 const libraries = ['places'];
 
@@ -29,11 +30,22 @@ function DriverRoute() {
   const [isSelected, setIsSelected] = useState(false);
   const [timestamp, setTimestamp] = useState(0);
 
+  let history = useHistory();
+
   useEffect(() => {
     async function checkConfrimation() {
       let result = await axios.get('/driver/get');
-      let confirmationStatus = result.data.driver.confirmation;
-      if (confirmationStatus === 'pending') setDriverStatus('decise');
+      let status = result.data.driver.status;
+      if (
+        status === 'available' ||
+        status === 'selected' ||
+        status === 'booked'
+      )
+        setDriverStatus('decise');
+      // redirect if already booked
+      if (status === 'booked') {
+        history.push('/trip/on-going');
+      }
     }
     checkConfrimation();
   }, []);
@@ -111,6 +123,7 @@ function DriverRoute() {
       console.log('handleOk result', result);
     }
     setVisible(false);
+    history.push('/trip/on-going');
   };
 
   const handleCancel = async e => {

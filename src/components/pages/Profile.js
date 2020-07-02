@@ -12,9 +12,7 @@ import jwtDecode from 'jwt-decode'
 import DriverProfileCard from '../DriverProfileCard';
 import { SettingTwoTone,SettingFilled,SettingOutlined    } from '@ant-design/icons';
 
-function DriverProfile(props) {
-
-
+function Profile(props) {
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   const [passenger, setPassenger] = useState({});
@@ -38,7 +36,7 @@ function DriverProfile(props) {
 
   const passengerData = async () => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}` }
-    const passengerData = await axios.get(`/user/get`, { headers: headers });
+    const passengerData = await axios.get(`/user/get/${userInfo.id}`, { headers: headers });
     console.log(passengerData.data.userData)
     setPassenger(passengerData.data.userData)
   }
@@ -55,44 +53,40 @@ function DriverProfile(props) {
     }
   }
 
-
   return (
-
     <div className="driver">
       <div className="App__heading">
-        {passenger ? <h2>{passenger.first_name} {passenger.last_name}  <a href="/setting"><SettingOutlined  style={{ fontSize: '25px'}} /></a></h2> : null}
+        {passenger ? <h2>{passenger.first_name} {passenger.last_name}</h2> : null}
       </div>
 
-      {
-        passenger ?
-          <div className='card__img-box'>
-            <img
-              src={`${passenger.profile_pic}`}
-              alt="profile-pic"
-              className='card__profile-img'
-            />
-          </div>
-          :
-          null
-        }
+      <div style={{padding: '1rem 1rem 0 1rem'}}>
+        {
+          passenger ?
+            <div className='card__img-box'>
+              <img
+                src={`${passenger.profile_pic}`}
+                alt="profile-pic"
+                className='card__profile-img'
+              />
+            </div>
+            :
+            null
+          }
 
-
-      <div className="driver__display">
-        <RoleButton isPassenger={isPassenger} setIsPassenger={setIsPassenger} />
-        <h2>Profile information</h2>
-        {isPassenger ?
-          <> {passenger ? <PassengerProfileCard Data={passenger} /> : null} </>
-          :
-          <> {driver ? <> <DriverProfileCard Data={driver} /> <PassengerProfileCard Data={passenger} /></> : <h1 className="driver__display">Driver profile not found</h1>}</>
-        }
-      <button type="button" class="ant-btn App__button ant-btn-primary ant-btn-lg" ><a href="/history"><span>History</span></a></button>
+        <div className="driver__display">
+          <RoleButton isPassenger={isPassenger} setIsPassenger={setIsPassenger} />
+          <h2>Profile information</h2>
+          {isPassenger ?
+            <> {passenger ? <PassengerProfileCard Data={passenger} /> : null} </>
+            :
+            <> {driver ? <DriverProfileCard Data={driver} /> : <h1 className="driver__display">Driver profile not found</h1>}</>
+          }
+          <button type="button" class="ant-btn App__button ant-btn-primary ant-btn-lg" ><a href="/history">History</a></button>
+          <button type="button" class="ant-btn App__button ant-btn-primary ant-btn-lg" ><a href="/settings">Settings <SettingOutlined/></a></button>
+        </div>
       </div>
-
-
-
     </div>
-
-  )
+  );
 }
 
-export default DriverProfile
+export default Profile;

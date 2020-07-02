@@ -7,6 +7,7 @@ import {
   TeamOutlined,
   DollarOutlined,
   PhoneOutlined,
+  NumberOutlined,
 } from '@ant-design/icons';
 import '../styles/HistoryCard.css';
 
@@ -42,10 +43,13 @@ function HistoryCard(props) {
               <CarOutlined /> {props.carModel} / {props.carColor}
             </span>
             <span>
-              <TeamOutlined /> {props.seat} seats available
+              <NumberOutlined /> {props.driverLicense}
             </span>
           </div>
 
+          <span>
+            <TeamOutlined /> {props.seat} seats available
+          </span>
           <span>
             <PhoneOutlined /> {props.phoneNumber}
           </span>

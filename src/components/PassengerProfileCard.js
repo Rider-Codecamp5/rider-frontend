@@ -1,25 +1,21 @@
-import React,{useEffect,useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/PassengerProfileCard.css'
 
 function PassengerProfileCard(props) {
-    
-    const {Data} = props;
 
-    return (
-        <div className='card'>
-            <div className='card__content'>
-                <div className='card__text'>
-                    {/* <h3>{props.email}</h3> */}
-                    <span><b>Email :</b> {Data.email}</span>
-                    <br />
-                    <span><b>Phone :</b> {Data.phone_number}</span>
-                    <br />
-                    <span><b>Address :</b> {Data.address}</span>
-                    <br />
-                </div>
-            </div>
+  const { Data } = props;
+
+  return (
+    <div className='card'>
+      <div className='card__content' style={{paddingBottom: '1rem'}}>
+        <div className='card__text' style={{padding: '0.5rem'}}>
+          <span><b>Email:</b> {Data.email}</span>
+          <span><b>Phone:</b> {Data.phone_number}</span>
+          <span><b>Address:</b> {Data.address}</span>
         </div>
-    )
+      </div>
+    </div>
+  )
 }
 
 export default PassengerProfileCard

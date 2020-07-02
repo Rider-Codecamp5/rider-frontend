@@ -4,9 +4,9 @@ import { Button } from 'antd';
 import { useLoadScript } from '@react-google-maps/api';
 // import moment from 'moment';
 import DriverMap from '../DriverMap';
-import HistoryCard from '../HistoryCard';
 import '../../styles/DriverRoute.css';
 
+import { useHistory } from 'react-router-dom';
 import {
   CarOutlined,
   CalendarOutlined,
@@ -14,8 +14,8 @@ import {
   TeamOutlined,
   DollarOutlined,
   PhoneOutlined,
+  NumberOutlined,
 } from '@ant-design/icons';
-
 
 const libraries = ['places'];
 
@@ -24,6 +24,8 @@ function RouteDetails(props) {
   const [destination, setDestination] = useState('Destination');
   const [geocodeOrigin, setGeocodeOrigin] = useState({});
   const [geocodeDestination, setGeocodeDestination] = useState([]);
+
+  let history = useHistory();
 
   // ------------- Driver and Route details ---------------- /
   const [routeDetails, setRouteDetails] = useState({});
@@ -34,6 +36,7 @@ function RouteDetails(props) {
     libraries,
   });
 
+  
   useEffect(() => {
     getDriver();
   }, []);
@@ -72,6 +75,7 @@ function RouteDetails(props) {
       let confirmation = await axios.get('/user/trip/confirmation');
       console.log('confirmation', confirmation);
       alert(confirmation.data.message);
+      history.push('/trip/on-going');
     } catch (err) {
       console.log(err);
     }
@@ -112,6 +116,7 @@ function RouteDetails(props) {
       phone_number,
       from,
       to,
+      driver_license,
       car_model,
       car_color,
       price,
@@ -121,9 +126,7 @@ function RouteDetails(props) {
     } = routeDetails;
 
     return (
-      <div
-        className='card'
-      >
+      <div>
         <div className='card__text' style={{width: '100%', padding: '0.2rem 1rem'}}>
           <div className='card__profile'>
             <div className='card__img-box'>
@@ -135,17 +138,19 @@ function RouteDetails(props) {
             </div>
             <h3 style={{fontSize: '1.4rem', marginBottom: '0'}}>{first_name} {last_name}</h3>
           </div>
-          <span>{from}</span>
-          <span><PushpinOutlined /> {to}</span>
-          <span><CalendarOutlined /> {updatedAt}</span>
-          <div className='card__divider' style={{paddingTop: '1rem'}}>{/* horizontal line */}</div>
-          <div className='card__text card__footer' style={{width: '100%'}}>
-            <span><CarOutlined /> {car_model} / {car_color}</span>
-            <span><TeamOutlined /> {seating_capacity} seats available</span>
-            <span><PhoneOutlined /> {phone_number}</span>
-            <span className='card__price'><DollarOutlined />Price {price} Baht</span>
+          <div className='card' style={{display: 'flex', flexDirection: 'column'}}>
+            <span> <b>From</b> {from}</span>
+            <span><PushpinOutlined /> <b>To</b> {to}</span>
+            <span><CalendarOutlined /> <b>Date</b> {updatedAt}</span>
+            <div className='card__divider' style={{paddingTop: '1rem'}}>{/* horizontal line */}</div>
+            <div className='card__text card__footer' style={{width: '100%'}}>
+              <span><CarOutlined /> {car_model} / {car_color}</span>
+              <span><TeamOutlined /> {seating_capacity} seats available</span>
+              <span><NumberOutlined /> <b>Plate number</b> {driver_license}</span>
+              <span><PhoneOutlined /> {phone_number}</span>
+              <span className='card__price'><DollarOutlined />Price {price} Baht</span>
+            </div>
           </div>
-          
         </div>
       </div>
     );
