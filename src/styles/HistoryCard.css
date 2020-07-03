@@ -6,6 +6,7 @@
   width: 100%;
   margin: 0.5rem 0;
   color: #8E8E8E;
+  overflow: auto;
 }
 
 .card__content {
@@ -19,8 +20,9 @@
 
 .card__profile h3{
   color: #8E8E8E;
-  padding: 0.5rem;
+  padding: 0.5rem 0;
   text-align: center;
+  font-size: 1.2rem;
 }
 
 .card__img-box {
@@ -90,7 +92,7 @@
   }
 
   .card__profile h3 {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
 
   .card__text span {
@@ -112,7 +114,7 @@
   }
 
   .card__profile h3 {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
 
   .card__text {
@@ -135,6 +137,10 @@
 } 
 
 @media only screen and (min-width: 1200px) {
+  .card__profile h3 {
+    font-size: 1.4rem;
+  }
+  
   .card__text {
     width: 75%;
   }

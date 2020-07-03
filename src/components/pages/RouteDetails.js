@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../configs/axios';
-import { Button } from 'antd';
+import { Button, Modal } from 'antd';
 import { useLoadScript } from '@react-google-maps/api';
 // import moment from 'moment';
 import DriverMap from '../DriverMap';
@@ -25,6 +25,8 @@ function RouteDetails(props) {
   const [geocodeOrigin, setGeocodeOrigin] = useState({});
   const [geocodeDestination, setGeocodeDestination] = useState([]);
   const [isWaiting, setIsWaiting] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [confirmMessage, setConfirmMessage] = useState('');
 
   let history = useHistory();
 
@@ -40,6 +42,16 @@ function RouteDetails(props) {
   useEffect(() => {
     getDriver();
   }, []);
+
+    // ------------ AntD Modal -------------
+    const showModal = () => {
+      setModalVisible(true);
+    };
+  
+    const handleOk = e => {
+      history.push('/trip/on-going');
+      setModalVisible(false);
+    };
 
   // --------- call API ----------------
   const getDriver = async () => {
@@ -76,9 +88,8 @@ function RouteDetails(props) {
       setIsWaiting(true);
       // start interval waiting for driver confirmation
       let confirmation = await axios.get('/user/trip/confirmation');
-      console.log('confirmation', confirmation);
-      alert(confirmation.data.message);
-      history.push('/trip/on-going');
+      setConfirmMessage(confirmation.data.message);
+      showModal();
     } catch (err) {
       console.log(err);
     }
@@ -183,6 +194,18 @@ function RouteDetails(props) {
             </div>
           </div>
         </div>
+        <Modal
+          title="Driver Response"
+          visible={modalVisible}
+          onOk={handleOk}
+          footer={[
+            <Button key="ok" onClick={handleOk}>
+              Ok
+            </Button>,
+          ]}
+        >
+          <p>{confirmMessage}</p>
+        </Modal>
       </div>
     );
   };

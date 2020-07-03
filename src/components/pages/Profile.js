@@ -8,9 +8,9 @@ import Navbar from '../Navbar';
 import HistoryCard from '../HistoryCard'
 import RoleButton from '../RoleButton'
 import PassengerProfileCard from '../PassengerProfileCard';
-import jwtDecode from 'jwt-decode'
 import DriverProfileCard from '../DriverProfileCard';
 import { SettingTwoTone,SettingFilled,SettingOutlined    } from '@ant-design/icons';
+import * as storageItem from '../../configs/localStorageItems';
 
 function Profile(props) {
   const [isLogin, setIsLogin] = useState(false);
@@ -66,7 +66,10 @@ function Profile(props) {
           }
 
         <div className="driver__display">
-          <RoleButton isPassenger={isPassenger} setIsPassenger={setIsPassenger} />
+          { localStorage.getItem(storageItem.role) === 'driver'
+            ? <RoleButton isPassenger={isPassenger} setIsPassenger={setIsPassenger} />
+            : null
+          }
           <h2>Profile information</h2>
           {isPassenger ?
             <> {passenger ? <PassengerProfileCard Data={passenger} /> : null} </>

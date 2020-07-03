@@ -18,7 +18,7 @@ import jwtDecode from 'jwt-decode'
 import { Link, Redirect } from 'react-router-dom';
 import RoleButton from '../RoleButton'
 import '../../styles/UserSetting.css';
-
+import * as storageItem from '../../configs/localStorageItems';
 
 const { Option } = Select;
 const formItemLayout = {
@@ -63,8 +63,8 @@ function Settings(props) {
   const [profile_pic, setProfilePic] = useState('');
 
   useEffect(() => {
-    if (localStorage.getItem('ACCESS_TOKEN')) {
-      const user = jwtDecode(localStorage.getItem('ACCESS_TOKEN'));
+    if (localStorage.getItem(storageItem.ACCESS_TOKEN)) {
+      const user = jwtDecode(localStorage.getItem(storageItem.ACCESS_TOKEN));
       setUserInfo(user);
       setIsLogin(true)
     }
@@ -163,7 +163,7 @@ function Settings(props) {
   return (
     <div className='userSetting'>
       <div className='App__heading'>
-        <h2>Setting</h2>
+        <h2>Settings</h2>
       </div>
       <Col className='userSetting__display'>
         <Row
@@ -171,10 +171,13 @@ function Settings(props) {
         >
           <Avatar style={{ margin: "1rem" }} size={120} src={oldUserData.profile_pic} />
         </Row>
-        <RoleButton isPassenger={isPassenger} setIsPassenger={setIsPassenger} onChange={resetForm} />
-        <Row justify='left'>
+        { localStorage.getItem(storageItem.role) === 'driver'
+          ? <RoleButton isPassenger={isPassenger} setIsPassenger={setIsPassenger} onChange={resetForm} />
+          : null
+        }
+        {/* <Row justify='left'>
           <h3>Please enter your update data</h3>
-        </Row>
+        </Row> */}
       </Col>
 
 
@@ -325,8 +328,8 @@ function Settings(props) {
                           htmlType='submit'
                           className='App__button'
                         >
-                          Edit Passenger Data
-                </Button>
+                          Update Your User Profile
+                        </Button>
                       </Form.Item>
                     </Col>
                   </Row>
@@ -357,7 +360,7 @@ function Settings(props) {
                       label={
                         <span>
                           Driver License&nbsp;
-                    <Tooltip title='Please Enter Your Driver License'></Tooltip>
+                          <Tooltip title='Please Enter Your Driver License'></Tooltip>
                         </span>
                       }
                       rules={[
@@ -380,7 +383,7 @@ function Settings(props) {
                       label={
                         <span>
                           Car Model&nbsp;
-                    <Tooltip title='Please Enter Your Car Model'></Tooltip>
+                          <Tooltip title='Please Enter Your Car Model'></Tooltip>
                         </span>
                       }
                       rules={[
@@ -403,7 +406,7 @@ function Settings(props) {
                       label={
                         <span>
                           Car Color&nbsp;
-                    <Tooltip title='Please Enter Your Car Color'></Tooltip>
+                          <Tooltip title='Please Enter Your Car Color'></Tooltip>
                         </span>
                       }
                       rules={[
@@ -427,7 +430,7 @@ function Settings(props) {
                       label={
                         <span>
                           Seat Available&nbsp;
-                    <Tooltip title='Please Enter Your Seat Available'></Tooltip>
+                          <Tooltip title='Please Enter Your Seat Available'></Tooltip>
                         </span>
                       }
                       rules={[
@@ -451,7 +454,7 @@ function Settings(props) {
                       label={
                         <span>
                           Bank Account&nbsp;
-                    <Tooltip title='Please Enter Your Bank Account'></Tooltip>
+                          <Tooltip title='Please Enter Your Bank Account'></Tooltip>
                         </span>
                       }
                       rules={[
@@ -467,16 +470,6 @@ function Settings(props) {
                   </Col>
                 </Row>
 
-                {/* <Row justify='center'>
-                                    <Col xs={20} sm={22}>
-                                    <Upload {...imageUploadProps}>
-                                        <Button>
-                                            <UploadOutlined /> Click to upload
-                </Button>
-                                    </Upload>
-                                    </Col>
-                                </Row> */}
-
                 <Row justify='center' >
                   <Col span={24} style={{ textAlign: 'center' }}>
                     <Form.Item
@@ -490,11 +483,9 @@ function Settings(props) {
                               : Promise.reject('Should accept agreement'),
                         },
                       ]}
-                    // {...tailFormItemLayout}
                     >
                       <Checkbox>
                         Data is up to date.
-                                                {/* <Link to='/PrivacyPolicy' style={{ display: 'inline' }}>agreement</Link> */}
                       </Checkbox>
                     </Form.Item>
                   </Col>
@@ -508,8 +499,8 @@ function Settings(props) {
                         htmlType='submit'
                         className='App__button'
                       >
-                        Edit Driver Data
-                </Button>
+                        Update Your Driver Profile
+                      </Button>
                     </Form.Item>
                   </Col>
                 </Row>

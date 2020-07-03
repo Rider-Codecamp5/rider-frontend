@@ -5,7 +5,7 @@ import axios from '../../configs/axios';
 import '../../styles/DriverRoute.css';
 
 import { useLoadScript } from '@react-google-maps/api';
-import { DatePicker, TimePicker, Checkbox, InputNumber, Modal } from 'antd';
+import { DatePicker, TimePicker, Checkbox, InputNumber, Modal, notification } from 'antd';
 import { CarOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
@@ -139,21 +139,30 @@ function DriverRoute() {
         confirmation: false,
       });
       console.log('handleCancel result', result);
+      // if cancel passenger request, restart interval
+      if(result) {
+        createRoute();
+      }
     }
+    setIsSelected(false);
     setVisible(false);
   };
 
   let yellowButton = isSelected ? '' : 'App__button--yellow';
   let buttonStatus = isSelected ? 'Confirm your trip' : 'Waiting for Passenger';
 
-  console.log('timestamp after setState', typeof timestamp);
+  // ------------- AntD notification ------------------
+  const openNotification = (message) => {
+    notification.open({
+      message: 'Here Comes a New Passenger',
+      description: message,
+    });
+  };
+
   // --------- call API ----------------
   const createRoute = async () => {
     getRoute();
     setDriverStatus('decise');
-    const headers = {
-      Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
-    };
 
     let body = {
       origin,
@@ -170,15 +179,13 @@ function DriverRoute() {
     };
 
     try {
-      let routeData = await axios.patch('/driver/service', body, {
-        headers: headers,
-      });
+      let routeData = await axios.patch('/driver/service', body);
       let selectedDriver = await axios.patch('/driver/service/wait');
       let passenger = await axios.get(
         `/user/get/${selectedDriver.data.driver.passenger_id}`
       );
       console.log('routedata', routeData);
-      alert('You got selected by a passenger!');
+      openNotification('You got selected by a passenger!')
       setIsSelected(true);
       setPassengerData(passenger.data.userData);
       console.log(passenger.data.userData.id);
@@ -252,6 +259,7 @@ function DriverRoute() {
                 onChange={onTimeChange}
                 defaultValue={moment()}
                 format='HH:mm'
+                minuteStep={10}
                 className='route__input--half'
               />
             </div>
