@@ -17,7 +17,7 @@ function Profile(props) {
   const [passenger, setPassenger] = useState(false);
   const [driver, setDriver] = useState(false);
   const [currentRole, setCurrentRole] = useState('passenger');
-  const [isPassenger, setIsPassenger] = useState(true)
+  const [isPassenger, setIsPassenger] = useState(true);
 
   useEffect(() => {
     passengerData();
@@ -28,7 +28,6 @@ function Profile(props) {
   const passengerData = async () => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}` }
     const passengerData = await axios.get(`/user/get/${props.userInfo.id}`, { headers: headers });
-    console.log('data passenger', passengerData.data.userData)
     try{
       setPassenger(passengerData.data.userData)
     } catch {
@@ -39,9 +38,7 @@ function Profile(props) {
   const driverData = async () => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}` }
     const driverData = await axios.get(`/driver/get`, { headers: headers });
-    console.log(driverData)
     try {
-      console.log('driver from db', driverData.data.driver)
       setDriver(driverData.data.driver)
     } catch (error) {
       setDriver(false)

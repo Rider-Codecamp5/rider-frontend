@@ -8,12 +8,12 @@ export default function RoleButton(props) {
 
   const onSelectPassenger = () => {
     setCurrentRole('passenger');
-    setIsPassenger(true)
+    setIsPassenger(true);
   }
 
   const onSelectDriver = () => {
     setCurrentRole('driver');
-    setIsPassenger(false)
+    setIsPassenger(false);
   }
 
   let passengerActive;
