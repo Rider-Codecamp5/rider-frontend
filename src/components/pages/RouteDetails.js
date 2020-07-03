@@ -62,8 +62,6 @@ function RouteDetails(props) {
     }
   };
 
-  console.log('price in route detail', props.price);
-
   const selectDriver = async () => {
     try {
       await axios({

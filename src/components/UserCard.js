@@ -23,7 +23,9 @@ function UserCard(props) {
               className='card__profile-img'
             />
           </div>
-          <h3>{props.firstName} {props.lastName}</h3>
+          <h3>
+            {props.firstName} {props.lastName}
+          </h3>
         </div>
         <div className='card__text'>
           <span>
@@ -34,9 +36,9 @@ function UserCard(props) {
             <PushpinOutlined /> <b>To</b> {props.to}
           </span>
 
-            <span>
-              <CalendarOutlined /> {moment(props.dateTime).format('MMMM Do YYYY')}
-            </span>
+          <span>
+            <CalendarOutlined /> {moment(props.dateTime).format('MMMM Do YYYY')}
+          </span>
           <span>
             <TeamOutlined /> {props.seat} persons
           </span>

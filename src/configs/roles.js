@@ -55,7 +55,7 @@ const components = {
   },
   Payment: {
     component: Payment,
-    url: '/payment',
+    url: '/payment/:id',
   },
   PaymentResult: {
     component: PaymentResult,
@@ -64,7 +64,7 @@ const components = {
   Trip: {
     component: Trip,
     url: '/trip/on-going',
-  }
+  },
 };
 
 const configRoute = {
