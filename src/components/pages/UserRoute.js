@@ -19,7 +19,7 @@ import { Link, useHistory } from 'react-router-dom';
 
 const libraries = ['places'];
 
-function UserRoute() {
+function UserRoute(props) {
   const [origin, setOrigin] = useState('Origin');
   const [destination, setDestination] = useState('Destination');
   const [geocodeOrigin, setGeocodeOrigin] = useState({});
@@ -35,22 +35,28 @@ function UserRoute() {
   let history = useHistory();
 
   useEffect(() => {
-    try{
+    try {
       // user can be passenger or driver
-      const checkCurrentTrip = async() => {
+      const checkCurrentTrip = async () => {
         let user = await axios.get('/driver/service/current');
-        console.log(user.data)
-        if(user.data.currentTrip) {
+        let currentTrip = user.data.currentTrip;
+        if (currentTrip) {
+          if (
+            currentTrip.id === props.userInfo.id &&
+            currentTrip.status === 'available'
+          ) {
+            history.push('/driver/route');
+            return;
+          }
           history.push('/trip/on-going');
+          return;
         }
-      }
+      };
       checkCurrentTrip();
-    } catch(err) {
+    } catch (err) {
       console.log(err.response);
     }
-
-  }, [])
-
+  }, []);
 
   // ------------- required google places setting -----------
   const { isLoaded, loadError } = useLoadScript({
@@ -112,7 +118,7 @@ function UserRoute() {
       );
 
       setDrivers(result.data);
-      console.log('UserRoute: driver data', result.data)
+      console.log('UserRoute: driver data', result.data);
     } catch (err) {
       if (err.response.status === 404) {
         setDrivers([]);
