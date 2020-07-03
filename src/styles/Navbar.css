@@ -9,7 +9,7 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 4rem;
+  height: 3rem;
   box-shadow: inset 0px -14px 20px rgba(0, 0, 0, 0.16);
 }
 
@@ -22,9 +22,9 @@
 .Navbar li {
   justify-self: center;
   align-self: center;
-  padding: 0 1rem;
+  padding: 0 0.8rem;
   list-style: none;
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .Navbar a {
@@ -32,12 +32,21 @@
 }
 
 @media only screen and (min-width: 481px) and (max-width: 768px) {
+  .Navbar {
+    height: 4rem;
+  }
+
   .Navbar li {
-    font-size: 1.3rem;
+    padding: 0 1rem;
+    font-size: 1.2rem;
   }
 }
 
 @media only screen and (min-width: 769px) {
+  .Navbar {
+    height: 4rem;
+  }
+  
   .Navbar li {
     padding: 0 2rem;
     font-size: 1.3rem;
