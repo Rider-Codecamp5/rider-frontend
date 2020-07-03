@@ -115,7 +115,7 @@ function Trip(props) {
                 status={tripData.status}
               />
             )}
-            {isDriver ? null : <button className='App__button'>Pay Now</button>}
+            {isDriver ? null : <button className='App__button'><a href='/payment'>Pay Now</a></button>}
           </div>
         );
       } else {
