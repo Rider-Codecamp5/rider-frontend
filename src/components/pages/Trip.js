@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import DriverMap from '../DriverMap';
 import HistoryCard from '../HistoryCard';
 import UserCard from '../UserCard';
@@ -115,7 +116,11 @@ function Trip(props) {
                 status={tripData.status}
               />
             )}
-            {isDriver ? null : <button className='App__button'><a href='/payment'>Pay Now</a></button>}
+            {isDriver ? null : (
+              <Link to={`/payment/${personalInfo.id}`}>
+                <button className='App__button'>Pay Now</button>
+              </Link>
+            )}
           </div>
         );
       } else {

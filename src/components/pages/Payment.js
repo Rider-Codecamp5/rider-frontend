@@ -1,18 +1,28 @@
-import React from 'react';
-import moment from 'moment';
+import React, { useState, useEffect } from 'react';
 import Script from 'react-load-script';
 import axios from '../../configs/axios';
-import {
-  CarOutlined,
-  CalendarOutlined,
-  PushpinOutlined,
-  DollarOutlined,
-  PhoneOutlined,
-} from '@ant-design/icons';
+import { useLoadScript } from '../../utils/useLoadScript';
 import '../../styles/HistoryCard.css';
 import { Form, Button } from 'antd';
+import UserCard from '../UserCard';
 
-function Payment() {
+function Payment(props) {
+  const [currentDriver, setCurrentDriver] = useState({});
+  const [currentPassenger, setCurrentPassenger] = useState({});
+  const [loaded, error] = useLoadScript('https://cdn.omise.co/omise.js');
+
+  useEffect(() => {
+    // handleScriptLoad();
+    getCurrentDriver();
+  }, []);
+
+  const getCurrentDriver = async () => {
+    const result = await axios.get(`/payment/info/${props.match.params.id}`);
+    console.log(result.data);
+    setCurrentDriver(result.data);
+    setCurrentPassenger(result.data.currentPassenger);
+  };
+
   let OmiseCard;
   const handleScriptLoad = () => {
     OmiseCard = window.OmiseCard;
@@ -23,6 +33,8 @@ function Payment() {
       currency: 'thb',
     });
   };
+
+  console.log(OmiseCard);
 
   const internetBankingConfigure = () => {
     OmiseCard.configure({
@@ -60,12 +72,18 @@ function Payment() {
   };
 
   const omiseCardHandler = () => {
+    const priceInSatang = currentDriver.price * 100;
+
     OmiseCard.open({
-      frameDescription: 'Driver Name Blah...',
-      amount: 15000,
+      frameDescription: `Pay to ${currentDriver.first_name}`,
+      amount: priceInSatang,
       onCreateTokenSuccess: token => {
-        console.log(token);
-        createInternetBankingCharge('xeus@test.com', 'Driver ', 15000, token);
+        createInternetBankingCharge(
+          currentPassenger.email,
+          currentPassenger.first_name,
+          priceInSatang,
+          token
+        );
       },
       onFormClosed: () => {},
     });
@@ -77,53 +95,43 @@ function Payment() {
     omiseCardHandler();
   };
 
+  const renderDriverForPayment = () => {
+    if (!currentDriver) {
+      return <h2>Loading...</h2>;
+    }
+
+    return (
+      <UserCard
+        from={currentDriver.from}
+        to={currentDriver.to}
+        dateTime={currentDriver.date_time}
+        profilePic={currentDriver.profile_pic}
+        firstName={currentDriver.first_name}
+        lastName={currentDriver.last_name}
+        price={currentDriver.price}
+        phoneNumber={currentDriver.phone_number}
+      />
+    );
+  };
+
   return (
-    <div className='card'>
-      <Script url='https://cdn.omise.co/omise.js' onLoad={handleScriptLoad} />
-      <div className='card__content'>
-        <div className='card__img-box'>
-          <img
-            src='https://res.cloudinary.com/xeusteerapat/image/upload/v1593260601/sickfits/rhqsphapuhg3rzsi3ata.jpg'
-            alt='Teerapat'
-            className='card__profile-img'
-          />
-          Teerapat
+    <div
+      className='route__form'
+      style={{ display: 'flex', flexDirection: 'column' }}
+    >
+      {/* <Script url='https://cdn.omise.co/omise.js' onLoad={handleScriptLoad} /> */}
+      <div>
+        <div>
+          Script loaded: <b>{loaded.toString()}</b>
         </div>
-        <div className='card__text'>
-          <h3>Teerapat</h3>
-          <span>
-            <b>From</b> Central World
-          </span>
-          <br />
-          <span>
-            <PushpinOutlined />
-            <b>To</b> Central Ladproa
-          </span>
-          <br />
-          <span>
-            <CalendarOutlined />
-            {moment().format('MMMM Do YYYY')}
-          </span>
-          <br />
-          <span>
-            <CarOutlined /> Benz
-          </span>
-          <br />
-          <span>
-            <PhoneOutlined /> 099-9999999
-          </span>
-          <br />
-          <span className='card__price'>
-            <DollarOutlined />
-            Price 200 Baht
-          </span>
-        </div>
+        {loaded && !error && handleScriptLoad()}
       </div>
+      {renderDriverForPayment()}
       <div className='card__divider'>{/* horizontal line */}</div>
       <Form>
         <Form.Item>
           <Button id='internet-banking' type='primary' onClick={handleClick}>
-            Primary Button
+            Pay Now
           </Button>
         </Form.Item>
       </Form>
