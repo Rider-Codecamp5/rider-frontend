@@ -41,15 +41,14 @@ function UserRoute(props) {
         let user = await axios.get('/driver/service/current');
         let currentTrip = user.data.currentTrip;
         if (currentTrip) {
-          if (
-            currentTrip.id === props.userInfo.id &&
-            currentTrip.status === 'available'
-          ) {
-            history.push('/driver/route');
-            return;
-          }
-          if (currentTrip.id === props.userInfo.id && !currentTrip.status) {
-            return;
+          if(currentTrip.id === props.userInfo.id) {
+            if (currentTrip.status === 'available') {
+              history.push('/driver/route');
+              return;
+            }
+            if ( !currentTrip.status) {
+              return;
+            }
           }
           history.push('/trip/on-going');
           return;

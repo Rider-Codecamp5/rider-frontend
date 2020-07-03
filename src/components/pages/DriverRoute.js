@@ -5,7 +5,7 @@ import axios from '../../configs/axios';
 import '../../styles/DriverRoute.css';
 
 import { useLoadScript } from '@react-google-maps/api';
-import { DatePicker, TimePicker, Checkbox, InputNumber, Modal } from 'antd';
+import { DatePicker, TimePicker, Checkbox, InputNumber, Modal, notification } from 'antd';
 import { CarOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
@@ -139,6 +139,10 @@ function DriverRoute() {
         confirmation: false,
       });
       console.log('handleCancel result', result);
+      // if cancel passenger request, restart interval
+      if(result) {
+        createRoute();
+      }
     }
     setIsSelected(false);
     setVisible(false);
@@ -146,6 +150,14 @@ function DriverRoute() {
 
   let yellowButton = isSelected ? '' : 'App__button--yellow';
   let buttonStatus = isSelected ? 'Confirm your trip' : 'Waiting for Passenger';
+
+  // ------------- AntD notification ------------------
+  const openNotification = (message) => {
+    notification.open({
+      message: 'Here Comes a New Passenger',
+      description: message,
+    });
+  };
 
   // --------- call API ----------------
   const createRoute = async () => {
@@ -173,7 +185,7 @@ function DriverRoute() {
         `/user/get/${selectedDriver.data.driver.passenger_id}`
       );
       console.log('routedata', routeData);
-      alert('You got selected by a passenger!');
+      openNotification('You got selected by a passenger!')
       setIsSelected(true);
       setPassengerData(passenger.data.userData);
       console.log(passenger.data.userData.id);
