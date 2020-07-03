@@ -119,7 +119,6 @@ function Trip(props) {
           </div>
         );
       } else {
-        console.log('else block');
         return (
           <h1 style={{ textAlign: 'center', margin: '2rem' }}>
             You have no current trip
@@ -127,7 +126,6 @@ function Trip(props) {
         );
       }
     } catch (err) {
-      console.log('catch block');
       return (
         <h1 style={{ textAlign: 'center', margin: '2rem' }}>
           You have no current trip

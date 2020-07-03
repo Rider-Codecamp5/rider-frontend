@@ -48,6 +48,9 @@ function UserRoute(props) {
             history.push('/driver/route');
             return;
           }
+          if (currentTrip.id === props.userInfo.id && !currentTrip.status) {
+            return;
+          }
           history.push('/trip/on-going');
           return;
         }

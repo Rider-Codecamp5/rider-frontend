@@ -37,7 +37,6 @@ function RouteDetails(props) {
     libraries,
   });
 
-  
   useEffect(() => {
     getDriver();
   }, []);
@@ -62,6 +61,8 @@ function RouteDetails(props) {
       console.log(err);
     }
   };
+
+  console.log('price in route detail', props.price);
 
   const selectDriver = async () => {
     try {
@@ -131,7 +132,10 @@ function RouteDetails(props) {
 
     return (
       <div>
-        <div className='card__text' style={{width: '100%', padding: '0.2rem 1rem'}}>
+        <div
+          className='card__text'
+          style={{ width: '100%', padding: '0.2rem 1rem' }}
+        >
           <div className='card__profile'>
             <div className='card__img-box'>
               <img
@@ -140,19 +144,44 @@ function RouteDetails(props) {
                 className='card__profile-img'
               />
             </div>
-            <h3 style={{fontSize: '1.4rem', marginBottom: '0'}}>{first_name} {last_name}</h3>
+            <h3 style={{ fontSize: '1.4rem', marginBottom: '0' }}>
+              {first_name} {last_name}
+            </h3>
           </div>
-          <div className='card' style={{display: 'flex', flexDirection: 'column'}}>
-            <span> <b>From</b> {from}</span>
-            <span><PushpinOutlined /> <b>To</b> {to}</span>
-            <span><CalendarOutlined /> <b>Date</b> {updatedAt}</span>
-            <div className='card__divider' style={{paddingTop: '1rem'}}>{/* horizontal line */}</div>
-            <div className='card__text card__footer' style={{width: '100%'}}>
-              <span><CarOutlined /> {car_model} / {car_color}</span>
-              <span><TeamOutlined /> {seating_capacity} seats available</span>
-              <span><NumberOutlined /> <b>Plate number</b> {driver_license}</span>
-              <span><PhoneOutlined /> {phone_number}</span>
-              <span className='card__price'><DollarOutlined />Price {price} Baht</span>
+          <div
+            className='card'
+            style={{ display: 'flex', flexDirection: 'column' }}
+          >
+            <span>
+              {' '}
+              <b>From</b> {from}
+            </span>
+            <span>
+              <PushpinOutlined /> <b>To</b> {to}
+            </span>
+            <span>
+              <CalendarOutlined /> <b>Date</b> {updatedAt}
+            </span>
+            <div className='card__divider' style={{ paddingTop: '1rem' }}>
+              {/* horizontal line */}
+            </div>
+            <div className='card__text card__footer' style={{ width: '100%' }}>
+              <span>
+                <CarOutlined /> {car_model} / {car_color}
+              </span>
+              <span>
+                <TeamOutlined /> {seating_capacity} seats available
+              </span>
+              <span>
+                <NumberOutlined /> <b>Plate number</b> {driver_license}
+              </span>
+              <span>
+                <PhoneOutlined /> {phone_number}
+              </span>
+              <span className='card__price'>
+                <DollarOutlined />
+                Price {price} Baht
+              </span>
             </div>
           </div>
         </div>
@@ -171,14 +200,15 @@ function RouteDetails(props) {
         <Button type='primary' block style={{ marginBottom: '1rem' }}>
           Call Driver
         </Button>
-        {isWaiting 
-          ? 
-            <button className='App__button App__button--yellow'>Waiting for Driver Confirmation</button>
-          :
+        {isWaiting ? (
+          <button className='App__button App__button--yellow'>
+            Waiting for Driver Confirmation
+          </button>
+        ) : (
           <Button type='#95de64' block onClick={selectDriver}>
             Join Trip
           </Button>
-        }
+        )}
       </div>
     </div>
   );
