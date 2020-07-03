@@ -27,8 +27,20 @@ const formItemLayout = {
       span: 24,
     },
     sm: {
+      span: 24,
+    },
+    md: {
+      span: 6,
+    },
+    lg: {
+      span: 6,
+    }, 
+    xl: {
       span: 5,
     },
+    xxl: {
+      span: 4,
+    }
   },
   wrapperCol: {
     xs: {
@@ -40,7 +52,7 @@ const formItemLayout = {
   },
 };
 
-function Settings() {
+function Settings(props) {
 
   const [isPassenger, setIsPassenger] = useState(true);
   const [isLogin, setIsLogin] = useState(false);
@@ -65,7 +77,7 @@ function Settings() {
 
   const getOldUserData = async () => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}` };
-    const oldUserData = await axios.get('/user/get', { headers: headers });
+    const oldUserData = await axios.get(`/user/get/${props.userInfo.id}`, { headers: headers });
     setOldUserData(oldUserData.data.userData)
   }
 
@@ -153,25 +165,23 @@ function Settings() {
       <div className='App__heading'>
         <h2>Setting</h2>
       </div>
-      <div className='userSetting__display'>
+      <Col className='userSetting__display'>
         <Row
           justify='center'
         >
-          {/* <Col xs={4} sm={2}> */}
           <Avatar style={{ margin: "1rem" }} size={120} src={oldUserData.profile_pic} />
-          {/* </Col> */}
         </Row>
         <RoleButton isPassenger={isPassenger} setIsPassenger={setIsPassenger} onChange={resetForm} />
         <Row justify='left'>
           <h3>Please enter your update data</h3>
         </Row>
-      </div>
+      </Col>
 
 
       {isPassenger ?
         <>
           <div>
-            <Col span={24} className='register'>
+            <Col xs={24} className='register'>
               <div>
                 <Form
                   {...formItemLayout}
@@ -181,15 +191,15 @@ function Settings() {
                   initialValues={{}}
                   scrollToFirstError
                 >
-
+                  
                   <Row justify='center'>
-                    <Col xs={20} sm={22} md={15}>
+                    <Col xs={20} sm={22} md={18} lg={14}>
                       <Form.Item
                         name='name'
                         label={
                           <span>
                             Name&nbsp;
-                    <Tooltip title='Please Enter Your Name'></Tooltip>
+                            <Tooltip title='Please Enter Your Name'></Tooltip>
                           </span>
                         }
                         rules={[
@@ -206,13 +216,13 @@ function Settings() {
                   </Row>
 
                   <Row justify='center'>
-                    <Col xs={20} sm={22} md={15}>
+                    <Col xs={20} sm={22} md={18} lg={14}>
                       <Form.Item
                         name='surname'
                         label={
                           <span>
                             Surname&nbsp;
-                    <Tooltip title='Please Enter Your Surname'></Tooltip>
+                            <Tooltip title='Please Enter Your Surname'></Tooltip>
                           </span>
                         }
                         rules={[
@@ -229,13 +239,13 @@ function Settings() {
                   </Row>
 
                   <Row justify='center'>
-                    <Col xs={20} sm={22} md={15}>
+                    <Col xs={20} sm={22} md={18} lg={14}>
                       <Form.Item
                         name='phone_number'
                         label={
                           <span>
                             Phone number&nbsp;
-                    <Tooltip title='Please Enter Your Phone number'></Tooltip>
+                            <Tooltip title='Please Enter Your Phone number'></Tooltip>
                           </span>
                         }
                         rules={[
@@ -252,14 +262,14 @@ function Settings() {
                   </Row>
 
                   <Row justify='center'>
-                    <Col xs={20} sm={22} md={15}>
+                    <Col xs={20} sm={22} md={18} lg={14}>
                       <Form.Item
 
                         name='address'
                         label={
                           <span>
                             Address&nbsp;
-                    <Tooltip title='Please Enter Your Address'></Tooltip>
+                            <Tooltip title='Please Enter Your Address'></Tooltip>
                           </span>
                         }
                         rules={[
@@ -274,13 +284,13 @@ function Settings() {
                       </Form.Item>
                     </Col>
                   </Row>
-
+            
                   <Row justify='center'>
                     {/* <Col xs={20} sm={22}> */}
                     <Upload {...imageUploadProps}>
                       <Button>
                         <UploadOutlined /> Click to upload
-                </Button>
+                      </Button>
                     </Upload>
                     {/* </Col> */}
                   </Row>
@@ -298,7 +308,6 @@ function Settings() {
                                 : Promise.reject('Should accept agreement'),
                           },
                         ]}
-                      // {...tailFormItemLayout}
                       >
                         <Checkbox>
                           Data is up to date.
@@ -331,7 +340,7 @@ function Settings() {
         :
         <>
           <div>
-            <Col span={24} className='register'>
+            <Col xs={24} className='register'>
               <Form
                 {...formItemLayout}
                 form={form}
@@ -342,7 +351,7 @@ function Settings() {
               >
 
                 <Row justify='center'>
-                  <Col xs={20} sm={22} md={15}>
+                  <Col xs={20} sm={22} md={18} lg={14}>
                     <Form.Item
                       name='driver_license'
                       label={
@@ -365,7 +374,7 @@ function Settings() {
                 </Row>
 
                 <Row justify='center'>
-                  <Col xs={20} sm={22} md={15}>
+                  <Col xs={20} sm={22} md={18} lg={14}>
                     <Form.Item
                       name='car_model'
                       label={
@@ -388,7 +397,7 @@ function Settings() {
                 </Row>
 
                 <Row justify='center'>
-                  <Col xs={20} sm={22} md={15}>
+                  <Col xs={20} sm={22} md={18} lg={14}>
                     <Form.Item
                       name='car_color'
                       label={
@@ -411,7 +420,7 @@ function Settings() {
                 </Row>
 
                 <Row justify='center'>
-                  <Col xs={20} sm={22} md={15}>
+                  <Col xs={20} sm={22} md={18} lg={14}>
                     <Form.Item
 
                       name='seat'
@@ -435,7 +444,7 @@ function Settings() {
                 </Row>
 
                 <Row justify='center'>
-                  <Col xs={20} sm={22} md={15}>
+                  <Col xs={20} sm={22} md={18} lg={14}>
                     <Form.Item
 
                       name='bank_account'

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DriverMap from '../DriverMap';
 import HistoryCard from '../HistoryCard';
+import UserCard from '../UserCard';
 import axios from '../../configs/axios';
 
 import { useLoadScript } from '@react-google-maps/api';
@@ -8,7 +9,7 @@ const libraries = ['places'];
 
 function Trip(props) {
   const [tripData, setTripData] = useState({});
-  const [driverInfo, setDriverInfo] = useState({});
+  const [personalInfo, setPersonalInfo] = useState({});
   const [origin, setOrigin] = useState({ lat: null, lng: null });
   const [destination, setDestination] = useState({ lat: null, lng: null });
   const [isDriver, setIsDriver] = useState(false);
@@ -28,11 +29,18 @@ function Trip(props) {
           setDestination({ lat: currentTrip.to_lat, lng: currentTrip.to_lng });
 
           // set Driver Personal Info according to currentTrip data
-          let result = await axios.get(`/user/get/${currentTrip.id}`);
-          setDriverInfo(result.data.userData);
-
           if (currentTrip.id === props.userInfo.id) {
+            let result = await axios.get(
+              `/user/get/${currentTrip.passenger_id}`
+            );
+            setPersonalInfo(result.data.userData);
             setIsDriver(true);
+          }
+
+          if (currentTrip.passenger_id === props.userInfo.id) {
+            let result = await axios.get(`/user/get/${currentTrip.id}`);
+            setPersonalInfo(result.data.userData);
+            setIsDriver(false);
           }
         }
       };
@@ -73,23 +81,40 @@ function Trip(props) {
               {console.log(destination)}
               <DriverMap origin={origin} destination={destination} />
             </div>
-            {console.log(driverInfo)}
-            <HistoryCard
-              id={driverInfo.id}
-              firstName={driverInfo.first_name}
-              lastName={driverInfo.last_name}
-              profilePic={driverInfo.profile_pic}
-              phoneNumber={driverInfo.phone_number}
-              from={tripData.from}
-              to={tripData.to}
-              carColor={tripData.car_color}
-              carModel={tripData.car_model}
-              driverLicense={tripData.driver_license}
-              seat={tripData.seating_capacity}
-              price={tripData.price}
-              dateTime={tripData.createdAt}
-              status={tripData.status}
-            />
+            {console.log(personalInfo)}
+            {isDriver ? (
+              <UserCard
+                id={personalInfo.id}
+                firstName={personalInfo.first_name}
+                lastName={personalInfo.last_name}
+                profilePic={personalInfo.profile_pic}
+                phoneNumber={personalInfo.phone_number}
+                // แก้เป็น origin ของ driver
+                from={tripData.from}
+                to={tripData.to}
+                seat={tripData.seat}
+                price={tripData.price}
+                dateTime={tripData.createdAt}
+                status={tripData.status}
+              />
+            ) : (
+              <HistoryCard
+                id={personalInfo.id}
+                firstName={personalInfo.first_name}
+                lastName={personalInfo.last_name}
+                profilePic={personalInfo.profile_pic}
+                phoneNumber={personalInfo.phone_number}
+                from={tripData.from}
+                to={tripData.to}
+                carColor={tripData.car_color}
+                carModel={tripData.car_model}
+                driverLicense={tripData.driver_license}
+                seat={tripData.seating_capacity}
+                price={tripData.price}
+                dateTime={tripData.createdAt}
+                status={tripData.status}
+              />
+            )}
             {isDriver ? null : <button className='App__button'>Pay Now</button>}
           </div>
         );
