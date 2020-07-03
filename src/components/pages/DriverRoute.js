@@ -140,20 +140,17 @@ function DriverRoute() {
       });
       console.log('handleCancel result', result);
     }
+    setIsSelected(false);
     setVisible(false);
   };
 
   let yellowButton = isSelected ? '' : 'App__button--yellow';
   let buttonStatus = isSelected ? 'Confirm your trip' : 'Waiting for Passenger';
 
-  console.log('timestamp after setState', typeof timestamp);
   // --------- call API ----------------
   const createRoute = async () => {
     getRoute();
     setDriverStatus('decise');
-    const headers = {
-      Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
-    };
 
     let body = {
       origin,
@@ -170,9 +167,7 @@ function DriverRoute() {
     };
 
     try {
-      let routeData = await axios.patch('/driver/service', body, {
-        headers: headers,
-      });
+      let routeData = await axios.patch('/driver/service', body);
       let selectedDriver = await axios.patch('/driver/service/wait');
       let passenger = await axios.get(
         `/user/get/${selectedDriver.data.driver.passenger_id}`
@@ -252,6 +247,7 @@ function DriverRoute() {
                 onChange={onTimeChange}
                 defaultValue={moment()}
                 format='HH:mm'
+                minuteStep={10}
                 className='route__input--half'
               />
             </div>

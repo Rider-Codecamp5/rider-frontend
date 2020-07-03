@@ -6,7 +6,7 @@
   width: 100%;
   margin: 0.5rem 0;
   color: #8E8E8E;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .card__content {

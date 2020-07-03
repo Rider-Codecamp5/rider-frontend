@@ -19,6 +19,13 @@
   width: 100%;
 }
 
+
+.App .route .ant-select .ant-select-selector,
+.route .route__input--half,
+.route .route__input--small {
+  border-radius: 5px;
+}
+
 .route .route__input--half {
   margin: 0.7rem 0;
   width: 45%;

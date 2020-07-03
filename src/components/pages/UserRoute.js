@@ -188,6 +188,7 @@ function UserRoute(props) {
             onChange={onTimeChange}
             defaultValue={moment()}
             format='HH:mm'
+            minuteStep={10}
             className='route__input--half'
           />
         </div>
