@@ -20,17 +20,16 @@ function Trip(props) {
     try {
       // user can be passenger or driver
       const getCurrentTrip = async () => {
-        console.log('try');
         let user = await axios.get('/driver/service/current');
         let currentTrip = user.data.currentTrip;
+        let roleInTrip = user.data.roleInTrip;
         setTripData(currentTrip);
-
         if (currentTrip) {
           setOrigin({ lat: currentTrip.from_lat, lng: currentTrip.from_lng });
           setDestination({ lat: currentTrip.to_lat, lng: currentTrip.to_lng });
-
+          
           // set Driver Personal Info according to currentTrip data
-          if (currentTrip.id === props.userInfo.id) {
+          if (roleInTrip === 'passenger') {
             let result = await axios.get(
               `/user/get/${currentTrip.passenger_id}`
             );
@@ -38,7 +37,7 @@ function Trip(props) {
             setIsDriver(true);
           }
 
-          if (currentTrip.passenger_id === props.userInfo.id) {
+          if (roleInTrip === 'driver') {
             let result = await axios.get(`/user/get/${currentTrip.id}`);
             setPersonalInfo(result.data.userData);
             setIsDriver(false);
