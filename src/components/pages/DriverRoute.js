@@ -154,6 +154,11 @@ function DriverRoute() {
     setVisible(false);
   };
 
+  // cancel waiting
+  const onStopWaiting = async() => {
+    await axios.patch('/driver/service/wait-cancel');
+    window.location.reload();
+  }
 
   let yellowButton = isSelected ? '' : 'App__button--yellow';
   let buttonStatus = isSelected ? 'Confirm your trip' : 'Waiting for Passenger';
@@ -218,6 +223,10 @@ function DriverRoute() {
             >
               {buttonStatus}
             </button>
+            {isSelected 
+              ? null 
+              : <button className='App__button App__button--red' onClick={onStopWaiting}>Stop Waiting</button>
+            }
             <Modal
               title='Trip Confirmation'
               visible={visible}

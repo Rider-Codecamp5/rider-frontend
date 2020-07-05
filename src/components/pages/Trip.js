@@ -29,7 +29,7 @@ function Trip(props) {
           setDestination({ lat: currentTrip.to_lat, lng: currentTrip.to_lng });
           
           // set Driver Personal Info according to currentTrip data
-          if (roleInTrip === 'passenger') {
+          if (roleInTrip === 'driver') {
             let result = await axios.get(
               `/user/get/${currentTrip.passenger_id}`
             );
@@ -37,7 +37,7 @@ function Trip(props) {
             setIsDriver(true);
           }
 
-          if (roleInTrip === 'driver') {
+          if (roleInTrip === 'passenger') {
             let result = await axios.get(`/user/get/${currentTrip.id}`);
             setPersonalInfo(result.data.userData);
             setIsDriver(false);

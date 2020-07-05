@@ -141,6 +141,8 @@ function RouteDetails(props) {
 
     return (
       <div>
+        {console.log('Route Detail Props', props)}
+        {console.log(props.location)}
         <div
           className='card__text'
           style={{ width: '100%', padding: '0.2rem 1rem' }}

@@ -50,7 +50,13 @@ function UserRoute(props) {
               return;
             }
           }
-          history.push('/trip/on-going');
+          console.log('userRoute useEffect price', price)
+          history.push({
+            pathname: '/trip/on-going',
+            state: {
+              userPrice: price,
+            }
+          });
           return;
         }
       };
@@ -143,7 +149,15 @@ function UserRoute(props) {
     }
 
     return drivers.map(driver => (
-      <Link to={`/driver/route-details/${driver.id}`} key={driver.id}>
+      // <Link to={`/driver/route-details/${driver.id}`} key={driver.id}>
+      <div key={driver.id} onClick={() => {
+        return history.push({
+          pathname: `/driver/route-details/${driver.id}`,
+          state: {
+            userPrice: price,
+          }
+        })
+      }}>
         <HistoryCard
           id={driver.id}
           firstName={driver.first_name}
@@ -160,7 +174,8 @@ function UserRoute(props) {
           dateTime={driver.createdAt}
           status={driver.status}
         />
-      </Link>
+      </div>
+      // {/* </Link> */}
     ));
   };
 
