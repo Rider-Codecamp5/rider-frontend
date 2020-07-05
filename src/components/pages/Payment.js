@@ -34,8 +34,6 @@ function Payment(props) {
     });
   };
 
-  console.log(OmiseCard);
-
   const internetBankingConfigure = () => {
     OmiseCard.configure({
       defaultPaymentMethod: 'internet_banking',
@@ -51,12 +49,26 @@ function Payment(props) {
     OmiseCard.attach();
   };
 
-  const createInternetBankingCharge = async (email, name, amount, token) => {
+  const createInternetBankingCharge = async (
+    passengerEmail,
+    passengerName,
+    driverEmail,
+    driverName,
+    amount,
+    token
+  ) => {
     try {
       const res = await axios({
         method: 'POST',
         url: '/payment/payment-internetBanking',
-        data: { email, name, amount, token },
+        data: {
+          passengerEmail,
+          passengerName,
+          driverEmail,
+          driverName,
+          amount,
+          token,
+        },
         headers: {
           'Content-Type': 'application/json',
         },
@@ -71,6 +83,9 @@ function Payment(props) {
     }
   };
 
+  console.log('driver name', currentDriver.first_name);
+  console.log('driver email', currentDriver.email);
+
   const omiseCardHandler = () => {
     const priceInSatang = currentDriver.price * 100;
 
@@ -81,6 +96,8 @@ function Payment(props) {
         createInternetBankingCharge(
           currentPassenger.email,
           currentPassenger.first_name,
+          currentDriver.first_name,
+          currentDriver.email,
           priceInSatang,
           token
         );
@@ -127,7 +144,6 @@ function Payment(props) {
         {loaded && !error && handleScriptLoad()}
       </div>
       {renderDriverForPayment()}
-      <div className='card__divider'>{/* horizontal line */}</div>
       <Form>
         <Form.Item>
           <Button id='internet-banking' type='primary' onClick={handleClick}>
