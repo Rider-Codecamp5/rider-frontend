@@ -5,7 +5,7 @@ import axios from '../../configs/axios';
 import '../../styles/DriverRoute.css';
 
 import { useLoadScript } from '@react-google-maps/api';
-import { DatePicker, TimePicker, Checkbox, InputNumber, Modal, notification } from 'antd';
+import { DatePicker, TimePicker, Checkbox, InputNumber, Modal, notification, Button } from 'antd';
 import { CarOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
@@ -118,7 +118,7 @@ function DriverRoute() {
     setVisible(true);
   };
 
-  const handleOk = async e => {
+  const handleOkTrip = async e => {
     console.log(e);
     if (isSelected) {
       let result = await axios.patch('/driver/service/confirm', {
@@ -132,7 +132,8 @@ function DriverRoute() {
     setVisible(false);
   };
 
-  const handleCancel = async e => {
+  
+  const handleCancelTrip = async e => {
     console.log(e);
     if (isSelected) {
       let result = await axios.patch('/driver/service/confirm', {
@@ -147,6 +148,12 @@ function DriverRoute() {
     setIsSelected(false);
     setVisible(false);
   };
+
+  // for modal closing
+  const handleCancel = async e => {
+    setVisible(false);
+  };
+
 
   let yellowButton = isSelected ? '' : 'App__button--yellow';
   let buttonStatus = isSelected ? 'Confirm your trip' : 'Waiting for Passenger';
@@ -214,8 +221,15 @@ function DriverRoute() {
             <Modal
               title='Trip Confirmation'
               visible={visible}
-              onOk={handleOk}
               onCancel={handleCancel}
+              footer={[
+                <Button key="cancel-trip" onClick={handleCancelTrip}>
+                  Cancel Trip
+                </Button>,
+                <Button key="accept-trip" type="primary" onClick={handleOkTrip}>
+                  Accept Trip
+                </Button>,
+              ]}
             >
               {isSelected ? (
                 <>
