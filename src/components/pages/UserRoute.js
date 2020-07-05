@@ -41,12 +41,12 @@ function UserRoute(props) {
         let user = await axios.get('/driver/service/current');
         let currentTrip = user.data.currentTrip;
         if (currentTrip) {
-          if(currentTrip.id === props.userInfo.id) {
+          if (currentTrip.id === props.userInfo.id) {
             if (currentTrip.status === 'available') {
               history.push('/driver/route');
               return;
             }
-            if ( !currentTrip.status) {
+            if (!currentTrip.status) {
               return;
             }
           }
@@ -108,6 +108,15 @@ function UserRoute(props) {
   const onPriceChange = value => {
     setPrice(value);
   };
+
+  // Persist origin location of passenger to local storage
+  localStorage.setItem(
+    'passengerOriginLocation',
+    JSON.stringify({
+      place: origin,
+      geocode: geocodeOrigin,
+    })
+  );
 
   // --------- call API ----------------
   const findDrivers = async () => {
