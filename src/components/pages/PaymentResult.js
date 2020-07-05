@@ -1,9 +1,9 @@
 import React from 'react';
 
-const PaymentResult = () => {
+const PaymentResult = props => {
   return (
     <div>
-      <h1>Payment Succeeded</h1>
+      <h1>Payment Succeeded to driver id: {props.match.params.id}</h1>
     </div>
   );
 };

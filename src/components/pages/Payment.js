@@ -52,6 +52,7 @@ function Payment(props) {
   const createInternetBankingCharge = async (
     passengerEmail,
     passengerName,
+    driverId,
     driverEmail,
     driverName,
     amount,
@@ -64,6 +65,7 @@ function Payment(props) {
         data: {
           passengerEmail,
           passengerName,
+          driverId,
           driverEmail,
           driverName,
           amount,
@@ -96,6 +98,7 @@ function Payment(props) {
         createInternetBankingCharge(
           currentPassenger.email,
           currentPassenger.first_name,
+          currentDriver.id,
           currentDriver.first_name,
           currentDriver.email,
           priceInSatang,

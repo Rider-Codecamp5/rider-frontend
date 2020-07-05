@@ -59,7 +59,7 @@ const components = {
   },
   PaymentResult: {
     component: PaymentResult,
-    url: '/payment-result',
+    url: '/payment-result/:id',
   },
   Trip: {
     component: Trip,
