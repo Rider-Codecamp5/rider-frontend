@@ -23,7 +23,10 @@ const formItemLayout = {
       span: 24,
     },
     sm: {
-      span: 5,
+      span: 24,
+    },
+    md: {
+      span: 6,
     },
   },
   wrapperCol: {

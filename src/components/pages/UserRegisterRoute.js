@@ -24,8 +24,20 @@ const formItemLayout = {
       span: 24,
     },
     sm: {
-      span: 5,
+      span: 24,
     },
+    md: {
+      span: 7,
+    },
+    lg: {
+      span: 7,
+    }, 
+    xl: {
+      span: 6,
+    },
+    xxl: {
+      span: 4,
+    }
   },
   wrapperCol: {
     xs: {
@@ -131,7 +143,7 @@ function UserRegisterRoute() {
           scrollToFirstError
         >
           <Row justify='center'>
-            <Col xs={20} sm={22} md={15} >
+            <Col xs={20} sm={22} md={18} lg={14} >
               <Form.Item
                 name='email'
                 label='E-mail'
@@ -151,7 +163,7 @@ function UserRegisterRoute() {
             </Col>
           </Row>
           <Row justify='center'>
-            <Col xs={20} sm={22} md={15}>
+            <Col xs={20} sm={22} md={18} lg={14}>
               <Form.Item
                 name='password'
                 label='Password'
@@ -168,7 +180,7 @@ function UserRegisterRoute() {
             </Col>
           </Row>
           <Row justify='center'>
-            <Col xs={20} sm={22} md={15}>
+            <Col xs={20} sm={22} md={18} lg={14}>
               <Form.Item
                 name='confirm'
                 label='Confirm Password'
@@ -198,7 +210,7 @@ function UserRegisterRoute() {
           </Row>
 
           <Row justify='center'>
-            <Col xs={20} sm={22} md={15}>
+            <Col xs={20} sm={22} md={18} lg={14}>
               <Form.Item
                 name='name'
                 label={
@@ -221,7 +233,7 @@ function UserRegisterRoute() {
           </Row>
 
           <Row justify='center'>
-            <Col xs={20} sm={22} md={15}>
+            <Col xs={20} sm={22} md={18} lg={14}>
               <Form.Item
                 name='surname'
                 label={
@@ -244,7 +256,7 @@ function UserRegisterRoute() {
           </Row>
 
           <Row justify='center'>
-            <Col xs={20} sm={22} md={15}>
+            <Col xs={20} sm={22} md={18} lg={14}>
               <Form.Item
                 name='phone_number'
                 label={
@@ -267,7 +279,7 @@ function UserRegisterRoute() {
           </Row>
 
           <Row justify='center'>
-            <Col xs={20} sm={22} md={15}>
+            <Col xs={20} sm={22} md={18} lg={14}>
               <Form.Item
                 name='address'
                 label={

@@ -158,15 +158,7 @@ function UserRoute(props) {
     }
 
     return drivers.map(driver => (
-      // <Link to={`/driver/route-details/${driver.id}`} key={driver.id}>
-      <div key={driver.id} onClick={() => {
-        return history.push({
-          pathname: `/driver/route-details/${driver.id}`,
-          state: {
-            userPrice: price,
-          }
-        })
-      }}>
+      <Link to={`/driver/route-details/${driver.id}`} key={driver.id}>
         <HistoryCard
           id={driver.id}
           firstName={driver.first_name}
@@ -183,8 +175,7 @@ function UserRoute(props) {
           dateTime={driver.createdAt}
           status={driver.status}
         />
-      </div>
-      // {/* </Link> */}
+      </Link>
     ));
   };
 
