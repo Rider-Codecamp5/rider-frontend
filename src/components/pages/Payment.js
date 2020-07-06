@@ -146,9 +146,9 @@ function Payment(props) {
       {renderDriverForPayment()}
       <Form>
         <Form.Item>
-          <Button id='internet-banking' type='primary' onClick={handleClick}>
+          <button id='internet-banking' className='App__button' onClick={handleClick}>
             Pay Now
-          </Button>
+          </button>
         </Form.Item>
       </Form>
     </div>
