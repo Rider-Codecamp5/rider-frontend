@@ -327,15 +327,6 @@ function DriverRoute() {
         )}
         <DriverMap origin={origin} destination={destination} />
       </div>
-      {console.log('ori des', origin, destination)}
-      {console.log('geo ori des', geocodeOrigin, geocodeDestination)}
-      {console.log(
-        'lat lng ori des',
-        geocodeOrigin.lat,
-        geocodeOrigin.lng,
-        geocodeDestination.lat,
-        geocodeDestination.lng
-      )}
     </div>
   );
 }
