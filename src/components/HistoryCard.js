@@ -35,16 +35,23 @@ function HistoryCard(props) {
           </span>
 
             <span>
-              <CalendarOutlined /> {moment(props.dateTime).format('MMMM Do YYYY, HH:mm')}
+              <CalendarOutlined /> {moment(Number(props.dateTime)).format('MMMM Do YYYY, HH:mm')}
             </span>
 
           <div className='card__text--2items'>
-            <span style={{paddingRight: '1rem'}}>
-              <CarOutlined /> {props.carModel} / {props.carColor}
-            </span>
-            <span>
-              <NumberOutlined /> {props.driverLicense}
-            </span>
+
+            {props.carModel && props.carColor && props.driverLicense
+              ?
+                <>
+                  <span style={{paddingRight: '1rem'}}>
+                    <CarOutlined /> {props.carModel} / {props.carColor}
+                  </span>
+                  <span>
+                    <NumberOutlined /> {props.driverLicense}
+                  </span>
+                </>
+              : null
+            }
           </div>
 
           {props.seat

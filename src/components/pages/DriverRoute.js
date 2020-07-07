@@ -22,7 +22,7 @@ function DriverRoute() {
   const [time, setTime] = useState('');
   const [luggage, setLuggage] = useState(false);
   const [seatingCapacity, setSeatingCapacity] = useState('1');
-  const [price, setPrice] = useState(10);
+  const [price, setPrice] = useState(30);
   // Modal
   const [visible, setVisible] = useState(false);
   const [driverStatus, setDriverStatus] = useState('create');
@@ -232,12 +232,17 @@ function DriverRoute() {
               visible={visible}
               onCancel={handleCancel}
               footer={[
-                <Button key="cancel-trip" onClick={handleCancelTrip}>
-                  Cancel Trip
-                </Button>,
-                <Button key="accept-trip" type="primary" onClick={handleOkTrip}>
-                  Accept Trip
-                </Button>,
+                isSelected 
+                  ?
+                    <>
+                      <Button key="cancel-trip" onClick={handleCancelTrip}>
+                        Cancel Trip
+                      </Button>,
+                      <Button key="accept-trip" type="primary" onClick={handleOkTrip}>
+                        Accept Trip
+                      </Button>,
+                    </>
+                  : null
               ]}
             >
               {isSelected ? (

@@ -5,6 +5,8 @@ import DriverMap from '../DriverMap';
 import HistoryCard from '../HistoryCard';
 import UserCard from '../UserCard';
 import axios from '../../configs/axios';
+import * as storageItem from '../../configs/localStorageItems';
+
 
 import { useLoadScript } from '@react-google-maps/api';
 const libraries = ['places'];
@@ -18,6 +20,8 @@ function Trip(props) {
 
   const socketRef = useRef();
   const history = useHistory();
+
+  let passengerOrigin = JSON.parse(localStorage.getItem(storageItem.passengerOriginLocation))
 
   // need useEffect because tripData state is changed
   useEffect(() => {
@@ -84,7 +88,10 @@ function Trip(props) {
           >
             <span style={{ fontSize: '1.2rem' }}>
               <b>From: </b>
-              {tripData.from}
+              {isDriver 
+                ? tripData.from
+                : passengerOrigin.place
+              }
             </span>
             <span style={{ fontSize: '1.2rem' }}>
               <b>To: </b>
@@ -93,7 +100,11 @@ function Trip(props) {
             <div>
               {console.log(origin)}
               {console.log(destination)}
-              <DriverMap origin={origin} destination={destination} />
+              {isDriver
+                ? <DriverMap origin={origin} destination={destination} />
+                : <DriverMap origin={passengerOrigin.geocode} destination={destination} />
+              }
+              
             </div>
             {console.log(personalInfo)}
             {isDriver ? (

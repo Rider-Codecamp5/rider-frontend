@@ -28,7 +28,7 @@ function UserRoute(props) {
   const [time, setTime] = useState('');
   const [luggage, setLuggage] = useState(false);
   const [seatingCapacity, setSeatingCapacity] = useState('1');
-  const [price, setPrice] = useState(10);
+  const [price, setPrice] = useState(30);
   const [drivers, setDrivers] = useState([]);
   const [timestamp, setTimeStamp] = useState(0);
 
