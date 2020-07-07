@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import Script from 'react-load-script';
+import React, { useState, useEffect, useRef } from 'react';
+import * as storageItem from '../../configs/localStorageItems';
 import axios from '../../configs/axios';
 import { useLoadScript } from '../../utils/useLoadScript';
 import '../../styles/HistoryCard.css';
@@ -12,7 +12,6 @@ function Payment(props) {
   const [loaded, error] = useLoadScript('https://cdn.omise.co/omise.js');
 
   useEffect(() => {
-    // handleScriptLoad();
     getCurrentDriver();
   }, []);
 
@@ -56,6 +55,7 @@ function Payment(props) {
     driverEmail,
     driverName,
     amount,
+    passengerOriginLocation,
     token
   ) => {
     try {
@@ -69,6 +69,7 @@ function Payment(props) {
           driverEmail,
           driverName,
           amount,
+          passengerOriginLocation,
           token,
         },
         headers: {
@@ -85,8 +86,9 @@ function Payment(props) {
     }
   };
 
-  console.log('driver name', currentDriver.first_name);
-  console.log('driver email', currentDriver.email);
+  const passengerOriginLocation = JSON.parse(
+    localStorage.getItem(storageItem.passengerOriginLocation)
+  ).place;
 
   const omiseCardHandler = () => {
     const priceInSatang = currentDriver.price * 100;
@@ -102,6 +104,7 @@ function Payment(props) {
           currentDriver.first_name,
           currentDriver.email,
           priceInSatang,
+          passengerOriginLocation,
           token
         );
       },
@@ -153,7 +156,11 @@ function Payment(props) {
         {renderDriverForPayment()}
         <Form>
           <Form.Item>
-            <button id='internet-banking' className='App__button' onClick={handleClick}>
+            <button
+              id='internet-banking'
+              className='App__button'
+              onClick={handleClick}
+            >
               Pay Now
             </button>
           </Form.Item>

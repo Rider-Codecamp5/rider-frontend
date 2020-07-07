@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import io from 'socket.io-client';
 import DriverMap from '../DriverMap';
 import HistoryCard from '../HistoryCard';
 import UserCard from '../UserCard';
@@ -14,6 +15,9 @@ function Trip(props) {
   const [origin, setOrigin] = useState({ lat: null, lng: null });
   const [destination, setDestination] = useState({ lat: null, lng: null });
   const [isDriver, setIsDriver] = useState(false);
+
+  const socketRef = useRef();
+  const history = useHistory();
 
   // need useEffect because tripData state is changed
   useEffect(() => {
@@ -35,6 +39,16 @@ function Trip(props) {
             );
             setPersonalInfo(result.data.userData);
             setIsDriver(true);
+
+            // Waiting payment message
+            socketRef.current = io.connect('/');
+
+            socketRef.current.on('message', message => {
+              console.log('message inside useEffect', message);
+              alert(message);
+
+              history.push('/');
+            });
           }
 
           if (roleInTrip === 'passenger') {

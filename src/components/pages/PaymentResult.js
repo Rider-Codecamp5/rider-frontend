@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import io from 'socket.io-client';
 import { Rate, Input, Form, Row, Col } from 'antd';
 import '../../styles/PaymentResult';
 import HistoryCard from '../HistoryCard';
@@ -13,9 +14,17 @@ const PaymentResult = props => {
   const [tripInfo, setTripInfo] = useState({});
   const [driverPersonalInfo, setDriverPersonalInfo] = useState({});
 
+  const socketRef = useRef();
+
   let history = useHistory();
 
+  console.log('props in payment result', props.userInfo.name);
+
   useEffect(() => {
+    // Send message to driver after paid
+    socketRef.current = io.connect('/');
+    socketRef.current.emit('message', props.userInfo.name);
+
     const getTripInfo = async () => {
       let result = await axios.get('/driver/service/current');
       setTripInfo(result.data.currentTrip);
@@ -40,11 +49,6 @@ const PaymentResult = props => {
     console.log(values);
     const body = {
       driverId: driverPersonalInfo.id,
-      passengerFrom: passengerOrigin,
-      from: tripInfo.from,
-      to: tripInfo.to,
-      dateTime: tripInfo.date_time,
-      price: tripInfo.price,
       rating: values.tripRating,
       passengerReview: values.tripReview,
     };
