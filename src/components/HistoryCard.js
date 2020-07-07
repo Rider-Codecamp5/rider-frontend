@@ -35,7 +35,7 @@ function HistoryCard(props) {
           </span>
 
             <span>
-              <CalendarOutlined /> {moment(props.dateTime).format('MMMM Do YYYY')}
+              <CalendarOutlined /> {moment(props.dateTime).format('MMMM Do YYYY, HH:mm')}
             </span>
 
           <div className='card__text--2items'>
@@ -47,9 +47,14 @@ function HistoryCard(props) {
             </span>
           </div>
 
-          <span>
-            <TeamOutlined /> {props.seat} seats available
-          </span>
+          {props.seat
+            ? 
+              <span>
+                <TeamOutlined /> {props.seat} seats available
+              </span>
+            : null
+          }
+
           <span>
             <PhoneOutlined /> {props.phoneNumber}
           </span>
@@ -59,8 +64,14 @@ function HistoryCard(props) {
           </span>
         </div>
       </div>
-      <div className='card__divider'>{/* horizontal line */}</div>
-      <div className='card__footer'>{props.status}</div>
+      { props.status
+      ?
+        <>
+          <div className='card__divider'>{/* horizontal line */}</div>
+          <div className='card__footer'>{props.status}</div>
+        </>
+      : null
+      }
     </div>
   );
 }

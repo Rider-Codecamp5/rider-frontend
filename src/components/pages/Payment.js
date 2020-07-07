@@ -135,25 +135,30 @@ function Payment(props) {
   };
 
   return (
-    <div
-      className='route__form'
-      style={{ display: 'flex', flexDirection: 'column' }}
-    >
-      {/* <Script url='https://cdn.omise.co/omise.js' onLoad={handleScriptLoad} /> */}
-      <div>
-        <div>
-          Script loaded: <b>{loaded.toString()}</b>
-        </div>
-        {loaded && !error && handleScriptLoad()}
+    <div>
+      <div className='App__heading'>
+        <h2>Payment</h2>
       </div>
-      {renderDriverForPayment()}
-      <Form>
-        <Form.Item>
-          <button id='internet-banking' className='App__button' onClick={handleClick}>
-            Pay Now
-          </button>
-        </Form.Item>
-      </Form>
+      <div
+        className='route__form'
+        style={{ display: 'flex', flexDirection: 'column' }}
+      >
+        {/* <Script url='https://cdn.omise.co/omise.js' onLoad={handleScriptLoad} /> */}
+        <div>
+          <div>
+            Script loaded: <b>{loaded.toString()}</b>
+          </div>
+          {loaded && !error && handleScriptLoad()}
+        </div>
+        {renderDriverForPayment()}
+        <Form>
+          <Form.Item>
+            <button id='internet-banking' className='App__button' onClick={handleClick}>
+              Pay Now
+            </button>
+          </Form.Item>
+        </Form>
+      </div>
     </div>
   );
 }

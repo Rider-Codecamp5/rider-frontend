@@ -1,13 +1,11 @@
 import React from 'react';
 import moment from 'moment';
 import {
-  CarOutlined,
   CalendarOutlined,
   PushpinOutlined,
   TeamOutlined,
   DollarOutlined,
   PhoneOutlined,
-  NumberOutlined,
 } from '@ant-design/icons';
 import '../styles/HistoryCard.css';
 
@@ -37,8 +35,9 @@ function UserCard(props) {
           </span>
 
           <span>
-            <CalendarOutlined /> {moment(props.dateTime).format('MMMM Do YYYY')}
+            <CalendarOutlined /> {moment(props.dateTime).format('MMMM Do YYYY, HH:mm')}
           </span>
+          {props.seat}
           <span>
             <TeamOutlined /> {props.seat} persons
           </span>

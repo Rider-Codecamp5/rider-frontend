@@ -227,7 +227,7 @@ function UserRoute(props) {
           <br />
           <div className='route__box--two'>
             <InputNumber
-              min={0}
+              min={30}
               max={1000}
               step={10.0}
               value={price}
