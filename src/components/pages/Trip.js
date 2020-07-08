@@ -7,7 +7,6 @@ import UserCard from '../UserCard';
 import axios from '../../configs/axios';
 import * as storageItem from '../../configs/localStorageItems';
 
-
 import { useLoadScript } from '@react-google-maps/api';
 const libraries = ['places'];
 
@@ -21,7 +20,9 @@ function Trip(props) {
   const socketRef = useRef();
   const history = useHistory();
 
-  let passengerOrigin = JSON.parse(localStorage.getItem(storageItem.passengerOriginLocation))
+  let passengerOrigin = JSON.parse(
+    localStorage.getItem(storageItem.passengerOriginLocation)
+  );
 
   // need useEffect because tripData state is changed
   useEffect(() => {
@@ -46,11 +47,8 @@ function Trip(props) {
 
             // Waiting payment message
             socketRef.current = io.connect('/');
-
             socketRef.current.on('message', message => {
-              console.log('message inside useEffect', message);
               alert(message);
-
               history.push('/');
             });
           }
@@ -88,10 +86,7 @@ function Trip(props) {
           >
             <span style={{ fontSize: '1.2rem' }}>
               <b>From: </b>
-              {isDriver 
-                ? tripData.from
-                : passengerOrigin.place
-              }
+              {isDriver ? tripData.from : passengerOrigin.place}
             </span>
             <span style={{ fontSize: '1.2rem' }}>
               <b>To: </b>
@@ -100,11 +95,14 @@ function Trip(props) {
             <div>
               {console.log(origin)}
               {console.log(destination)}
-              {isDriver
-                ? <DriverMap origin={origin} destination={destination} />
-                : <DriverMap origin={passengerOrigin.geocode} destination={destination} />
-              }
-              
+              {isDriver ? (
+                <DriverMap origin={origin} destination={destination} />
+              ) : (
+                <DriverMap
+                  origin={passengerOrigin.geocode}
+                  destination={destination}
+                />
+              )}
             </div>
             {console.log(personalInfo)}
             {isDriver ? (

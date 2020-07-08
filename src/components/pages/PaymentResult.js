@@ -18,22 +18,20 @@ const PaymentResult = props => {
 
   let history = useHistory();
 
-  console.log('props in payment result', props.userInfo.name);
-
   useEffect(() => {
     // Send message to driver after paid
     socketRef.current = io.connect('/');
     socketRef.current.emit('message', props.userInfo.name);
 
-    const getTripInfo = async() => {
+    const getTripInfo = async () => {
       let result = await axios.get('/trip-history/recent');
-      console.log('recent trip', result.data.selectedHistory)
-      setTripInfo(result.data.selectedHistory)
-    }
+      console.log('recent trip', result.data.selectedHistory);
+      setTripInfo(result.data.selectedHistory);
+    };
     getTripInfo();
   }, []);
 
-  console.log('trip info', tripInfo)
+  console.log('trip info', tripInfo);
   useEffect(() => {
     const getDriverPersonalInfo = async () => {
       let result = await axios.get(`/user/get/${tripInfo.driver_id}`);
