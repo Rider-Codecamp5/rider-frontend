@@ -8,24 +8,33 @@ import {
   DollarOutlined,
   PhoneOutlined,
   NumberOutlined,
+  StarOutlined,
+  CommentOutlined,
 } from '@ant-design/icons';
 import '../styles/HistoryCard.css';
 
 function HistoryCard(props) {
+
+  let hundredPercentWidth = props.firstName ? {} : {width: '100%'}
   return (
     <div className='card'>
       <div className='card__content'>
-        <div className='card__profile'>
-          <div className='card__img-box'>
-            <img
-              src={props.profilePic}
-              alt={`${props.firstName} ${props.lastName}`}
-              className='card__profile-img'
-            />
-          </div>
-          <h3>{props.firstName} {props.lastName}</h3>
-        </div>
-        <div className='card__text'>
+        {props.firstName
+          ?
+            <div className='card__profile'>
+              <div className='card__img-box'>
+                <img
+                  src={props.profilePic}
+                  alt={`${props.firstName} ${props.lastName}`}
+                  className='card__profile-img'
+                />
+              </div>
+              <h3>{props.firstName} {props.lastName}</h3>
+            </div>
+          : null
+        }
+
+        <div className='card__text' style={hundredPercentWidth}>
           <span>
             <b>From</b> {props.from}
           </span>
@@ -62,16 +71,37 @@ function HistoryCard(props) {
             : null
           }
 
-          <span>
-            <PhoneOutlined /> {props.phoneNumber}
-          </span>
+          {props.phoneNumber
+            ?
+              <span>
+                <PhoneOutlined /> {props.phoneNumber}
+              </span>
+            : null
+          }
+
+          {props.rating
+            ?          
+              <span>
+                <StarOutlined /> Rating {props.rating}
+              </span>
+            : null
+          }
+
+          {props.review
+            ?
+              <span>
+                <CommentOutlined /> {props.review}
+              </span>
+            : null
+          }
 
           <span className='card__price'>
             <DollarOutlined /> Price {props.price} Baht
           </span>
         </div>
       </div>
-      { props.status
+
+      {props.status
       ?
         <>
           <div className='card__divider'>{/* horizontal line */}</div>

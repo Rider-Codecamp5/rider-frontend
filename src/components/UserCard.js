@@ -37,10 +37,13 @@ function UserCard(props) {
           <span>
             <CalendarOutlined /> {moment(props.dateTime).format('MMMM Do YYYY, HH:mm')}
           </span>
-          {props.seat}
-          <span>
-            <TeamOutlined /> {props.seat} persons
-          </span>
+          {props.seat
+            ?
+              <span>
+                <TeamOutlined /> {props.seat} persons
+              </span>
+            : null
+          }
           <span>
             <PhoneOutlined /> {props.phoneNumber}
           </span>
