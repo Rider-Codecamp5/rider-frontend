@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import DriverMap from '../DriverMap';
 import PlaceSearch from '../PlaceSearch';
 import axios from '../../configs/axios';
 import '../../styles/DriverRoute.css';
 
 import { useLoadScript } from '@react-google-maps/api';
-import { DatePicker, TimePicker, Checkbox, InputNumber, Modal, notification, Button } from 'antd';
+import { DatePicker, TimePicker, Checkbox, InputNumber, Modal, notification, Button, message } from 'antd';
 import { CarOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
@@ -52,6 +52,7 @@ function DriverRoute() {
       }
     }
     checkConfirmation();
+
   }, []);
 
   // ------------- required google places setting -----------
@@ -119,16 +120,17 @@ function DriverRoute() {
   };
 
   const handleOkTrip = async e => {
-    console.log(e);
     if (isSelected) {
       let result = await axios.patch('/driver/service/confirm', {
         confirmation: true,
       });
+
       console.log('handleOk result', result);
       if (result) {
         history.push('/trip/on-going');
       }
     }
+
     setVisible(false);
   };
 
@@ -163,14 +165,6 @@ function DriverRoute() {
   let yellowButton = isSelected ? '' : 'App__button--yellow';
   let buttonStatus = isSelected ? 'Confirm your trip' : 'Waiting for Passenger';
 
-  // ------------- AntD notification ------------------
-  const openNotification = (message) => {
-    notification.open({
-      message: 'Here Comes a New Passenger',
-      description: message,
-    });
-  };
-
   // --------- call API ----------------
   const createRoute = async () => {
     getRoute();
@@ -197,7 +191,6 @@ function DriverRoute() {
         `/user/get/${selectedDriver.data.driver.passenger_id}`
       );
       console.log('routedata', routeData);
-      openNotification('You got selected by a passenger!')
       setIsSelected(true);
       setPassengerData(passenger.data.userData);
       console.log(passenger.data.userData.id);

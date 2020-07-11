@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
-import { Rate, Input, Form, Row, Col } from 'antd';
+import { Rate, Input, Form, Row, Col, message } from 'antd';
 import '../../styles/PaymentResult';
 import HistoryCard from '../HistoryCard';
 import * as storageItem from '../../configs/localStorageItems';
@@ -20,8 +20,8 @@ const PaymentResult = props => {
 
   useEffect(() => {
     // Send message to driver after paid
-    socketRef.current = io.connect('/');
-    socketRef.current.emit('message', props.userInfo.name);
+    // socketRef.current = io.connect('/');
+    // socketRef.current.emit('message', props.userInfo.name);
 
     const getTripInfo = async () => {
       let result = await axios.get('/trip-history/recent');

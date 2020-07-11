@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from '../../configs/axios';
 import { Button, Modal } from 'antd';
 import { useLoadScript } from '@react-google-maps/api';
@@ -16,6 +16,7 @@ import {
   PhoneOutlined,
   NumberOutlined,
 } from '@ant-design/icons';
+import io from 'socket.io-client';
 
 const libraries = ['places'];
 
@@ -29,6 +30,8 @@ function RouteDetails(props) {
   const [confirmMessage, setConfirmMessage] = useState('');
 
   let history = useHistory();
+  const socketRef = useRef();
+  socketRef.current = io.connect('/');
 
   // ------------- Driver and Route details ---------------- /
   const [routeDetails, setRouteDetails] = useState({});
@@ -41,6 +44,14 @@ function RouteDetails(props) {
 
   useEffect(() => {
     getDriver();
+
+    socketRef.current.on('driverConfirmed', message => {
+      alert(message)
+    })
+    socketRef.current.on('driverRejected', message => {
+      alert(message)
+    })
+    
   }, []);
 
     // ------------ AntD Modal -------------
@@ -86,6 +97,8 @@ function RouteDetails(props) {
       });
 
       setIsWaiting(true);
+
+      socketRef.current.emit('gotPassenger');
       // start interval waiting for driver confirmation
       let confirmation = await axios.get('/user/trip/confirmation');
       setConfirmMessage(confirmation.data.message);

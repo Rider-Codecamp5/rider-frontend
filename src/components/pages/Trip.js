@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import io from 'socket.io-client';
 import DriverMap from '../DriverMap';
 import HistoryCard from '../HistoryCard';
 import UserCard from '../UserCard';
 import axios from '../../configs/axios';
 import * as storageItem from '../../configs/localStorageItems';
 
+import io from 'socket.io-client';
 import { useLoadScript } from '@react-google-maps/api';
 const libraries = ['places'];
 
@@ -17,8 +17,8 @@ function Trip(props) {
   const [destination, setDestination] = useState({ lat: null, lng: null });
   const [isDriver, setIsDriver] = useState(false);
 
-  const socketRef = useRef();
   const history = useHistory();
+  const socketRef = useRef();
 
   let passengerOrigin = JSON.parse(
     localStorage.getItem(storageItem.passengerOriginLocation)
@@ -26,6 +26,11 @@ function Trip(props) {
 
   // need useEffect because tripData state is changed
   useEffect(() => {
+    socketRef.current = io.connect('/');
+    socketRef.current.on('paymentMessage', message => {
+      alert(message)
+    })
+
     try {
       // user can be passenger or driver
       const getCurrentTrip = async () => {

@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PrivateRoute from '../components/PrivateRoutes/PrivateRoute';
 import Navbar from '../components/Navbar';
 import * as storageItem from '../configs/localStorageItems';
 
+import io from 'socket.io-client';
+import { notification } from 'antd';
 import jwtDecode from 'jwt-decode';
 import { Drawer } from 'antd';
 import 'antd/dist/antd.css';
@@ -12,6 +14,8 @@ function App() {
   const [role, setRole] = useState(
     localStorage.getItem(storageItem.role) || 'guest'
   );
+
+  const socketRef = useRef();
 
   // AntD drawer
   const [visible, setVisible] = useState(false);
@@ -36,6 +40,20 @@ function App() {
     } else {
       onLogOut();
     }
+
+
+    // ------------- AntD notification ------------------
+    const openNotification = (message) => {
+      notification.open({
+        message: 'Here Comes a New Passenger',
+        description: message,
+      });
+    };
+    socketRef.current = io.connect('/');
+    socketRef.current.on('gotPassenger', message => {
+      openNotification('You got selected by a passenger!')
+    });
+
   }, []);
 
   let token = localStorage.getItem(storageItem.ACCESS_TOKEN);
