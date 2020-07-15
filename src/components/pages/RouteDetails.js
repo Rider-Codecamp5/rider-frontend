@@ -28,10 +28,12 @@ function RouteDetails(props) {
   const [isWaiting, setIsWaiting] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [confirmMessage, setConfirmMessage] = useState('');
+  const [confirmResult, setConfirmResult] = useState('');
 
   let history = useHistory();
-  const socketRef = useRef();
-  socketRef.current = io.connect('/');
+  const { socketRef } = props;
+  // const socketRef = useRef();
+  // socketRef.current = io.connect('/');
 
   // ------------- Driver and Route details ---------------- /
   const [routeDetails, setRouteDetails] = useState({});
@@ -45,11 +47,16 @@ function RouteDetails(props) {
   useEffect(() => {
     getDriver();
 
-    socketRef.current.on('driverConfirmed', message => {
-      alert(message)
+    socketRef.current.on('driverConfirmed', result => {
+      setConfirmMessage(result.message);
+      setConfirmResult(result.result);
+      showModal();
     })
-    socketRef.current.on('driverRejected', message => {
-      alert(message)
+    
+    socketRef.current.on('driverRejected', result => {
+      setConfirmMessage(result.message);
+      setConfirmResult(result.result);
+      showModal();
     })
     
   }, []);
@@ -60,7 +67,12 @@ function RouteDetails(props) {
     };
   
     const handleOk = e => {
-      history.push('/trip/on-going');
+      if(confirmResult === 'confirmed') {
+        history.push('/trip/on-going');
+      }
+      if(confirmResult === 'rejected') {
+        history.push('/');
+      }
       setModalVisible(false);
     };
 
@@ -95,16 +107,20 @@ function RouteDetails(props) {
           driverId: Number(props.match.params.id),
         },
       });
-
       setIsWaiting(true);
+      // socketRef.current.emit('gotPassenger', async function(){
+      //   await axios.patch('/driver/service/selected', Number(props.match.params.id))
+      // });
+      // socketRef.current.emit('gotPassenger', `You got selected by a passenger!`);
 
-      socketRef.current.emit('gotPassenger');
       // start interval waiting for driver confirmation
-      let confirmation = await axios.get('/user/trip/confirmation');
-      setConfirmMessage(confirmation.data.message);
-      showModal();
+
+      // let confirmation = await axios.get('/user/trip/confirmation');
+      // setConfirmMessage(confirmation.data.message);
+      // showModal();
     } catch (err) {
       console.log(err);
+
     }
   };
 

@@ -16,6 +16,7 @@ function App() {
   );
 
   const socketRef = useRef();
+  socketRef.current = io.connect('/');
 
   // AntD drawer
   const [visible, setVisible] = useState(false);
@@ -42,17 +43,7 @@ function App() {
     }
 
 
-    // ------------- AntD notification ------------------
-    const openNotification = (message) => {
-      notification.open({
-        message: 'Here Comes a New Passenger',
-        description: message,
-      });
-    };
-    socketRef.current = io.connect('/');
-    socketRef.current.on('gotPassenger', message => {
-      openNotification('You got selected by a passenger!')
-    });
+
 
   }, []);
 
@@ -67,7 +58,7 @@ function App() {
 
   return (
     <div className='App'>
-      <PrivateRoute role={role} setRole={setRole} userInfo={userInfo} />
+      <PrivateRoute role={role} setRole={setRole} userInfo={userInfo} socketRef={socketRef} />
       <Navbar role={role} onLogOut={onLogOut} userInfo={userInfo} showDrawer={showDrawer} />
       <Drawer
         title='Menu'

@@ -51,12 +51,7 @@ function UserRoute(props) {
             }
           }
           console.log('userRoute useEffect price', price)
-          history.push({
-            pathname: '/trip/on-going',
-            state: {
-              userPrice: price,
-            }
-          });
+          history.push('/trip/on-going');
           return;
         }
       };

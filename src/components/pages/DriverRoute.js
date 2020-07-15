@@ -4,6 +4,7 @@ import PlaceSearch from '../PlaceSearch';
 import axios from '../../configs/axios';
 import '../../styles/DriverRoute.css';
 
+import io from 'socket.io-client';
 import { useLoadScript } from '@react-google-maps/api';
 import { DatePicker, TimePicker, Checkbox, InputNumber, Modal, notification, Button, message } from 'antd';
 import { CarOutlined } from '@ant-design/icons';
@@ -12,7 +13,7 @@ import { useHistory } from 'react-router-dom';
 
 const libraries = ['places'];
 
-function DriverRoute() {
+function DriverRoute(props) {
   // Map
   const [origin, setOrigin] = useState('Origin');
   const [destination, setDestination] = useState('Destination');
@@ -31,6 +32,9 @@ function DriverRoute() {
   const [timestamp, setTimestamp] = useState(0);
 
   let history = useHistory();
+  const { socketRef } = props;
+  // const socketRef = useRef();
+  // socketRef.current = io.connect('/');
 
   useEffect(() => {
     async function checkConfirmation() {
@@ -50,9 +54,34 @@ function DriverRoute() {
       if (status === 'booked') {
         history.push('/trip/on-going');
       }
+
+      // for passenger, if passenger is having a trip process, redirect to Trip
+      // if (result.data.driver.id === props.userInfo.id) {
+      //   history.push('/trip/on-going');
+      // }
     }
     checkConfirmation();
 
+    // ------------- AntD notification ------------------
+    const openNotification = (message) => {
+      notification.open({
+        message: 'Here Comes a New Passenger',
+        description: message,
+      });
+    };
+
+    socketRef.current.on('gotPassenger', async(result) => {
+    openNotification(result.message);
+
+      let passenger = await axios.get(
+        `/user/get/${result.passengerId}`
+      );
+      // console.log('routedata', routeData);
+      setIsSelected(true);
+      setPassengerData(passenger.data.userData);
+      console.log(passenger.data.userData.id);
+    });
+    
   }, []);
 
   // ------------- required google places setting -----------
@@ -124,8 +153,8 @@ function DriverRoute() {
       let result = await axios.patch('/driver/service/confirm', {
         confirmation: true,
       });
-
-      console.log('handleOk result', result);
+      // notify passenger
+      // socketRef.current.emit('driverConfirmed', `Driver confirmed your ride`);
       if (result) {
         history.push('/trip/on-going');
       }
@@ -134,13 +163,16 @@ function DriverRoute() {
     setVisible(false);
   };
 
-  
   const handleCancelTrip = async e => {
     console.log(e);
     if (isSelected) {
       let result = await axios.patch('/driver/service/confirm', {
         confirmation: false,
       });
+
+      // notify passenger
+      // socketRef.current.emit('driverRejected', `You got rejected`);
+
       console.log('handleCancel result', result);
       // if cancel passenger request, restart interval
       if(result) {
@@ -169,6 +201,7 @@ function DriverRoute() {
   const createRoute = async () => {
     getRoute();
     setDriverStatus('decise');
+    console.log('hello from create route')
 
     let body = {
       origin,
@@ -183,18 +216,25 @@ function DriverRoute() {
       seatingCapacity,
       price,
     };
-
+    console.log('hello from create route2')
     try {
       let routeData = await axios.patch('/driver/service', body);
-      let selectedDriver = await axios.patch('/driver/service/wait');
-      let passenger = await axios.get(
-        `/user/get/${selectedDriver.data.driver.passenger_id}`
-      );
-      console.log('routedata', routeData);
-      setIsSelected(true);
-      setPassengerData(passenger.data.userData);
-      console.log(passenger.data.userData.id);
+      // let selectedDriver = await axios.patch('/driver/service/wait');
+
+      // console.log('create route selected Driver', selectedDriver)
+
+      // let passenger = await axios.get(
+      //   `/user/get/${passengerId}`
+      // );
+      // console.log('new passenger ID', passengerId)
+      // console.log('new passenger', passenger)
+      // // console.log('routedata', routeData);
+      // setIsSelected(true);
+      // setPassengerData(passenger.data.userData);
+      // console.log(passenger.data.userData.id);
     } catch (error) {
+
+      console.log('create route crash')
       console.log(error);
     }
   };

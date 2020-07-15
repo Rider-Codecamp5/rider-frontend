@@ -20,6 +20,7 @@ function PrivateRoute(props) {
                   role={props.role}
                   setRole={props.setRole}
                   userInfo={props.userInfo}
+                  socketRef={props.socketRef}
                 />
               )}
             />

@@ -18,7 +18,8 @@ function Trip(props) {
   const [isDriver, setIsDriver] = useState(false);
 
   const history = useHistory();
-  const socketRef = useRef();
+  // const socketRef = useRef();
+  const { socketRef } = props;
 
   let passengerOrigin = JSON.parse(
     localStorage.getItem(storageItem.passengerOriginLocation)
@@ -26,7 +27,7 @@ function Trip(props) {
 
   // need useEffect because tripData state is changed
   useEffect(() => {
-    socketRef.current = io.connect('/');
+    // socketRef.current = io.connect('/');
     socketRef.current.on('paymentMessage', message => {
       alert(message)
     })
@@ -49,13 +50,6 @@ function Trip(props) {
             );
             setPersonalInfo(result.data.userData);
             setIsDriver(true);
-
-            // Waiting payment message
-            socketRef.current = io.connect('/');
-            socketRef.current.on('message', message => {
-              alert(message);
-              history.push('/');
-            });
           }
 
           if (roleInTrip === 'passenger') {
@@ -70,6 +64,12 @@ function Trip(props) {
     } catch (err) {
       console.log(err.response);
     }
+
+    // Waiting payment message
+    socketRef.current.on('message', message => {
+      alert(message);
+      history.push('/');
+    });
   }, []);
 
   // ------------- required google places setting -----------
