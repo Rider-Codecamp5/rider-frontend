@@ -85,11 +85,11 @@ function History(props) {
           {isPassenger
             ?
               <>
-              {renderHistory(historyAsPassenger)}
+              {renderHistory(historyAsPassenger.slice(0).reverse())}
               </>
             :
               <>
-                {renderHistory(historyAsDriver)}
+                {renderHistory(historyAsDriver.slice(0).reverse())}
               </>
           }
           <button className='App__button App__button--red' onClick={() => history.push('/')}>Back</button>

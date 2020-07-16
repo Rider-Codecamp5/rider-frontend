@@ -55,7 +55,7 @@ function PlaceSearch(props) {
     >
       {status === 'OK' && data.map(({id, description}) => {
         return(
-          <Option key={id} value={description}>{description}</Option>
+          <Option key={String(id)} value={description}>{description}</Option>
         )
       })}
     </Select>
