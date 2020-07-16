@@ -71,15 +71,17 @@ function DriverRoute(props) {
     };
 
     socketRef.current.on('gotPassenger', async(result) => {
-    openNotification(result.message);
-
-      let passenger = await axios.get(
-        `/user/get/${result.passengerId}`
-      );
-      // console.log('routedata', routeData);
-      setIsSelected(true);
-      setPassengerData(passenger.data.userData);
-      console.log(passenger.data.userData.id);
+      if(result.receiverId === props.userInfo.id) {
+        openNotification(result.message);
+    
+          let passenger = await axios.get(
+            `/user/get/${result.passengerId}`
+          );
+          // console.log('routedata', routeData);
+          setIsSelected(true);
+          setPassengerData(passenger.data.userData);
+          console.log(passenger.data.userData.id);
+      }
     });
     
   }, []);
@@ -151,6 +153,7 @@ function DriverRoute(props) {
   const handleOkTrip = async e => {
     if (isSelected) {
       let result = await axios.patch('/driver/service/confirm', {
+        passengerId: passengerData.id,
         confirmation: true,
       });
       // notify passenger
@@ -167,6 +170,7 @@ function DriverRoute(props) {
     console.log(e);
     if (isSelected) {
       let result = await axios.patch('/driver/service/confirm', {
+        passengerId: passengerData.id,
         confirmation: false,
       });
 

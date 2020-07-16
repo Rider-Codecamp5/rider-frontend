@@ -48,15 +48,20 @@ function RouteDetails(props) {
     getDriver();
 
     socketRef.current.on('driverConfirmed', result => {
-      setConfirmMessage(result.message);
-      setConfirmResult(result.result);
-      showModal();
+      console.log(result)
+      if(result.receiverId === props.userInfo.id) {
+        setConfirmMessage(result.message);
+        setConfirmResult(result.result);
+        showModal();
+      }
     })
     
     socketRef.current.on('driverRejected', result => {
-      setConfirmMessage(result.message);
-      setConfirmResult(result.result);
-      showModal();
+      if(result.receiverId === props.userInfo.id) {
+        setConfirmMessage(result.message);
+        setConfirmResult(result.result);
+        showModal();
+      }
     })
     
   }, []);

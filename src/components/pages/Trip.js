@@ -6,6 +6,7 @@ import UserCard from '../UserCard';
 import axios from '../../configs/axios';
 import * as storageItem from '../../configs/localStorageItems';
 
+import { Button, Modal } from 'antd';
 import io from 'socket.io-client';
 import { useLoadScript } from '@react-google-maps/api';
 const libraries = ['places'];
@@ -16,6 +17,9 @@ function Trip(props) {
   const [origin, setOrigin] = useState({ lat: null, lng: null });
   const [destination, setDestination] = useState({ lat: null, lng: null });
   const [isDriver, setIsDriver] = useState(false);
+  
+  const [modalVisible, setModalVisible] = useState(false);
+  const [paymentMessage, setPaymentMessage] = useState('');
 
   const history = useHistory();
   // const socketRef = useRef();
@@ -27,11 +31,6 @@ function Trip(props) {
 
   // need useEffect because tripData state is changed
   useEffect(() => {
-    // socketRef.current = io.connect('/');
-    socketRef.current.on('paymentMessage', message => {
-      alert(message)
-    })
-
     try {
       // user can be passenger or driver
       const getCurrentTrip = async () => {
@@ -66,11 +65,22 @@ function Trip(props) {
     }
 
     // Waiting payment message
-    socketRef.current.on('message', message => {
-      alert(message);
-      history.push('/');
-    });
+    // socketRef.current = io.connect('/');
+    socketRef.current.on('paymentMessage', result => {
+      if(result.receiverId === props.userInfo.id) {
+        setPaymentMessage(result.message)
+        setModalVisible(true);
+      }
+    })
   }, []);
+
+    // ------------ AntD Modal -------------
+      
+    const handleOk = e => {
+      history.push('/history');
+      setModalVisible(false);
+    };
+    
 
   // ------------- required google places setting -----------
   const { isLoaded, loadError } = useLoadScript({
@@ -172,7 +182,21 @@ function Trip(props) {
         <h2>Current Trip</h2>
       </div>
       {checkBooked()}
+
+      <Modal
+      title="Driver Response"
+      visible={modalVisible}
+      onOk={handleOk}
+      footer={[
+        <Button key="ok" onClick={handleOk}>
+          Ok
+        </Button>,
+      ]}
+      >
+      <p>{paymentMessage}</p>
+      </Modal>
     </div>
+
   );
 }
 
