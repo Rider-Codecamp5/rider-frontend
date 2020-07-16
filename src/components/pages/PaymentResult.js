@@ -6,6 +6,7 @@ import HistoryCard from '../HistoryCard';
 import * as storageItem from '../../configs/localStorageItems';
 import axios from '../../configs/axios';
 import { useHistory } from 'react-router-dom';
+import CheckboxGroup from 'antd/lib/checkbox/Group';
 
 const { TextArea } = Input;
 
@@ -23,14 +24,14 @@ const PaymentResult = props => {
   useEffect(() => {
 
     const getTripInfo = async () => {
-      let result = await axios.get('/trip-history/recent');
-      console.log('recent trip', result.data.selectedHistory);
+      const pathname = window.location.pathname
+      const driverId = pathname.substring(pathname.lastIndexOf('/') + 1)
+      let result = await axios.get(`/trip-history/recent/${driverId}`);
       setTripInfo(result.data.selectedHistory);
     };
     getTripInfo();
   }, []);
 
-  console.log('trip info', tripInfo);
   useEffect(() => {
     const getDriverPersonalInfo = async () => {
       let result = await axios.get(`/user/get/${tripInfo.driver_id}`);
