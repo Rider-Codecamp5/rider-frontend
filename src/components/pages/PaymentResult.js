@@ -22,10 +22,9 @@ const PaymentResult = props => {
   let history = useHistory();
 
   useEffect(() => {
-
     const getTripInfo = async () => {
-      const pathname = window.location.pathname
-      const driverId = pathname.substring(pathname.lastIndexOf('/') + 1)
+      const pathname = window.location.pathname;
+      const driverId = pathname.substring(pathname.lastIndexOf('/') + 1);
       let result = await axios.get(`/trip-history/recent/${driverId}`);
       setTripInfo(result.data.selectedHistory);
     };
@@ -44,10 +43,12 @@ const PaymentResult = props => {
     localStorage.getItem(storageItem.passengerOriginLocation)
   ).place;
 
+  console.log('trip information id', tripInfo.id);
   const onFinish = async values => {
     console.log('Success:', values);
     console.log(values);
     const body = {
+      tripId: tripInfo.id,
       driverId: driverPersonalInfo.id,
       rating: values.tripRating,
       passengerReview: values.tripReview,
