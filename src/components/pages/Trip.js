@@ -75,10 +75,12 @@ function Trip(props) {
 
     socketRef.current.on('cancelTrip', result => {
       if(isDriver) {
+        console.log(result)
         setTripMessage(`${result.message} by driver`)
         setModalVisible(true);
       } else {
         setTripMessage(`${result.message} by passenger`)
+        console.log(result)
         setModalVisible(true);
       }
     });
@@ -182,6 +184,7 @@ function Trip(props) {
                 <button className='App__button'>Pay Now</button>
               </Link>
             )}
+            <button className='App__button App__button--red' onClick={onCancelTrip}>Cancel Trip</button>
           </div>
         );
       } else {
@@ -219,8 +222,6 @@ function Trip(props) {
       >
       <p>{tripMessage}</p>
       </Modal>
-
-      <button className='App__button App__button--red' onClick={onCancelTrip}>Cancel Trip</button>
     </div>
   );
 }

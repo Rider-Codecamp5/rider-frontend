@@ -274,10 +274,10 @@ function DriverRoute(props) {
                     <>
                       <Button key="cancel-trip" onClick={handleCancelTrip}>
                         Cancel Trip
-                      </Button>,
+                      </Button>
                       <Button key="accept-trip" type="primary" onClick={handleOkTrip}>
                         Accept Trip
-                      </Button>,
+                      </Button>
                     </>
                   : null
               ]}
