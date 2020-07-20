@@ -20,7 +20,7 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <div>
+    <div className='landing-page'>
       <nav>
         <div className='hamburger'>
           <div className='line' />
@@ -32,7 +32,7 @@ const LandingPage = () => {
             <Link to='/'>Rider</Link>
           </li>
           <li>
-            <Link to='/'>Policy</Link>
+            <Link to='/privacy-policy'>Policy</Link>
           </li>
           <li>
             <Link to='/login'>Log In</Link>
@@ -42,47 +42,32 @@ const LandingPage = () => {
           </li>
         </ul>
       </nav>
-      <Row>
-        <Col span={12}>
-          <h1 id='welcome'>Welcome To RIDER</h1>
-          <h1 id='motto' className='intro' style={introStyles}>
+
+      <div className='landing'>
+        <div className='landing__block1'>
+          <h1 className='landing__heading'>Welcome To RIDER</h1>
+          <h2 id='motto' className='intro' style={introStyles}>
             Save time (and your sanity)
-          </h1>
-          <p className='intro' style={introStyles}>
+          </h2>
+          <p className='landing__text' style={introStyles}>
             The band goes on at 8 sharp. You can’t be late for work. (Again.)
             Your time is your money. And tackling traffic or hunting for parking
             is a total pain. So, in seconds, we’ll match you with a driver, help
             you find the quickest bus route, or show you the nearest scooter.
           </p>
-          <button
-            style={{
-              margin: '0 0 0 2rem',
-              padding: '1rem',
-              border: 'none',
-              borderRadius: '5px',
-              backgroundColor: '#1788fb',
-              color: 'white',
-              cursor: 'pointer',
-              fontSize: '1.2rem',
-            }}
-          >
-            Create Account
-          </button>
-        </Col>
-        <Col span={12}>
-          <div id='img'>
+          <button className='App__button App__button--blue landing__button'>Create an Account</button>
+        </div>
+
+        <div className='landing__block2'>
+          <div className='landing___img-box'>
             <img
               src='https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80'
               alt='driving'
-              style={{
-                width: '100%',
-                height: 'auto',
-                margin: '2rem',
-              }}
+              className='landing__img'
             />
           </div>
-        </Col>
-      </Row>
+        </div>
+      </div>
     </div>
   );
 };

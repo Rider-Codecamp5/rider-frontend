@@ -73,6 +73,17 @@
   border: 1px solid #FECF48;
 }
 
+.App .App__button--blue,
+.App .App__button--blue:focus {
+  background-color: #1788FB;
+  border: 1px solid #1788FB;
+}
+
+.App .App__button--blue:hover {
+  background-color: #126cc8;
+  border: 1px solid #1788FB;
+}
+
 @media only screen and (min-width: 481px) {
   .App__heading {
     padding: 1rem;

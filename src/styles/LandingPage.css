@@ -3,17 +3,18 @@
   padding: 0;
   box-sizing: border-box;
 }
-body {
-  font-family: sans-serif;
-}
-ul {
+
+.landing-page ul {
   list-style: none;
 }
-nav {
+
+.landing-page nav {
   height: 10vh;
-  background: #01a0f9;
+  background-color: #1788fb;
+  /* box-shadow: inset 0px 14px 20px rgba(0, 0, 0, 0.16); */
 }
-nav .nav-links {
+
+.landing-page nav .nav-links {
   display: flex;
   width: 50%;
   height: 100%;
@@ -21,44 +22,120 @@ nav .nav-links {
   align-items: center;
   margin-left: auto;
 }
-nav .nav-links li a {
+
+.landing-page nav .nav-links li a {
   text-decoration: none;
-  font-size: 1.5rem;
+  /* font-size: 1.5rem; */
   color: #fff;
   transition: all 5s ease-out;
 }
-nav .nav-links li a:hover {
+
+.landing-page nav .nav-links li a:hover {
   border-bottom: 1px solid #fff;
 }
+
 .landing {
-  height: 90vh;
+  /* height: 90vh; */
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.landing h1 {
-  margin: 100px;
-  font-size: 3rem;
-  color: #28f29a;
+  flex-direction: column-reverse;
+  margin-bottom: 2rem;
 }
 
-@media screen and (max-width: 768px) {
+.landing h1 {
+  color: #1788FB;
+  text-shadow: 0px 0px 9px rgba(23,136,251,0.53);
+  font-size: 2rem;
+  margin: 0 0 2rem 0;
+}
+
+.landing__block1 {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 2rem;
+}
+
+.landing__img {
+  width: 100%;
+  height: auto;
+}
+
+.App .landing .landing__button {
+  align-self: center;
+  min-width: 80%;
+  width: 80%;
+}
+
+.landing__heading {
+  font-size: 3.5rem;
+  text-align: center;
+  color: #333;
+}
+
+
+
+
+@media only screen and (max-width: 480px) {
+  .hamburger {
+    position: absolute;
+    cursor: pointer;
+    right: 3%;
+    top: 5%;
+    transform: translate(-5%, -50%);
+    z-index: 3;
+  }
+
+  .line {
+    width: 30px;
+    height: 3px;
+    background: #fff;
+    margin: 5px;
+  }
+  
+  .nav-links {
+    position: fixed;
+    background: #1788fb;
+    width: 100% !important;
+    height: 100vh;
+    flex-direction: column;
+    clip-path: circle(100px at 90% -10%);
+    transition: all 1s ease-out;
+  }
+  
+  .nav-links.open {
+    clip-path: circle(150vh at 90% -10%);
+  }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+  .landing {
+    margin-top: 0;
+  }
+
+  .landing__block1 {
+    width: 100%;
+  }
+}
+
+
+
+@media screen and (min-width: 768px) {
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
-  body {
-    font-family: sans-serif;
-  }
-  ul {
+
+  .landing-page ul {
     list-style: none;
   }
-  nav {
+  .landing-page nav {
     height: 10vh;
-    background: #01a0f9;
+    background: #1788fb;
   }
-  nav .nav-links {
+  .landing-page nav .nav-links {
     display: flex;
     width: 50%;
     height: 100%;
@@ -66,17 +143,17 @@ nav .nav-links li a:hover {
     align-items: center;
     margin-left: auto;
   }
-  nav .nav-links li a {
+  .landing-page nav .nav-links li a {
     text-decoration: none;
-    font-size: 0.75rem;
+    font-size: 1.2rem;
     color: #fff;
     transition: all 5s ease-out;
     margin-left: 10px;
   }
-  nav .nav-links li a:hover {
+  .landing-page nav .nav-links li a:hover {
     border-bottom: 1px solid #fff;
   }
-  .landing {
+  /* .landing {
     height: 90vh;
     display: flex;
     justify-content: center;
@@ -86,20 +163,45 @@ nav .nav-links li a:hover {
     margin: 100px;
     font-size: 3rem;
     color: #28f29a;
+  } */
+
+  .landing {
+    flex-direction: row;
+    margin-top: 2rem;
+  }
+
+  .landing__block1 {
+    width: 50%;
+  }
+
+  .landing__block2 {
+    width: 50%;
+  }
+
+  .App .landing .landing__button {
+    min-width: 50%;
+    width: 70%;
+    align-self: center;
+  }
+
+  .landing h1 {
+    font-size: 3rem;
+    margin: 4rem 0 4rem 0;
+  }
+
+  .landing__text {
+    font-size: 1rem;
+    /* margin: 2rem; */
+    margin-bottom: 2.5rem;
   }
 }
 
-#welcome {
-  font-size: 3.5rem;
-  text-align: center;
-  text-shadow: crimson;
-  color: #333;
-}
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  .landing {
+    margin-top: 0rem;
+  }
 
-.ant-col .ant-col-12 {
-  margin: 1rem 0 1rem 0;
-  /* padding: 1rem 0 1rem 0; */
-}
-
-#img {
-}
+  .landing h1 {
+    font-size: 2.3rem;
+  }
+} 

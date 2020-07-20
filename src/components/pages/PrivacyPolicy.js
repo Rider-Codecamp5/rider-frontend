@@ -8,11 +8,11 @@ export class PrivacyPolicy extends Component {
       <Col>
         <div className="App__heading">
           <Row justify="center" >
-              <h2>PrivacyPolicy</h2>
+              <h2>Privacy Policy</h2>
           </Row>
         </div>
         <Row justify="center" style={{ marginTop: "2rem" }}>
-            <div className="">
+            <div className="route__form">
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum odit at incidunt veniam pariatur tempora sit quis culpa odio, quos amet et officiis, molestias voluptate reprehenderit dolorum eos in inventore.
               </p>

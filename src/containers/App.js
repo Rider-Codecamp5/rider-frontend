@@ -59,7 +59,11 @@ function App() {
   return (
     <div className='App'>
       <PrivateRoute role={role} setRole={setRole} userInfo={userInfo} socketRef={socketRef} />
-      <Navbar role={role} onLogOut={onLogOut} userInfo={userInfo} showDrawer={showDrawer} />
+      {role === 'guest' 
+        ? null
+        : <Navbar role={role} onLogOut={onLogOut} userInfo={userInfo} showDrawer={showDrawer} /> 
+      }
+
       <Drawer
         title='Menu'
         placement='left'

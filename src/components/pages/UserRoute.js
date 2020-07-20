@@ -74,7 +74,7 @@ function UserRoute(props) {
       <>
         <Spin size='large' />
         <br/>
-        <span>'Loading Maps'</span>
+        <span>Loading Maps</span>
       </>
     ) 
   }
