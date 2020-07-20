@@ -29,6 +29,7 @@ function RouteDetails(props) {
   const [modalVisible, setModalVisible] = useState(false);
   const [confirmMessage, setConfirmMessage] = useState('');
   const [confirmResult, setConfirmResult] = useState('');
+  const [driverStatus, setDriverStatus] = useState('');
 
   let history = useHistory();
   const { socketRef } = props;
@@ -46,6 +47,14 @@ function RouteDetails(props) {
 
   useEffect(() => {
     getDriver();
+
+    async function checkDriverStatus() {
+      let result = await axios.get('/driver/service/current') 
+      if(result.data.currentTrip.status === 'selected') {
+        setIsWaiting(true);
+      }
+    }
+    checkDriverStatus();
 
     socketRef.current.on('driverConfirmed', result => {
       console.log(result)
@@ -104,7 +113,7 @@ function RouteDetails(props) {
 
   const selectDriver = async () => {
     try {
-      await axios({
+      let result = await axios({
         method: 'patch',
         url: `/driver/service/join`,
         data: {
@@ -113,16 +122,6 @@ function RouteDetails(props) {
         },
       });
       setIsWaiting(true);
-      // socketRef.current.emit('gotPassenger', async function(){
-      //   await axios.patch('/driver/service/selected', Number(props.match.params.id))
-      // });
-      // socketRef.current.emit('gotPassenger', `You got selected by a passenger!`);
-
-      // start interval waiting for driver confirmation
-
-      // let confirmation = await axios.get('/user/trip/confirmation');
-      // setConfirmMessage(confirmation.data.message);
-      // showModal();
     } catch (err) {
       console.log(err);
 

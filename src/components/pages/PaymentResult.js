@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import io from 'socket.io-client';
-import { Rate, Input, Form, Row, Col, message } from 'antd';
+import { Rate, Input, Form, Row, Col, Result, Card } from 'antd';
 import '../../styles/PaymentResult';
 import HistoryCard from '../HistoryCard';
 import * as storageItem from '../../configs/localStorageItems';
 import axios from '../../configs/axios';
 import { useHistory } from 'react-router-dom';
 import CheckboxGroup from 'antd/lib/checkbox/Group';
+import { CheckCircleOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
 
@@ -14,10 +14,6 @@ const PaymentResult = props => {
   const [rating, setRating] = useState(2.5);
   const [tripInfo, setTripInfo] = useState({});
   const [driverPersonalInfo, setDriverPersonalInfo] = useState({});
-
-  // const socketRef = useRef();
-  // socketRef.current = io.connect('/');
-  const { socketRef } = props;
 
   let history = useHistory();
 
@@ -68,8 +64,15 @@ const PaymentResult = props => {
       <div className='App__heading'>
         <h2>Payment Result</h2>
       </div>
+      <Card bordered={false} style={{textAlign: 'center', padding: '1.5rem 0 0 0'}}>
+        <div style={{display: 'flex', flexDirection: 'column'}}>
+          <CheckCircleOutlined style={{fontSize: '3.5rem', color: '#52c41a', marginBottom: '0.7rem'}} />
+          <span style={{fontSize: '1.5rem'}}>Payment Success!</span>
+          <span style={{fontSize: '1.2rem', color: 'rgba(0, 0, 0, 0.45)'}}>Driver have received your payment.</span>
+        </div>
+      </Card>
       <div className='route__form'>
-        <h2>Payment Succeeded to driver id: {props.match.params.id}</h2>
+        {/* <h2>Driver Id: {props.match.params.id} received your payment</h2> */}
         {driverPersonalInfo && tripInfo ? (
           <HistoryCard
             profilePic={driverPersonalInfo.profile_pic}

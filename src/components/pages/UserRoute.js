@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PlaceSearch from '../PlaceSearch';
 import axios from '../../configs/axios';
 import '../../styles/DriverRoute.css';
+import { Result, Spin } from 'antd';
+import { SmileOutlined } from '@ant-design/icons';
 
 import { useLoadScript } from '@react-google-maps/api';
 import {
@@ -10,8 +12,6 @@ import {
   Checkbox,
   InputNumber,
   Button,
-  Skeleton,
-  Space,
 } from 'antd';
 import moment from 'moment';
 import HistoryCard from '../HistoryCard';
@@ -29,7 +29,7 @@ function UserRoute(props) {
   const [luggage, setLuggage] = useState(false);
   const [seatingCapacity, setSeatingCapacity] = useState('1');
   const [price, setPrice] = useState(30);
-  const [drivers, setDrivers] = useState([]);
+  const [drivers, setDrivers] = useState(null);
   const [timestamp, setTimeStamp] = useState(0);
   const [loading, setLoading] = useState(false);
 
@@ -69,7 +69,15 @@ function UserRoute(props) {
   });
 
   if (loadError) return 'Error loading maps';
-  if (!isLoaded) return 'Loading Maps';
+  if (!isLoaded) {
+    return (
+      <>
+        <Spin size='large' />
+        <br/>
+        <span>'Loading Maps'</span>
+      </>
+    ) 
+  }
 
   const getOrigin = ref => {
     console.log('ref origin', ref);
@@ -143,19 +151,25 @@ function UserRoute(props) {
   };
 
   const renderResult = () => {
-    if (loading) {
-      return <Skeleton />;
+    // if (loading) {
+    //   return <Skeleton />;
+    // }
+
+    if(!drivers) {
+      return null;
     }
 
     if (drivers.length === 0) {
       return (
-        <HistoryCard
-          from='Please input your see your results'
-          to='Please input your see your results'
-          dateTime={new Date()}
+        <Result
+          className='card'
+          icon={<SmileOutlined style={{color: '#FFD938'}}/>}
+          title='Please try again later.'
+          subTitle="There's no driver with the same destination yet."
         />
       );
     }
+
 
     return drivers.map(driver => (
       <Link to={`/driver/route-details/${driver.id}`} key={driver.id}>

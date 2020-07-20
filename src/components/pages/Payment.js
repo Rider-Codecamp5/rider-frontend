@@ -148,9 +148,6 @@ function Payment(props) {
       >
         {/* <Script url='https://cdn.omise.co/omise.js' onLoad={handleScriptLoad} /> */}
         <div>
-          <div>
-            Script loaded: <b>{loaded.toString()}</b>
-          </div>
           {loaded && !error && handleScriptLoad()}
         </div>
         {renderDriverForPayment()}
