@@ -50,7 +50,7 @@ function UserRoute(props) {
               return;
             }
           }
-          console.log('userRoute useEffect price', price)
+          console.log('userRoute useEffect price', price);
           history.push('/trip/on-going');
           return;
         }
@@ -155,6 +155,7 @@ function UserRoute(props) {
     return drivers.map(driver => (
       <Link to={`/driver/route-details/${driver.id}`} key={driver.id}>
         <HistoryCard
+          key={driver.id}
           id={driver.id}
           firstName={driver.first_name}
           lastName={driver.last_name}
