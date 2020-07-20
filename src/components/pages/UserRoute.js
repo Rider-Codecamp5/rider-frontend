@@ -10,7 +10,7 @@ import {
   Checkbox,
   InputNumber,
   Button,
-  Spin,
+  Skeleton,
   Space,
 } from 'antd';
 import moment from 'moment';
@@ -31,6 +31,7 @@ function UserRoute(props) {
   const [price, setPrice] = useState(30);
   const [drivers, setDrivers] = useState([]);
   const [timestamp, setTimeStamp] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   let history = useHistory();
 
@@ -123,6 +124,7 @@ function UserRoute(props) {
   const findDrivers = async () => {
     const destinationLat = geocodeDestination.lat;
     const destinationLng = geocodeDestination.lng;
+    setLoading(true);
 
     try {
       let result = await axios.get(
@@ -130,6 +132,7 @@ function UserRoute(props) {
       );
 
       setDrivers(result.data);
+      setLoading(false);
       console.log('UserRoute: driver data', result.data);
     } catch (err) {
       if (err.response.status === 404) {
@@ -140,16 +143,18 @@ function UserRoute(props) {
   };
 
   const renderResult = () => {
-    if (!drivers) {
-      return (
-        <Space size='middle'>
-          <Spin size='large' />
-        </Space>
-      );
+    if (loading) {
+      return <Skeleton />;
     }
 
     if (drivers.length === 0) {
-      return <h1>No driver found</h1>;
+      return (
+        <HistoryCard
+          from='Please input your see your results'
+          to='Please input your see your results'
+          dateTime={new Date()}
+        />
+      );
     }
 
     return drivers.map(driver => (
