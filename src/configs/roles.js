@@ -11,11 +11,16 @@ import RouteDetails from '../components/pages/RouteDetails';
 import Payment from '../components/pages/Payment';
 import PaymentResult from '../components/pages/PaymentResult';
 import Trip from '../components/pages/Trip';
+import LandingPage from '../components/pages/LandingPage';
 
 const components = {
+  LandingPage: {
+    component: LandingPage,
+    url: '/',
+  },
   Login: {
     component: Login,
-    url: '/',
+    url: '/login',
   },
   Register: {
     component: UserRegisterRoute,
@@ -69,7 +74,12 @@ const components = {
 
 const configRoute = {
   guest: {
-    route: [components.Login, components.Register, components.PrivacyPolicy],
+    route: [
+      components.Login,
+      components.Register,
+      components.PrivacyPolicy,
+      components.LandingPage,
+    ],
     redirect: '/',
   },
   user: {
