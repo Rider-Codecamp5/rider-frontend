@@ -195,6 +195,8 @@ function Trip(props) {
       >
       <p>{paymentMessage}</p>
       </Modal>
+
+      <button className='App__button App__button--red'>Cancel Trip</button>
     </div>
 
   );
