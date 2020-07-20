@@ -17,7 +17,7 @@ function Trip(props) {
   const [origin, setOrigin] = useState({ lat: null, lng: null });
   const [destination, setDestination] = useState({ lat: null, lng: null });
   const [isDriver, setIsDriver] = useState(false);
-  
+
   const [modalVisible, setModalVisible] = useState(false);
   const [paymentMessage, setPaymentMessage] = useState('');
 
@@ -67,20 +67,19 @@ function Trip(props) {
     // Waiting payment message
     // socketRef.current = io.connect('/');
     socketRef.current.on('paymentMessage', result => {
-      if(result.receiverId === props.userInfo.id) {
-        setPaymentMessage(result.message)
+      if (result.receiverId === props.userInfo.id) {
+        setPaymentMessage(result.message);
         setModalVisible(true);
       }
-    })
+    });
   }, []);
 
-    // ------------ AntD Modal -------------
-      
-    const handleOk = e => {
-      history.push('/history');
-      setModalVisible(false);
-    };
-    
+  // ------------ AntD Modal -------------
+
+  const handleOk = e => {
+    history.push('/history');
+    setModalVisible(false);
+  };
 
   // ------------- required google places setting -----------
   const { isLoaded, loadError } = useLoadScript({
@@ -184,19 +183,18 @@ function Trip(props) {
       {checkBooked()}
 
       <Modal
-      title="Driver Response"
-      visible={modalVisible}
-      onOk={handleOk}
-      footer={[
-        <Button key="ok" onClick={handleOk}>
-          Ok
-        </Button>,
-      ]}
+        title='Notification'
+        visible={modalVisible}
+        onOk={handleOk}
+        footer={[
+          <Button key='ok' onClick={handleOk}>
+            Ok
+          </Button>,
+        ]}
       >
-      <p>{paymentMessage}</p>
+        <p>{paymentMessage}</p>
       </Modal>
     </div>
-
   );
 }
 

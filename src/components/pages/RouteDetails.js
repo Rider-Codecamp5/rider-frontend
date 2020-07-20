@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import moment from 'moment';
 import axios from '../../configs/axios';
 import { Button, Modal } from 'antd';
 import { useLoadScript } from '@react-google-maps/api';
@@ -48,47 +49,38 @@ function RouteDetails(props) {
   useEffect(() => {
     getDriver();
 
-    async function checkDriverStatus() {
-      let result = await axios.get('/driver/service/current') 
-      if(result.data.currentTrip.status === 'selected') {
-        setIsWaiting(true);
-      }
-    }
-    checkDriverStatus();
-
     socketRef.current.on('driverConfirmed', result => {
-      console.log(result)
-      if(result.receiverId === props.userInfo.id) {
+      console.log(result);
+      if (result.receiverId === props.userInfo.id) {
         setConfirmMessage(result.message);
         setConfirmResult(result.result);
         showModal();
       }
-    })
-    
+    });
+
     socketRef.current.on('driverRejected', result => {
-      if(result.receiverId === props.userInfo.id) {
+      if (result.receiverId === props.userInfo.id) {
         setConfirmMessage(result.message);
         setConfirmResult(result.result);
         showModal();
       }
-    })
-    
+    });
   }, []);
 
-    // ------------ AntD Modal -------------
-    const showModal = () => {
-      setModalVisible(true);
-    };
-  
-    const handleOk = e => {
-      if(confirmResult === 'confirmed') {
-        history.push('/trip/on-going');
-      }
-      if(confirmResult === 'rejected') {
-        history.push('/');
-      }
-      setModalVisible(false);
-    };
+  // ------------ AntD Modal -------------
+  const showModal = () => {
+    setModalVisible(true);
+  };
+
+  const handleOk = e => {
+    if (confirmResult === 'confirmed') {
+      history.push('/trip/on-going');
+    }
+    if (confirmResult === 'rejected') {
+      history.push('/');
+    }
+    setModalVisible(false);
+  };
 
   // --------- call API ----------------
   const getDriver = async () => {
@@ -102,6 +94,10 @@ function RouteDetails(props) {
         lat: result.data.to_lat,
         lng: result.data.to_lng,
       };
+
+      if (result.data.status === 'selected') {
+        setIsWaiting(true);
+      }
 
       setRouteDetails(result.data);
       setOrigin(originGeoCode);
@@ -124,7 +120,6 @@ function RouteDetails(props) {
       setIsWaiting(true);
     } catch (err) {
       console.log(err);
-
     }
   };
 
@@ -168,7 +163,7 @@ function RouteDetails(props) {
       car_color,
       price,
       seating_capacity,
-      updatedAt,
+      date_time,
       profile_pic,
     } = routeDetails;
 
@@ -204,7 +199,8 @@ function RouteDetails(props) {
               <PushpinOutlined /> <b>To</b> {to}
             </span>
             <span>
-              <CalendarOutlined /> <b>Date</b> {updatedAt}
+              <CalendarOutlined /> <b>Date</b>{' '}
+              {moment(Number(date_time)).format('MMMM Do YYYY, HH:mm')}
             </span>
             <div className='card__divider' style={{ paddingTop: '1rem' }}>
               {/* horizontal line */}
@@ -230,11 +226,11 @@ function RouteDetails(props) {
           </div>
         </div>
         <Modal
-          title="Driver Response"
+          title='Driver Response'
           visible={modalVisible}
           onOk={handleOk}
           footer={[
-            <Button key="ok" onClick={handleOk}>
+            <Button key='ok' onClick={handleOk}>
               Ok
             </Button>,
           ]}
