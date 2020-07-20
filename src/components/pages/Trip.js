@@ -19,7 +19,7 @@ function Trip(props) {
   const [isDriver, setIsDriver] = useState(false);
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [paymentMessage, setPaymentMessage] = useState('');
+  const [tripMessage, setTripMessage] = useState('');
 
   const history = useHistory();
   // const socketRef = useRef();
@@ -58,28 +58,53 @@ function Trip(props) {
           }
         }
       };
-
       getCurrentTrip();
+      
     } catch (err) {
       console.log(err.response);
     }
 
     // Waiting payment message
     // socketRef.current = io.connect('/');
-    socketRef.current.on('paymentMessage', result => {
-      if (result.receiverId === props.userInfo.id) {
-        setPaymentMessage(result.message);
+    socketRef.current.on('tripMessage', result => {
+      if(result.receiverId === props.userInfo.id) {
+        setTripMessage(result.message)
+        setModalVisible(true);
+      }
+    })
+
+    socketRef.current.on('cancelTrip', result => {
+      if(isDriver) {
+        setTripMessage(`${result.message} by driver`)
+        setModalVisible(true);
+      } else {
+        setTripMessage(`${result.message} by passenger`)
         setModalVisible(true);
       }
     });
   }, []);
 
-  // ------------ AntD Modal -------------
+  const onCancelTrip = async() => {
+    const body = {
+      userId: props.userInfo.id
+    };
 
-  const handleOk = e => {
-    history.push('/history');
-    setModalVisible(false);
-  };
+    if(isDriver) {
+      let result = await axios.patch('/driver/service/cancel', body)
+      console.log('driver cancel result', result);
+    } else {
+      let result = await axios.patch('/user/trip/cancel', body) 
+      console.log('passenger cancel result', result);
+    }
+  }
+
+    // ------------ AntD Modal -------------
+      
+    const handleOk = e => {
+      history.push('/');
+      setModalVisible(false);
+    };
+    
 
   // ------------- required google places setting -----------
   const { isLoaded, loadError } = useLoadScript({
@@ -183,19 +208,19 @@ function Trip(props) {
       {checkBooked()}
 
       <Modal
-        title='Notification'
-        visible={modalVisible}
-        onOk={handleOk}
-        footer={[
-          <Button key='ok' onClick={handleOk}>
-            Ok
-          </Button>,
-        ]}
+      title="Notification"
+      visible={modalVisible}
+      onOk={handleOk}
+      footer={[
+        <Button key="ok" onClick={handleOk}>
+          Ok
+        </Button>,
+      ]}
       >
-        <p>{paymentMessage}</p>
+      <p>{tripMessage}</p>
       </Modal>
 
-      <button className='App__button App__button--red'>Cancel Trip</button>
+      <button className='App__button App__button--red' onClick={onCancelTrip}>Cancel Trip</button>
     </div>
   );
 }

@@ -187,7 +187,7 @@ function UserRoute(props) {
           driverLicense={driver.driver_license}
           seat={driver.seating_capacity}
           price={driver.price}
-          dateTime={driver.createdAt}
+          dateTime={driver.date_time}
           status={driver.status}
         />
       </Link>
