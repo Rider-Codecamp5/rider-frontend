@@ -66,7 +66,7 @@ function Trip(props) {
 
     // Waiting payment message
     // socketRef.current = io.connect('/');
-    socketRef.current.on('tripMessage', result => {
+    socketRef.current.on('paymentMessage', result => {
       if(result.receiverId === props.userInfo.id) {
         setTripMessage(result.message)
         setModalVisible(true);
