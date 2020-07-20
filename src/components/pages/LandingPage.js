@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Row, Col } from 'antd';
 
@@ -9,6 +9,16 @@ const introStyles = {
 };
 
 const LandingPage = () => {
+  useEffect(() => {
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    const links = document.querySelectorAll('.nav-links li');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+  }, []);
+
   return (
     <div>
       <nav>
@@ -65,7 +75,8 @@ const LandingPage = () => {
               src='https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80'
               alt='driving'
               style={{
-                width: '600px',
+                width: '100%',
+                height: 'auto',
                 margin: '2rem',
               }}
             />
