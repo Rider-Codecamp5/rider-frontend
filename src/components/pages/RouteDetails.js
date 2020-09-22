@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import axios from '../../configs/axios';
 import { Button, Modal } from 'antd';
@@ -17,20 +17,18 @@ import {
   PhoneOutlined,
   NumberOutlined,
 } from '@ant-design/icons';
-import io from 'socket.io-client';
 
 const libraries = ['places'];
 
 function RouteDetails(props) {
   const [origin, setOrigin] = useState('Origin');
   const [destination, setDestination] = useState('Destination');
-  const [geocodeOrigin, setGeocodeOrigin] = useState({});
-  const [geocodeDestination, setGeocodeDestination] = useState([]);
+  const [, setGeocodeOrigin] = useState({});
+  const [, setGeocodeDestination] = useState([]);
   const [isWaiting, setIsWaiting] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [confirmMessage, setConfirmMessage] = useState('');
   const [confirmResult, setConfirmResult] = useState('');
-  const [driverStatus, setDriverStatus] = useState('');
 
   let history = useHistory();
   const { socketRef } = props;
@@ -109,7 +107,7 @@ function RouteDetails(props) {
 
   const selectDriver = async () => {
     try {
-      let result = await axios({
+      await axios({
         method: 'patch',
         url: `/driver/service/join`,
         data: {

@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Row, Col } from 'antd';
-
 import '../../styles/LandingPage.css';
 
 const introStyles = {
@@ -12,7 +10,6 @@ const LandingPage = () => {
   useEffect(() => {
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
-    const links = document.querySelectorAll('.nav-links li');
 
     hamburger.addEventListener('click', () => {
       navLinks.classList.toggle('open');
@@ -55,7 +52,9 @@ const LandingPage = () => {
             is a total pain. So, in seconds, we’ll match you with a driver, help
             you find the quickest bus route, or show you the nearest scooter.
           </p>
-          <button className='App__button App__button--blue landing__button'>Create an Account</button>
+          <button className='App__button App__button--blue landing__button'>
+            Create an Account
+          </button>
         </div>
 
         <div className='landing__block2'>

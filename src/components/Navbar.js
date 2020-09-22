@@ -1,13 +1,12 @@
-import React from "react";
-import "../styles/Navbar.css";
+import React from 'react';
+import '../styles/Navbar.css';
 
 function Navbar(props) {
-  
   const navItems = () => {
-    switch(props.role) {
+    switch (props.role) {
       case 'user':
-        try{
-          return(
+        try {
+          return (
             <ul>
               <li>
                 <a href='/search-driver'>Search</a>
@@ -16,36 +15,42 @@ function Navbar(props) {
                 <a href='#'>{props.userInfo.name}</a>
               </li>
               <li>
-                <a href='/' onClick={props.onLogOut}>Log out</a>
+                <a href='/' onClick={props.onLogOut}>
+                  Log out
+                </a>
               </li>
             </ul>
-          )
-        } catch(err) {
+          );
+        } catch (err) {
           props.onLogOut();
         }
+        break;
       case 'driver':
-        try{
-          return(
+        try {
+          return (
             <ul>
-            <li>
-              <a href='/search-driver'>Search</a>
-            </li>
-            <li>
-              <a href='/driver/route'>Drive Now</a>
-            </li>
-            <li onClick={props.showDrawer}>
-              <a href='#'>{props.userInfo.name}</a>
-            </li>
-            <li>
-              <a href='/' onClick={props.onLogOut}>Log out</a>
-            </li>
-          </ul>
-          )
-        } catch(err) {
+              <li>
+                <a href='/search-driver'>Search</a>
+              </li>
+              <li>
+                <a href='/driver/route'>Drive Now</a>
+              </li>
+              <li onClick={props.showDrawer}>
+                <a href='#'>{props.userInfo.name}</a>
+              </li>
+              <li>
+                <a href='/' onClick={props.onLogOut}>
+                  Log out
+                </a>
+              </li>
+            </ul>
+          );
+        } catch (err) {
           props.onLogOut();
         }
+        break;
       default:
-        return(
+        return (
           <ul>
             <li>
               <a href='/'>Login</a>
@@ -57,15 +62,11 @@ function Navbar(props) {
               <a href='/privacy-policy'>Policy</a>
             </li>
           </ul>
-        )
+        );
     }
-  }
-  
-  return (
-    <nav className="Navbar">
-      {navItems()}
-    </nav>
-  );
+  };
+
+  return <nav className='Navbar'>{navItems()}</nav>;
 }
 
 export default Navbar;

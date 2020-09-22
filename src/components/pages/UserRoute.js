@@ -6,13 +6,7 @@ import { Result, Spin } from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
 
 import { useLoadScript } from '@react-google-maps/api';
-import {
-  DatePicker,
-  TimePicker,
-  Checkbox,
-  InputNumber,
-  Button,
-} from 'antd';
+import { DatePicker, TimePicker, Checkbox, InputNumber, Button } from 'antd';
 import moment from 'moment';
 import HistoryCard from '../HistoryCard';
 import { Link, useHistory } from 'react-router-dom';
@@ -24,14 +18,14 @@ function UserRoute(props) {
   const [destination, setDestination] = useState('Destination');
   const [geocodeOrigin, setGeocodeOrigin] = useState({});
   const [geocodeDestination, setGeocodeDestination] = useState([]);
-  const [date, setDate] = useState('');
+  const [, setDate] = useState('');
   const [time, setTime] = useState('');
   const [luggage, setLuggage] = useState(false);
   const [seatingCapacity, setSeatingCapacity] = useState('1');
   const [price, setPrice] = useState(30);
   const [drivers, setDrivers] = useState(null);
   const [timestamp, setTimeStamp] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
 
   let history = useHistory();
 
@@ -60,6 +54,7 @@ function UserRoute(props) {
     } catch (err) {
       console.log(err.response);
     }
+    // eslint-disable-next-line
   }, []);
 
   // ------------- required google places setting -----------
@@ -73,10 +68,10 @@ function UserRoute(props) {
     return (
       <>
         <Spin size='large' />
-        <br/>
+        <br />
         <span>Loading Maps</span>
       </>
-    ) 
+    );
   }
 
   const getOrigin = ref => {
@@ -155,7 +150,7 @@ function UserRoute(props) {
     //   return <Skeleton />;
     // }
 
-    if(!drivers) {
+    if (!drivers) {
       return null;
     }
 
@@ -163,13 +158,12 @@ function UserRoute(props) {
       return (
         <Result
           className='card'
-          icon={<SmileOutlined style={{color: '#FFD938'}}/>}
+          icon={<SmileOutlined style={{ color: '#FFD938' }} />}
           title='Please try again later.'
           subTitle="There's no driver with the same destination yet."
         />
       );
     }
-
 
     return drivers.map(driver => (
       <Link to={`/driver/route-details/${driver.id}`} key={driver.id}>

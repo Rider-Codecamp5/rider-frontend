@@ -2,9 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PrivateRoute from '../components/PrivateRoutes/PrivateRoute';
 import Navbar from '../components/Navbar';
 import * as storageItem from '../configs/localStorageItems';
-
 import io from 'socket.io-client';
-import { notification } from 'antd';
 import jwtDecode from 'jwt-decode';
 import { Drawer } from 'antd';
 import 'antd/dist/antd.css';
@@ -41,10 +39,6 @@ function App() {
     } else {
       onLogOut();
     }
-
-
-
-
   }, []);
 
   let token = localStorage.getItem(storageItem.ACCESS_TOKEN);
@@ -58,11 +52,20 @@ function App() {
 
   return (
     <div className='App'>
-      <PrivateRoute role={role} setRole={setRole} userInfo={userInfo} socketRef={socketRef} />
-      {role === 'guest' 
-        ? null
-        : <Navbar role={role} onLogOut={onLogOut} userInfo={userInfo} showDrawer={showDrawer} /> 
-      }
+      <PrivateRoute
+        role={role}
+        setRole={setRole}
+        userInfo={userInfo}
+        socketRef={socketRef}
+      />
+      {role === 'guest' ? null : (
+        <Navbar
+          role={role}
+          onLogOut={onLogOut}
+          userInfo={userInfo}
+          showDrawer={showDrawer}
+        />
+      )}
 
       <Drawer
         title='Menu'
@@ -70,12 +73,20 @@ function App() {
         closable={false}
         onClose={onClose}
         visible={visible}
-        bodyStyle={{fontSize: '1.2rem'}}
+        bodyStyle={{ fontSize: '1.2rem' }}
       >
-        <p><a href='/trip/on-going'>Current Trip</a></p>
-        <p><a href='/history'>Trip History</a></p>
-        <p><a href='/profile'>Profile</a></p>
-        <p><a href='/settings'>Settings</a></p>
+        <p>
+          <a href='/trip/on-going'>Current Trip</a>
+        </p>
+        <p>
+          <a href='/history'>Trip History</a>
+        </p>
+        <p>
+          <a href='/profile'>Profile</a>
+        </p>
+        <p>
+          <a href='/settings'>Settings</a>
+        </p>
       </Drawer>
     </div>
   );

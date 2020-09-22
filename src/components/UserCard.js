@@ -29,25 +29,21 @@ function UserCard(props) {
           <span>
             <b>From</b> {props.from}
           </span>
-
           <span>
             <PushpinOutlined /> <b>To</b> {props.to}
           </span>
-
           <span>
-            <CalendarOutlined /> {moment(props.dateTime).format('MMMM Do YYYY, HH:mm')}
+            <CalendarOutlined />{' '}
+            {moment(props.dateTime).format('MMMM Do YYYY, HH:mm')}
           </span>
-          {props.seat
-            ?
-              <span>
-                <TeamOutlined /> {props.seat} persons
-              </span>
-            : null
-          }
+          {props.seat ? (
+            <span>
+              <TeamOutlined /> {props.seat} persons
+            </span>
+          ) : null}
           <span>
             <PhoneOutlined /> {props.phoneNumber}
           </span>
-
           <span className='card__price'>
             <DollarOutlined /> Price {props.price} Baht
           </span>
